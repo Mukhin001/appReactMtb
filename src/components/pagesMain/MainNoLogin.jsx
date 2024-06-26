@@ -13,9 +13,22 @@ const MainNoLogin = () => {
     function getUserEmail(e) {
         getcreateUserEmail(e.target.value);
     };
-
+    
     function getUserpasswordOneFn(e) {
-        getCreatePassowordOne(e.target.value);
+        let arrPassword = [...'1234567890-=!@#$%^&*()_+[]{};,./<>?'];
+        let strElem = createPassowordOne;
+
+        for(let elem of arrPassword) {  
+            if(e.target.value.includes(elem) ) {
+               strElem += elem;
+            } 
+        };
+
+        if(e.target.value.length >= 6 && strElem.length >= 3) {
+            getCreatePassowordOne(e.target.value);
+            alert('good password.');
+        }
+        
     };
 
     function getUserpasswordTwoFn(e) {
@@ -27,33 +40,43 @@ const MainNoLogin = () => {
 
         if(createPassowordOne === createPassowordTwo) {
             console.log(createUserName, createPassowordOne);
+            localStorage.setItem(createUserName, createPassowordOne)
+        } else {
+            alert("passwords don't match.")
         }
+
         for(let elem of EMAIL) {
             if(createUserEmail.toLowerCase().includes(elem)) {
                 console.log('true');
+                break;
+            } else {
+                alert('you entered an incorrect email.');
+                break;
             }
         }
     };
 
     return ( 
         <div>
-            <div>
-                <label htmlFor="login">login</label>
-                <input type="text" id="login"  onChange={getUserNameFn}/>
-            </div>
-            <div>
-                <label htmlFor="email">email</label>
-                <input type="email" id="email" onChange={getUserEmail}/>
-            </div>
-            <div>
-                <label htmlFor="password1">password</label>
-                <input type="password" id="password1" onChange={getUserpasswordOneFn}/>
-            </div>
-            <div>
-                <label htmlFor="password2">password</label>
-                <input type="password" id="password2" onChange={getUserpasswordTwoFn}/>
-            </div>
-            <button onClick={createAccauntFn}>Create accaunt</button>
+            <form action="">
+                <div>
+                    <label htmlFor="login">login</label>
+                    <input type="text" id="login"  onChange={getUserNameFn}/>
+                </div>
+                <div>
+                    <label htmlFor="email">email</label>
+                    <input type="email" id="email" onChange={getUserEmail}/>
+                </div>
+                <div>
+                    <label htmlFor="password1">password</label>
+                    <input type="password" id="password1" onChange={getUserpasswordOneFn}/>
+                </div>
+                <div>
+                    <label htmlFor="password2">password</label>
+                    <input type="password" id="password2" onChange={getUserpasswordTwoFn}/>
+                </div>
+                <button onClick={createAccauntFn}>Create accaunt</button>
+            </form>
         </div>
      );
 }

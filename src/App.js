@@ -25,7 +25,7 @@ function App() {
     
     const [countLink, setCountLink] = useState(0);
 
-    function leftLinkClick() {
+    function rightLinkClick () {
         
         setCountLink(countLink + 1);
 
@@ -34,7 +34,7 @@ function App() {
             }
     };
 
-    function rightLinkClick() {
+    function leftLinkClick () {
         
         setCountLink(countLink - 1);
             
