@@ -44,7 +44,12 @@ function App() {
             } 
     };
 
-    function userNameSetFn(value) {
+    function userNameEnterFn(value) {
+        setUserName('Hello ' + value + '!');
+       //console.log(localStorage);
+    };
+
+    function userNameRegisterFn(value) {
         setUserName('Hello ' + value + '!');
        //console.log(localStorage);
     };
@@ -65,8 +70,8 @@ function App() {
                             <Route path="/video" element={<MainVideo />}/>
                             <Route path="/news" element={<MainNews />}/>
                             <Route path="/about" element={<MainAbout />}/>
-                            <Route path="/login" element={<MainLogin />}/>
-                            <Route path="/createAccaunt" element={<MainNoLogin props={userNameSetFn}/>}/>
+                            <Route path="/login" element={<MainLogin  enterAcc={userNameEnterFn}/>}/>
+                            <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameRegisterFn}/>}/>
                         </Routes>
                     <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                </div>

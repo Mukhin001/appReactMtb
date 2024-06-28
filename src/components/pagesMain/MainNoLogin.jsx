@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const MainNoLogin = ({props}) => {
+const MainNoLogin = ({registerAcc}) => {
     const [createUserName, getCreateUserName] = useState('');
     const [createUserEmail, getcreateUserEmail] = useState('');
     const [createPassowordOne, getCreatePassowordOne] = useState('');    
@@ -45,7 +45,7 @@ const MainNoLogin = ({props}) => {
         } else if(createPassowordOne === createPassowordTwo) {
            // console.log(createUserName, createPassowordOne);
             localStorage.setItem(createUserName, createPassowordOne);
-            props(createUserName);
+            registerAcc(createUserName);
         } else {
             alert("passwords don't match.")
         }
