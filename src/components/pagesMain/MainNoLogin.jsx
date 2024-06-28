@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const MainNoLogin = () => {
+const MainNoLogin = ({props}) => {
     const [createUserName, getCreateUserName] = useState('');
     const [createUserEmail, getcreateUserEmail] = useState('');
     const [createPassowordOne, getCreatePassowordOne] = useState('');    
@@ -41,28 +41,31 @@ const MainNoLogin = () => {
         const EMAIL = ['@mail', '@yandex', '@google', '@rambler'];
         
         if(createPassowordOne < 5) {
-            alert('rait > 6 word');
+            alert('password rait > 6 word');
         } else if(createPassowordOne === createPassowordTwo) {
-            console.log(createUserName, createPassowordOne);
-            localStorage.setItem(createUserName, createPassowordOne)
+           // console.log(createUserName, createPassowordOne);
+            localStorage.setItem(createUserName, createPassowordOne);
+            props(createUserName);
         } else {
             alert("passwords don't match.")
         }
 
         for(let elem of EMAIL) {
             if(createUserEmail.toLowerCase().includes(elem)) {
-                console.log('true');
+               // console.log('true');
+               
                 break;
             } else {
                 alert('you entered an incorrect email.');
                 break;
             }
         }
+        
     };
-
+    
     return ( 
         <div>
-            <form action="" method="post" name="userRegistered">
+            {/* <form action="" name="userRegistered"> */}
                 <div>
                     <label htmlFor="login">login</label>
                     <input type="text" id="login" name="login" placeholder="login" onChange={getUserNameFn} required/>
@@ -91,9 +94,9 @@ const MainNoLogin = () => {
                     <label htmlFor="password2">password</label>
                     <input type="password" id="password2" name="password2" placeholder="passowd" onChange={getUserpasswordTwoFn} required/>
                 </div>
-                <input type="submit" onClick={createAccauntFn} value="Create accaunt"/>
+                <input type="submit"  onClick={createAccauntFn} value="Create accaunt"/>
                 <input type="reset" value="reset" />
-            </form>
+            {/* </form> */}
         </div>
      );
 }

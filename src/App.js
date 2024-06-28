@@ -24,6 +24,7 @@ const arrLink = [
 function App() {
     
     const [countLink, setCountLink] = useState(0);
+    const [userName, setUserName] = useState('the user did not log in');
 
     function rightLinkClick () {
         
@@ -43,11 +44,17 @@ function App() {
             } 
     };
 
+    function userNameSetFn(value) {
+        setUserName('Hello ' + value + '!');
+       //console.log(localStorage);
+    };
+
   return (
     <div className="App">
        <Router>
-            <Header />
+            <Header userGreeting={userName}/>
             <div className='navbarMain'>
+                
                 <NavBar />
                 
                <div className='slideLinkMain'>
@@ -59,7 +66,7 @@ function App() {
                             <Route path="/news" element={<MainNews />}/>
                             <Route path="/about" element={<MainAbout />}/>
                             <Route path="/login" element={<MainLogin />}/>
-                            <Route path="/createAccaunt" element={<MainNoLogin />}/>
+                            <Route path="/createAccaunt" element={<MainNoLogin props={userNameSetFn}/>}/>
                         </Routes>
                     <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                </div>
