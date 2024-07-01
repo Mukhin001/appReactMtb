@@ -1,7 +1,7 @@
 const MainHome = () => {
     return ( 
         <main>
-            Main home
+            Home
         </main>
      );
 }

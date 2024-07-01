@@ -1,7 +1,7 @@
 const MainPhoto = () => {
     return ( 
         <main>
-            Main photo
+             Photo
         </main>
      );
 }

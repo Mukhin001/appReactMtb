@@ -1,7 +1,7 @@
 const MainVideo = () => {
     return ( 
         <main>
-            Main video
+            Video
         </main>
      );
 }

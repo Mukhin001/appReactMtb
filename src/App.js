@@ -23,7 +23,7 @@ const arrLink = [
 
 function App() {
     
-    const [countLink, setCountLink] = useState(0);
+    const [countLink, setCountLink] = useState(1);
     const [userName, setUserName] = useState('the user did not log in');
 
     function rightLinkClick () {
@@ -43,6 +43,7 @@ function App() {
                 setCountLink(arrLink.length - 1)
             } 
     };
+
 
     function userNameEnterFn(value) {
         setUserName('Hello ' + value + '!');

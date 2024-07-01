@@ -1,7 +1,7 @@
 const MainNews = () => {
     return ( 
         <main>
-            Main News
+             News
         </main>
      );
 }

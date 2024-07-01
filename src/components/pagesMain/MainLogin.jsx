@@ -13,16 +13,28 @@ const MainLogin = ({enterAcc}) => {
         setPassword(e.target.value);
     };
     
-    function checkUserAccaunt() {
+    function checkUserAccaunt(e) {
             
         for(let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
-            if(key === login && localStorage.getItem(key) === password) {
-                console.log(key, localStorage.getItem(key));
+
+            if(key === login && localStorage.getItem(key) === password)  {
                 enterAcc(key);
+                break;
+            } else if(login === '' || password === '') {
+                alert('empty');
+                e.preventDefault();
+                break;
+            } else if(Object.keys(localStorage).every((e) => e !== login)) {
+                alert('invakid login');
+                e.preventDefault();
+                break;
+            } else if(Object.values(localStorage).every((e) => e !== password)) {
+                alert('invakid password');
+                e.preventDefault();
+                break;
             }
-            
-          }
+        }
     };
 
     return ( 
@@ -36,7 +48,8 @@ const MainLogin = ({enterAcc}) => {
                     <label htmlFor="password">password</label>
                     <input type="password" id="password" onChange={setPasswordFn}/>
                 </div>
-                <button type="submit" onClick={checkUserAccaunt}>Enter</button>
+                <NavLink type="submit" onClick={checkUserAccaunt} to="/">Enter</NavLink>
+                <p>NavLink</p>
                 <NavLink to="/createAccaunt">no accaunt</NavLink>
             {/* </form>     */}
         </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 
 const MainNoLogin = ({registerAcc}) => {
@@ -37,23 +38,22 @@ const MainNoLogin = ({registerAcc}) => {
         getCreatePassowordTwo(e.target.value);
     };
 
-    function createAccauntFn() {
+    function createAccauntFn(e) {
         const EMAIL = ['@mail', '@yandex', '@google', '@rambler'];
         
         if(createPassowordOne < 5) {
+            e.preventDefault();
             alert('password rait > 6 word');
         } else if(createPassowordOne === createPassowordTwo) {
-           // console.log(createUserName, createPassowordOne);
             localStorage.setItem(createUserName, createPassowordOne);
             registerAcc(createUserName);
         } else {
-            alert("passwords don't match.")
+            e.preventDefault();
+            alert("passwords don't match.");
         }
 
         for(let elem of EMAIL) {
             if(createUserEmail.toLowerCase().includes(elem)) {
-               // console.log('true');
-               
                 break;
             } else {
                 alert('you entered an incorrect email.');
@@ -94,7 +94,7 @@ const MainNoLogin = ({registerAcc}) => {
                     <label htmlFor="password2">password</label>
                     <input type="password" id="password2" name="password2" placeholder="passowd" onChange={getUserpasswordTwoFn} required/>
                 </div>
-                <input type="submit"  onClick={createAccauntFn} value="Create accaunt"/>
+                <NavLink type="submit" onClick={createAccauntFn} value="Create accaunt" to="/">Create accaunt</NavLink>
                 <input type="reset" value="reset" />
             {/* </form> */}
         </div>
