@@ -1,7 +1,7 @@
-const Language = () => {
+const Language = ({propLanguage}) => {
     return ( 
         <div>
-            Language
+            Language {propLanguage}
         </div>
      );
 }
