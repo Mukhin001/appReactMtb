@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
+import st from './style.module.css';
 
-const NavBar = () => {
+const NavBarMain = () => {
     return ( 
-        <nav>
-            NavBar
+        <nav className={st.NavBarMain}>
+            <button>NavBar</button>
             <ul>
                 <li><NavLink to="/">home</NavLink></li>
                 <li><NavLink to="/photo">photo</NavLink></li>
@@ -15,4 +16,4 @@ const NavBar = () => {
      );
 };
  
-export default NavBar;
+export default NavBarMain;

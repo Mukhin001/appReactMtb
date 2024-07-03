@@ -1,12 +1,13 @@
 import Heading from './heading/Heading';
 import NavFixed from './navFixed/NavFixed';
 
-const Header = ({userGreeting}) => {
+const Header = ({userGreeting, loginExit, linkExit}) => {
+  
     return ( 
         <header>
 
             <div className='heading'>
-                <Heading />
+                <Heading loginExit={loginExit} linkExit={linkExit}/>
             </div>
 
             <h4>{userGreeting}</h4>

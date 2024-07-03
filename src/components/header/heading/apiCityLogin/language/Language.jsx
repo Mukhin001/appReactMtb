@@ -1,7 +1,9 @@
 const Language = ({propLanguage}) => {
+
+
     return ( 
         <div>
-            Language {propLanguage}
+            {propLanguage}
         </div>
      );
 }

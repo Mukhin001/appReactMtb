@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
 
-const Login = () => {
-
-
+const Login = ({loginExit, linkExit}) => {
+   
 
     return ( 
         <div>
-           <NavLink to='/login'>Login</NavLink>
+           <NavLink to={linkExit}>{loginExit}</NavLink>
         </div>
      );
 };

@@ -1,7 +1,4 @@
-.navBarST nav ul {
+.NavFixed {
     display: flex;
-}
-
-.wrap {
-    display: flex;
+    gap: 30px;
 }

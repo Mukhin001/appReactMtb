@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-const MainLogin = ({enterAcc}) => {
+const MainLogin = ({enterAcc, loginExit, linkExit}) => {
     const [login, setLOgin] = useState('');
     const [password, setPassword] = useState('');
 
@@ -20,6 +20,8 @@ const MainLogin = ({enterAcc}) => {
                     
                 if(key === login && localStorage.getItem(key) === password)  {
                     enterAcc(key);
+                    loginExit('Exit');
+                    linkExit('/exit');
                     break;
                 } else if(login === '' || password === '') {
                     alert('empty');
@@ -46,7 +48,7 @@ const MainLogin = ({enterAcc}) => {
         <div>
             {/* <form action=""> */}
                 <div>
-                    <label htmlFor="login">login</label>
+                    <label htmlFor="login">Login</label>
                     <input type="text" id="login" onChange={setLOginFn}/>
                 </div>
                 <div>
