@@ -14,6 +14,7 @@ import MainLogin from './components/pagesMain/MainLogin';
 import MainNoLogin from './components/pagesMain/MainNoLogin';
 import MainExit from './components/pagesMain/MainExit';
 import MainBye from './components/pagesMain/MainBye';
+import MainSearch from './components/pagesMain/MainSearch';
 
 const arrLink = [
     '/',
@@ -78,7 +79,7 @@ function App() {
                <div className='slideLinkMain'>
                     <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                         <Routes>
-                            <Route path='/' element={<MainHome />} />
+                            <Route path="/" element={<MainHome />} />
                             <Route path="/photo" element={<MainPhoto />}/>
                             <Route path="/video" element={<MainVideo />}/>
                             <Route path="/news" element={<MainNews />}/>
@@ -87,6 +88,7 @@ function App() {
                             <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameRegisterFn} />}/>
                             <Route path="/exit" element={<MainExit  enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn} />} />
                             <Route path="/bye" element={<MainBye />} />
+                            <Route path="search" element={<MainSearch />}/>
                         </Routes>
                     <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                </div>

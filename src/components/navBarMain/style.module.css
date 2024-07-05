@@ -1,0 +1,35 @@
+.NavBarMain {
+    background-color: salmon;
+}
+
+.NavBarMain nav {
+    background-color: salmon;
+    position: relative;
+    height: 200px;
+}
+
+.big {
+    background-color: black;
+}
+
+.NavBarMain button {
+   padding: 0 25px;
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+}
+ 
+.NavBarMain nav ul {
+    position: absolute;
+    /* left: -200%; */
+    transition: 1s;
+    height: 100%;
+    top: 0;
+    background-color: salmon;
+    padding: 20px;
+}
+
+/* .NavBarMain nav:hover ul {
+    position: absolute;
+    left: 30px;
+} */

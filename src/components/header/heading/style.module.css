@@ -1,4 +1,10 @@
 .Heading {
     display: flex;
     justify-content: space-between;
+    
+}
+
+.logoAndSerch {
+    display: flex;
+    
 }
