@@ -4,20 +4,27 @@ import { useRef, useState } from 'react';
 
 const NavBarMain = () => {
    
-    const btn = useRef();
+    const btnOpen = useRef();
+    const btnClose = useRef();
 
     const [styleUlLeft, setStyleUlLeft] = useState('-200%');
+    const [styleBtnOpen, setStyleBtnOpen] = useState('');
+    const [styleBtnClose, setStyleBtnClose] = useState('none');
+
+    function navTransitionRight() {
+            setStyleUlLeft('0');
+            setStyleBtnOpen('none');
+            setStyleBtnClose('');
+    };
 
     function navTransitionLeft() {
-       if(styleUlLeft === '-200px') {
-            setStyleUlLeft('30px');
-       } else {
-            setStyleUlLeft('-200px');
-       }
+        setStyleUlLeft('-200%');
+        setStyleBtnOpen('');
+        setStyleBtnClose('none');
     };
 
     function closeNavBarMain(e) {
-        if(btn.current !== e.target ) {
+        if(btnOpen.current !== e.target ) {
             document.body.removeEventListener('click', closeNavBarMain);
             setStyleUlLeft('-200%'); 
         }
@@ -35,7 +42,8 @@ const NavBarMain = () => {
 
     return ( 
         <div className={st.NavBarMain}>
-            <button onClick={navTransitionLeft} ref={btn}>O</button>
+            <button onClick={navTransitionRight} ref={btnOpen} style={{display: `${styleBtnOpen}`}}>Open</button>
+            <button onClick={navTransitionLeft} ref={btnClose} style={{display: `${styleBtnClose}`}}>Close</button>
             <nav onMouseOver={ulMouseOver} onMouseLeave={ulMouseLeave}>
                 <ul style={{left: `${styleUlLeft}`}}>
                     <li><NavLink to="/">home</NavLink></li>
