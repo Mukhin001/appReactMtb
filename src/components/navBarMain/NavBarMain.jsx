@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import st from './style.module.css';
 import { useRef, useState } from 'react';
+import NavHomeMain from './navHomeMain/NavHomeMain';
 
 const NavBarMain = () => {
    
@@ -12,7 +13,7 @@ const NavBarMain = () => {
     const [styleBtnClose, setStyleBtnClose] = useState('none');
 
     function navTransitionRight() {
-            setStyleUlLeft('0');
+            setStyleUlLeft('30px');
             setStyleBtnOpen('none');
             setStyleBtnClose('');
     };
@@ -24,8 +25,10 @@ const NavBarMain = () => {
     };
 
     function closeNavBarMain(e) {
-        if(btnOpen.current !== e.target ) {
+        if(btnOpen.current !== e.target) {
             document.body.removeEventListener('click', closeNavBarMain);
+            setStyleBtnOpen('');
+            setStyleBtnClose('none');
             setStyleUlLeft('-200%'); 
         }
     };
@@ -34,19 +37,23 @@ const NavBarMain = () => {
 
    function ulMouseOver() {
         setStyleUlLeft('30px');
+        setStyleBtnOpen('none');
+        setStyleBtnClose('');
    };
    
    function ulMouseLeave() {
         setStyleUlLeft('-200%'); 
+        setStyleBtnOpen('');
+        setStyleBtnClose('none');
    };
 
     return ( 
-        <div className={st.NavBarMain}>
+        <div className={st.NavBarMainWrapper}>
             <button onClick={navTransitionRight} ref={btnOpen} style={{display: `${styleBtnOpen}`}}>Open</button>
             <button onClick={navTransitionLeft} ref={btnClose} style={{display: `${styleBtnClose}`}}>Close</button>
-            <nav onMouseOver={ulMouseOver} onMouseLeave={ulMouseLeave}>
-                <ul style={{left: `${styleUlLeft}`}}>
-                    <li><NavLink to="/">home</NavLink></li>
+            <nav onMouseOver={ulMouseOver} onMouseLeave={ulMouseLeave} className={st.NavBarMainNav}>
+                <ul style={{left: `${styleUlLeft}`}}  className={st.NavBarMainUl}>
+                    <li className={st.navLiHome}><NavLink to="/home">home<NavHomeMain /></NavLink></li>
                     <li><NavLink to="/photo">photo</NavLink></li>
                     <li><NavLink to="/video">video</NavLink></li>
                     <li><NavLink to="/news">news</NavLink></li>
@@ -56,5 +63,6 @@ const NavBarMain = () => {
         </div>
      );
 };
+//
  
 export default NavBarMain;

@@ -9,7 +9,7 @@ import MainPhoto from './components/pagesMain/mainPhoto/MainPhoto';
 import MainVideo from './components/pagesMain/MainVideo';
 import MainNews from './components/pagesMain/mainNews/MainNews';
 import MainAbout from './components/pagesMain/MainAbout';
-import MainHome from './components/pagesMain/MainHome';
+import MainHome from './components/pagesMain/mainHome/MainHome';
 import MainLogin from './components/pagesMain/MainLogin';
 import MainNoLogin from './components/pagesMain/MainNoLogin';
 import MainExit from './components/pagesMain/MainExit';
@@ -79,7 +79,7 @@ function App() {
                <div className='slideLinkMain'>
                     <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                         <Routes>
-                            <Route path="/" element={<MainHome />} />
+                            <Route path="/home" element={<MainHome />} />
                             <Route path="/photo" element={<MainPhoto />}/>
                             <Route path="/video" element={<MainVideo />}/>
                             <Route path="/news" element={<MainNews />}/>

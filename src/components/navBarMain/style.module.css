@@ -1,35 +1,47 @@
-.NavBarMain {
+.NavBarMainWrapper {
     background-color: salmon;
 }
 
-.NavBarMain nav {
+.NavBarMainNav {
     background-color: salmon;
-    position: relative;
     height: 200px;
+    position: relative;
 }
 
-.big {
-    background-color: black;
-}
-
-.NavBarMain button {
+.NavBarMainWrapper button {
    padding: 0 25px;
    background-color: transparent;
-   border: none;
    cursor: pointer;
 }
  
-.NavBarMain nav ul {
+.NavBarMainUl {
     position: absolute;
-    /* left: -200%; */
-    transition: 1s;
-    height: 100%;
-    top: 0;
+    transition: 2s;
     background-color: salmon;
-    padding: 20px;
+    padding: 20px 0 20px 20px;
 }
 
-/* .NavBarMain nav:hover ul {
+.NavBarMainUl li {
+    padding: 0 20px;
+    list-style: none;
+}
+
+.NavBarMainUl li:hover {
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+.NavHomeMainUl {
+    padding: 20px 0;
+    transition: 2s;
     position: absolute;
-    left: 30px;
-} */
+    transform: translateX(-200%);
+    top: 0;
+    background-color: coral;
+    opacity: 0;
+}
+
+.navLiHome:hover .NavHomeMainUl {
+    transform: translateX(75%);
+    opacity: 1;
+}
