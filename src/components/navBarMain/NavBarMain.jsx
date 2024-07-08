@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import st from './style.module.css';
 import { useRef, useState } from 'react';
-import NavHomeMain from './navHomeMain/NavHomeMain';
+import NavHomeMain from './navPhotoMain/NavPhotoMain';
 
 const NavBarMain = () => {
    
@@ -53,8 +53,8 @@ const NavBarMain = () => {
             <button onClick={navTransitionLeft} ref={btnClose} style={{display: `${styleBtnClose}`}}>Close</button>
             <nav onMouseOver={ulMouseOver} onMouseLeave={ulMouseLeave} className={st.NavBarMainNav}>
                 <ul style={{left: `${styleUlLeft}`}}  className={st.NavBarMainUl}>
-                    <li className={st.navLiHome}><NavLink to="/home">home<NavHomeMain /></NavLink></li>
-                    <li><NavLink to="/photo">photo</NavLink></li>
+                    <li><NavLink to="/">home</NavLink></li>
+                    <li  className={st.navLiPhoto}><NavLink to="/photo">photo</NavLink><NavHomeMain /></li>
                     <li><NavLink to="/video">video</NavLink></li>
                     <li><NavLink to="/news">news</NavLink></li>
                     <li><NavLink to="/about">about</NavLink></li>

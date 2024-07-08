@@ -1,3 +1,5 @@
+import st from './style.module.css';
+
 const Footer = () => {
     return ( 
         <footer>
@@ -6,4 +8,4 @@ const Footer = () => {
      );
 }
  
-export default Footer;
+export default Footer; 

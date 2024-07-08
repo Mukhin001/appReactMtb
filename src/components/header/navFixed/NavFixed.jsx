@@ -5,7 +5,6 @@ const NavFixed = () => {
     //console.log(NavBar);
     return ( 
         <nav>
-            NavBar
             <ul className={st.NavFixed}>
                 <li><NavLink to="/">home</NavLink></li>
                 <li><NavLink to="/photo">photo</NavLink></li>

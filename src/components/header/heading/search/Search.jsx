@@ -2,7 +2,7 @@ import st from './style.module.css';
 import { useState , useRef} from 'react';
 
 const Search = () => {
-    const [siteSearchTop, setSiteSearchTop] = useState('-100%');
+    const [siteSearchTop, setSiteSearchTop] = useState('-100px');
     const siteRef = useRef();
     const labelRef = useRef();
     const inputRef = useRef();
@@ -16,7 +16,7 @@ const Search = () => {
     };
 
     function siteSearchUp() {
-        setSiteSearchTop('-100%');
+        setSiteSearchTop('-100px');
     };
 
     function closeSiteSear(e) {
@@ -27,7 +27,7 @@ const Search = () => {
             e.target !== btnCloseRef.current &&
             e.target !== btnSearchRef.current 
         ) {
-            setSiteSearchTop('-100%');
+            setSiteSearchTop('-100px');
             document.body.removeEventListener('click', closeSiteSear);
         }
     };
@@ -36,7 +36,7 @@ const Search = () => {
 
     return ( 
         <div>
-            <div ref={siteRef} className={st.siteSearch} style={{top: `${siteSearchTop}`}}>
+            <div ref={siteRef} className={st.siteSearch} style={{transform: `translateY(${siteSearchTop})`}}>
                 <label ref={labelRef} htmlFor="site-search">Search the site:</label>
                 <input ref={inputRef} type="search" id='site-search' name='site-search'/>
                 <button ref={btnSearchRef}>search</button>

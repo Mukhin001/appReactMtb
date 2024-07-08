@@ -1,0 +1,12 @@
+header {
+   margin-top: 50px;
+}
+ 
+.heading {
+    position: fixed;
+    top: 0;
+    padding: 5px;
+    width: 100%;
+    z-index: 6;
+    background-color: rgb(246, 122, 147);
+}

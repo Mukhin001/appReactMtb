@@ -1,11 +1,13 @@
 .navBarWrapper {
     display: flex;
     justify-content: space-between;
+    height: 700px;
 }
 
 .slideLinkMain {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
+   
 }

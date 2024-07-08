@@ -6,6 +6,7 @@
     background-color: salmon;
     height: 200px;
     position: relative;
+    height: 100%;
 }
 
 .NavBarMainWrapper button {
@@ -19,19 +20,19 @@
     transition: 2s;
     background-color: salmon;
     padding: 20px 0 20px 20px;
+    height: 100%;
 }
 
 .NavBarMainUl li {
     padding: 0 20px;
-    list-style: none;
 }
 
 .NavBarMainUl li:hover {
     background-color: antiquewhite;
     border-radius: 20px;
 }
-
-.NavHomeMainUl {
+.NavBarMainUl
+.NavPhotoMainUl {
     padding: 20px 0;
     transition: 2s;
     position: absolute;
@@ -41,7 +42,7 @@
     opacity: 0;
 }
 
-.navLiHome:hover .NavHomeMainUl {
+.navLiPhoto:hover .NavPhotoMainUl {
     transform: translateX(75%);
     opacity: 1;
 }

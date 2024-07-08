@@ -4,6 +4,7 @@ import Login from "./login/Login";
 import Weather from "./weather/Weather";
 import st from './style.module.css';
 import { useState } from "react";
+import Favorites from "./favorites/Favorites";
 
 const ApiCityLogin = ({loginExit, linkExit}) => {
     const [city, setCity] = useState('Berlin');
@@ -24,6 +25,7 @@ const ApiCityLogin = ({loginExit, linkExit}) => {
 
     return ( 
         <div className={st.ApiCityLogin}>
+            <Favorites />
             <City languageFn={getLanguage} cityFn={getCity} city={city} />
             <Language propLanguage={language} />
             <Weather city={city} />

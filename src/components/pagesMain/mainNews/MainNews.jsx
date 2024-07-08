@@ -4,6 +4,6 @@ const MainNews = () => {
              News
         </main>
      );
-}
+};
  
 export default MainNews;

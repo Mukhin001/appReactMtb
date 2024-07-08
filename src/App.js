@@ -79,8 +79,8 @@ function App() {
                <div className='slideLinkMain'>
                     <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                         <Routes>
-                            <Route path="/home" element={<MainHome />} />
-                            <Route path="/photo" element={<MainPhoto />}/>
+                            <Route path="/" element={<MainHome />} />
+                            <Route path="/photo/*" element={<MainPhoto />}/>
                             <Route path="/video" element={<MainVideo />}/>
                             <Route path="/news" element={<MainNews />}/>
                             <Route path="/about" element={<MainAbout />}/>
