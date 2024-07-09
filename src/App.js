@@ -6,7 +6,7 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import NavBarMain from "./components/navBarMain/NavBarMain";
 import MainPhoto from './components/pagesMain/mainPhoto/MainPhoto';
-import MainVideo from './components/pagesMain/MainVideo';
+import MainVideo from './components/pagesMain/mainVideo/MainVideo';
 import MainNews from './components/pagesMain/mainNews/MainNews';
 import MainAbout from './components/pagesMain/MainAbout';
 import MainHome from './components/pagesMain/mainHome/MainHome';
@@ -81,7 +81,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<MainHome />} />
                             <Route path="/photo/*" element={<MainPhoto />}/>
-                            <Route path="/video" element={<MainVideo />}/>
+                            <Route path="/video/*" element={<MainVideo />}/>
                             <Route path="/news" element={<MainNews />}/>
                             <Route path="/about" element={<MainAbout />}/>
                             <Route path="/login" element={<MainLogin enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn}/>}/>

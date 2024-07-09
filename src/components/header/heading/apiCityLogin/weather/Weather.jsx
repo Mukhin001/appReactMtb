@@ -1,4 +1,4 @@
-import sendRequestServer from '../sendRequestServer';
+import sendRequestServer from '../../../../../sendRequestServer';
 import { useState } from 'react';
 
 const Weather = ({city}) => {
@@ -16,4 +16,4 @@ const Weather = ({city}) => {
     );
 };
  
-export default Weather;
+export default Weather; 

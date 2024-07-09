@@ -3,7 +3,7 @@ import st from '../style.module.css';
 
 const NavPhotoMain = () => {
     return ( 
-        <nav className={st.NavPhotoMainUl}>
+        <nav className={st.NavPhotoMainNav}>
             <ul>
                 <li><NavLink to="/photo/pagePhotoOne">One</NavLink></li>
                 <li><NavLink to="/photo/pagePhotoTwo">Two</NavLink></li>

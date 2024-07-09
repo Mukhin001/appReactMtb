@@ -1,3 +1,10 @@
-footer {
-    height: 300px;
+.footerUl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 200px;
+}
+
+.end {
+    height: 50px;
+    background-color: cornflowerblue;
 }

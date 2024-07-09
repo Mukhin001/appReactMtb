@@ -22,7 +22,7 @@ export default function sendRequestServer(method, serverUrl) {
 // const weatherApi = fetch(api);
 // weatherApi.then((data) => {
 //    return data.json()
-// }).then((data) => {
+// }).then((data) => { 
 //     console.log(data);
 // })
 // return ( 

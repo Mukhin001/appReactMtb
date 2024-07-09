@@ -1,5 +1,5 @@
 //import st from './style.module.css';
-import sendRequestServer from '../sendRequestServer';
+import sendRequestServer from '../../../../../sendRequestServer';
 
 //  `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
 const City = ({languageFn, cityFn, city}) => {

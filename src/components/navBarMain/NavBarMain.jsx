@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import st from './style.module.css';
 import { useRef, useState } from 'react';
 import NavHomeMain from './navPhotoMain/NavPhotoMain';
+import NavVideoMain from './navVideoMain/NavVideoMain';
 
 const NavBarMain = () => {
    
@@ -55,7 +56,7 @@ const NavBarMain = () => {
                 <ul style={{left: `${styleUlLeft}`}}  className={st.NavBarMainUl}>
                     <li><NavLink to="/">home</NavLink></li>
                     <li  className={st.navLiPhoto}><NavLink to="/photo">photo</NavLink><NavHomeMain /></li>
-                    <li><NavLink to="/video">video</NavLink></li>
+                    <li  className={st.navLiVideo}><NavLink to="/video">video</NavLink><NavVideoMain /></li>
                     <li><NavLink to="/news">news</NavLink></li>
                     <li><NavLink to="/about">about</NavLink></li>
                 </ul>

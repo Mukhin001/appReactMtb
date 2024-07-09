@@ -3,3 +3,40 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: minmax(auto, 300px);
 }
+
+.photosImgLi {
+    max-width: 250px;
+}
+
+.photosImgLi img {
+    width: 100%;
+}
+
+.pagePhotoImg {
+    max-width: 300px;
+}
+
+.pagePhotoImg img {
+    max-width: 100%;
+}
+
+.photoSlide {
+    display: flex;
+}
+
+.slideImg {
+    display: none;
+}
+
+.slideImg img {
+    width: 100%;
+}
+
+.slideImgActive {
+    display: block;
+    max-width: 300px;
+}
+
+.sliderWrapper {
+    display: flex;
+}
