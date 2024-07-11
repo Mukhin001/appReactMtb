@@ -5,23 +5,30 @@ const PagePhotoFive = () => {
     const [countSlide, setCountSlide] = useState(1);
     const slideWrapper = useRef();
     const [addImgArr, setAddImgArr] = useState([]);
+    const [imgActive, setImgActive] = useState();
+    const [sliderDisplay, setSliderDisplay] = useState('none');
 
     function openImg(e) {
-            //console.log(Array.isArray([...e.currentTarget.children]));
-            //[...e.currentTarget.children].forEach(div => {
-              //  slideWrapper.append([...e.currentTarget.children])
-            //})
-            let arr = [];
+        if(e.target.src) {
+            setImgActive(e.target.src);
+        }
+        setSliderDisplay('flex');
+        let arr = [];
             [...e.currentTarget.children].forEach(div => {
                 [...div.children].forEach(img => 
                     {
-                        console.log(img.src)
-                    arr.push(img.src)  
+                    arr.push(img)  
                     } 
                 )
-            })
-            setAddImgArr(arr)
-            
+            });
+        setAddImgArr(arr);
+        document.body.style.overflow = 'hidden';
+   
+    };
+
+    function closeSlider() {
+        document.body.style.overflow = '';
+        setSliderDisplay('none');
     };
 
     function slideClickLeft() {
@@ -79,34 +86,29 @@ const PagePhotoFive = () => {
            </div>
         </div>
 
-        <div className={st.sliderWrapper}>
-            <button onClick={slideClickLeft} className={st.btn}>left</button>
-            <div ref={slideWrapper} className={st.photoSlide}>
-                {addImgArr.map((e, i) => {
-                    console.log(e);
-                   return   <div key={i}>
-                                <img src={e} alt="i" />
+        <div style={{display: `${sliderDisplay}`}} className={st.sliderWrapper}>
+            <div className={st.sliderContainer}>
+                <button onClick={slideClickLeft} className={st.btn}>left</button>
+                <div ref={slideWrapper} className={st.photoSlide}>
+                    {addImgArr.map(e => {
+
+                    return  (imgActive === e.src) 
+                        ?
+                            <div key={e.src.substring(26)} className={`${st.slideImg} ${st.slideImgActive}`}>
+                                <img src={e.src} alt={e.src.substring(26)} />
+                            </div>  
+                        :   
+                            <div key={e.src.substring(26)} className={`${st.slideImg}`}>
+                                <img src={e.src} alt={e.src.substring(26)} />
                             </div>
-                })}
-                {/* <div className={`${st.slideImg} ${st.slideImgActive}`}>
-                    bodyFon
-                    <img src="../img/bodyFon.jpeg" alt="scale_1200" />
-                </div>
-                <div className={st.slideImg}>
-                    dark-theme
-                    <img src="../img/dark-theme.jpg" alt="ddvd" />
-                </div>
-                <div className={st.slideImg}>
-                    scale_1200
-                    <img src="../img/scale_1200.jpg" alt="ddvd" />
-                </div>
-                <div className={st.slideImg}>
-                    shark
-                    <img src="../img/shark.png" alt="ddvd" />
-                </div> */}
+                    })};
+
                 
+                    
+                </div>
+                <button onClick={slideClickRight} className={st.btn}>right</button>
             </div>
-            <button onClick={slideClickRight} className={st.btn}>right</button>
+            <button onClick={closeSlider} className={st.closeSlider}>close</button>
         </div>
    </>    
      );
