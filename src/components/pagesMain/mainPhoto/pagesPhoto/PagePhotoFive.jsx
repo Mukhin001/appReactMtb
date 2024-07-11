@@ -4,9 +4,24 @@ import { useState, useRef } from 'react';
 const PagePhotoFive = () => {
     const [countSlide, setCountSlide] = useState(1);
     const slideWrapper = useRef();
+    const [addImgArr, setAddImgArr] = useState([]);
 
     function openImg(e) {
-        console.log(e.target);
+            //console.log(Array.isArray([...e.currentTarget.children]));
+            //[...e.currentTarget.children].forEach(div => {
+              //  slideWrapper.append([...e.currentTarget.children])
+            //})
+            let arr = [];
+            [...e.currentTarget.children].forEach(div => {
+                [...div.children].forEach(img => 
+                    {
+                        console.log(img.src)
+                    arr.push(img.src)  
+                    } 
+                )
+            })
+            setAddImgArr(arr)
+            
     };
 
     function slideClickLeft() {
@@ -45,10 +60,10 @@ const PagePhotoFive = () => {
 
     return ( 
         <>
-        <div>
+        <div onClick={openImg}>
             <div className={st.pagePhotoImg}>
                 bodyFon
-                <img onClick={openImg} src="../img/bodyFon.jpeg" alt="scale_1200" />
+                <img src="../img/bodyFon.jpeg" alt="scale_1200" />
             </div>
             <div className={st.pagePhotoImg}>
                 dark-theme
@@ -67,8 +82,13 @@ const PagePhotoFive = () => {
         <div className={st.sliderWrapper}>
             <button onClick={slideClickLeft} className={st.btn}>left</button>
             <div ref={slideWrapper} className={st.photoSlide}>
-                
-                <div className={`${st.slideImg} ${st.slideImgActive}`}>
+                {addImgArr.map((e, i) => {
+                    console.log(e);
+                   return   <div key={i}>
+                                <img src={e} alt="i" />
+                            </div>
+                })}
+                {/* <div className={`${st.slideImg} ${st.slideImgActive}`}>
                     bodyFon
                     <img src="../img/bodyFon.jpeg" alt="scale_1200" />
                 </div>
@@ -83,7 +103,7 @@ const PagePhotoFive = () => {
                 <div className={st.slideImg}>
                     shark
                     <img src="../img/shark.png" alt="ddvd" />
-                </div>
+                </div> */}
                 
             </div>
             <button onClick={slideClickRight} className={st.btn}>right</button>
