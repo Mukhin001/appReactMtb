@@ -1,5 +1,6 @@
 import st from './style.module.css';
 import { useState, useRef } from 'react';
+import {photoServer} from './photoServer';
 
 const PagePhotoFive = () => {
     const [countSlide, setCountSlide] = useState(1);
@@ -64,10 +65,27 @@ const PagePhotoFive = () => {
 
  
     };
-
+    
     return ( 
-        <>
+    <>
         <div onClick={openImg}>
+            {photoServer.map((elem) => {
+                return (
+                    (elem.name === 'PagePhotoFive') ?
+                        elem.url.map((el, i) => {
+                           // console.log(el);
+                            return (
+                                <div className={st.pagePhotoImg} key={i}>
+                                    <img src={el} alt='' />
+                                </div>
+                            )
+                        }) : console.log(elem)
+                )
+            }     
+           )
+            }
+        </div>
+        {/* <div onClick={openImg}>
             <div className={st.pagePhotoImg}>
                 bodyFon
                 <img src="../img/bodyFon.jpeg" alt="scale_1200" />
@@ -84,7 +102,7 @@ const PagePhotoFive = () => {
                 shark
                 <img src="../img/shark.png" alt="ddvd" />
            </div>
-        </div>
+        </div> */}
 
         <div style={{display: `${sliderDisplay}`}} className={st.sliderWrapper}>
             <div className={st.sliderContainer}>
@@ -110,7 +128,7 @@ const PagePhotoFive = () => {
             </div>
             <button onClick={closeSlider} className={st.closeSlider}>close</button>
         </div>
-   </>    
+    </>    
      );
 };
  
