@@ -24,12 +24,12 @@ const PagePhotoFive = () => {
             });
         setAddImgArr(arr);
         document.body.style.overflow = 'hidden';
-   
     };
 
     function closeSlider() {
         document.body.style.overflow = '';
         setSliderDisplay('none');
+        setAddImgArr([]);
     };
 
     function slideClickLeft() {
@@ -62,8 +62,6 @@ const PagePhotoFive = () => {
             }
         
         arrSlide[countSlide].classList.add(st.slideImgActive);
-
- 
     };
     
     return ( 
@@ -71,15 +69,15 @@ const PagePhotoFive = () => {
         <div onClick={openImg}>
             {photoServer.map((elem) => {
                 return (
-                    (elem.name === 'PagePhotoFive') ?
+                    (elem.name === 'PagePhotoFive') &&
                         elem.url.map((el, i) => {
                            // console.log(el);
                             return (
                                 <div className={st.pagePhotoImg} key={i}>
-                                    <img src={el} alt='' />
+                                    <img src={el} alt={el.substring(26)} />
                                 </div>
                             )
-                        }) : console.log(elem)
+                        }) 
                 )
             }     
            )
@@ -120,9 +118,7 @@ const PagePhotoFive = () => {
                                 <img src={e.src} alt={e.src.substring(26)} />
                             </div>
                     })};
-
-                
-                    
+  
                 </div>
                 <button onClick={slideClickRight} className={st.btn}>right</button>
             </div>
