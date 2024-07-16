@@ -1,8 +1,20 @@
-const PagePhotoTwo = () => {
+import HtmlPhoto from "./HtmlPhoto";
+
+const PagePhotoTwo = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft}) => {
     return ( 
         <div>
             Page PhotoTwo
-            <img src="./img/dark-theme.jpg" alt="dark-theme" />dark-theme
+            <HtmlPhoto 
+                name={name}
+                sliderOpacity={sliderOpacity} 
+                closeSlider={closeSlider}
+                addImgArr={addImgArr} 
+                imgActive={imgActive} openImg={openImg}
+                slideWrapper={slideWrapper}
+                slideClickLeft={slideClickLeft}
+                slideClickRight={slideClickRight}
+                sliderWrapperLeft={sliderWrapperLeft}
+            />
         </div>
      );
 }

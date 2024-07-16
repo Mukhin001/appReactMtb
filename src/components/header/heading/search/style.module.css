@@ -9,4 +9,15 @@
     left: 0;
     width: 100%;
     height: 70px;
+    z-index: 11;
+}
+
+.searchWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    width: 100%;
+    height: 100%;
+    transition: all 2s;
 }

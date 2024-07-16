@@ -1,9 +1,21 @@
-const PagePhotoFour = () => {
+import HtmlPhoto from "./HtmlPhoto";
+
+
+const PagePhotoFour = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft}) => {
     return ( 
-        <div>
-            Page PhotoFour
-            <img src="./img/IMG_6784.jpeg" alt="IMG_6784" />IMG_6784
-        </div>
+        <>
+            <HtmlPhoto 
+                name={name}
+                sliderOpacity={sliderOpacity} 
+                closeSlider={closeSlider}
+                addImgArr={addImgArr} 
+                imgActive={imgActive} openImg={openImg}
+                slideWrapper={slideWrapper}
+                slideClickLeft={slideClickLeft}
+                slideClickRight={slideClickRight}
+                sliderWrapperLeft={sliderWrapperLeft}
+            />
+        </>    
      );
 }
  
