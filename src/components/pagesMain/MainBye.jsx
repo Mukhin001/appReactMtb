@@ -1,9 +1,9 @@
 const MainBye = () => {
 
     return ( 
-        <div>
+        <main>
             Bye
-        </div>
+        </main>
      );
 }
  

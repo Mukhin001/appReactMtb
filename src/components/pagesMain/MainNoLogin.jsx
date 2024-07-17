@@ -64,7 +64,7 @@ const MainNoLogin = ({registerAcc}) => {
     };
     
     return ( 
-        <div>
+        <main>
             {/* <form action="" name="userRegistered"> */}
                 <div>
                     <label htmlFor="login">login</label>
@@ -97,7 +97,7 @@ const MainNoLogin = ({registerAcc}) => {
                 <NavLink type="submit" onClick={createAccauntFn} value="Create accaunt" to="/">Create accaunt</NavLink>
                 <input type="reset" value="reset" />
             {/* </form> */}
-        </div>
+        </main>
      );
 }
  

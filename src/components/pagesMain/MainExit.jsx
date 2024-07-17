@@ -9,9 +9,9 @@ const MainExit = ({loginExit, linkExit, enterAcc}) => {
     };
 
     return ( 
-        <div>Do you Exit?
+        <main>Do you Exit?
             <NavLink to="/bye" onClick={exitFn}>Yes</NavLink>
-        </div>
+        </main>
      );
 }
  

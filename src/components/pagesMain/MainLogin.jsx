@@ -45,7 +45,7 @@ const MainLogin = ({enterAcc, loginExit, linkExit}) => {
     };
 
     return ( 
-        <div>
+        <main>
             {/* <form action=""> */}
                 <div>
                     <label htmlFor="login">Login</label>
@@ -59,7 +59,7 @@ const MainLogin = ({enterAcc, loginExit, linkExit}) => {
                 <p>NavLink</p>
                 <NavLink to="/createAccaunt">no accaunt</NavLink>
             {/* </form>     */}
-        </div>
+        </main>
      );
 };
  

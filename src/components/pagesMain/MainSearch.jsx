@@ -1,8 +1,8 @@
 const MainSearch = () => {
     return ( 
-        <div>
+        <main>
             MainSearch
-        </div>
+        </main>
      );
 }
  
