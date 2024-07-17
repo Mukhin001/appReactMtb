@@ -8,7 +8,7 @@ import PagePhotoFive from './pagesPhoto/PagePhotoFive';
 import st from './pagesPhoto/style.module.css';
 
 import { useState,  useRef} from 'react'; 
-const MainPhoto = () => {
+const MainPhoto = ({getLikesFn}) => {
     const [sliderOpacity, setSliderOpacity] = useState('0'); 
     const [addImgArr, setAddImgArr] = useState([]);
     const [imgActive, setImgActive] = useState();
@@ -78,7 +78,7 @@ const MainPhoto = () => {
                Photos!
               
                <Routes>
-                    <Route path="/" element={<PagePhotos />} />
+                    <Route path="/" element={<PagePhotos getLikesFn={getLikesFn}/>} />
                     <Route path="/pagePhotoOne" element={<PagePhotoOne 
                         name={'pagePhotoOne'}
                         sliderOpacity={sliderOpacity} 

@@ -15,6 +15,7 @@ import MainNoLogin from './components/pagesMain/MainNoLogin';
 import MainExit from './components/pagesMain/MainExit';
 import MainBye from './components/pagesMain/MainBye';
 import MainSearch from './components/pagesMain/MainSearch';
+import MainFavorites from './components/pagesMain/MainFavorites';
 
 const arrLink = [
     '/',
@@ -30,6 +31,11 @@ function App() {
     const [userName, setUserName] = useState('the user did not log in');
     const [loginExit, setLoginExit] = useState('Login');
     const [linkExit, setLinkExit] = useState('/login');
+    const [likes, setLikes] = useState({});
+    
+    function getLikesFn(li) {
+        setLikes(prev => ({...prev, [li.getAttribute('atrlike')] : li}))
+    };
 
     function rightLinkClick () {
         
@@ -80,15 +86,16 @@ function App() {
                     <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                         <Routes>
                             <Route path="/" element={<MainHome />} />
-                            <Route path="/photo/*" element={<MainPhoto />}/>
-                            <Route path="/video/*" element={<MainVideo />}/>
-                            <Route path="/news" element={<MainNews />}/>
-                            <Route path="/about" element={<MainAbout />}/>
+                            <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn}/>} />
+                            <Route path="/video/*" element={<MainVideo />} />
+                            <Route path="/news" element={<MainNews />} />
+                            <Route path="/about" element={<MainAbout />} />
                             <Route path="/login" element={<MainLogin enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn}/>}/>
                             <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameRegisterFn} />}/>
                             <Route path="/exit" element={<MainExit  enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn} />} />
                             <Route path="/bye" element={<MainBye />} />
-                            <Route path="search" element={<MainSearch />}/>
+                            <Route path="/search" element={<MainSearch />} />
+                            <Route path='/favorites' element={<MainFavorites likes={likes}/>} />
                         </Routes>
                     <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                </div>
@@ -101,3 +108,4 @@ function App() {
 };
 
 export default App;
+
