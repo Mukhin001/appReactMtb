@@ -1,16 +1,20 @@
 import {videoServer} from './videoServer';
+import { NavLink } from 'react-router-dom'
 
-const HtmlVideo = ({discipline}) => {
+const HtmlVideo = ({disciplineRoute}) => {
+ 
     return ( 
         <div>
             <ul>
                 {videoServer.map((obj) => {
                     return (
-                        (obj.discipline === discipline) && 
+                        (obj.discipline === disciplineRoute) && 
+                        
                         obj.content.map((e) => {
                             return (
-                                <li key={e.name}>{e.name}
+                                <li key={e.name}>{e.name}{obj.discipline}
                                     <video src="#">video</video>
+                                    <NavLink to={`/video/${obj.discipline}/${e.name}`}>{e.name}</NavLink>
                                 </li>
                             )
                         })

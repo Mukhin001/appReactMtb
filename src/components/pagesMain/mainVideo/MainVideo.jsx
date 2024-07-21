@@ -12,10 +12,10 @@ const MainVideo = () => {
             Video
             <Routes>
                 <Route path="/" element={<PagesVideo />}/>
-                <Route path="/street" element={<PageStreetVideo discipline={'street'}/>}/>
-                <Route path="/dirt" element={<PageDirtVideo discipline={'dirt'}/>}/>
-                <Route path="/park" element={<PageParkVideo discipline={'park'}/>}/>
-                <Route path="/slopestyle" element={<PageSlopeStyleVideo discipline={'slopestyle'}/>}/>
+                <Route path="/street/*" element={<PageStreetVideo disciplineRoute={'street'}/>}/>
+                <Route path="/dirt/*" element={<PageDirtVideo disciplineRoute={'dirt'}/>}/>
+                <Route path="/park/*" element={<PageParkVideo disciplineRoute={'park'}/>}/>
+                <Route path="/slopestyle/*" element={<PageSlopeStyleVideo disciplineRoute={'slopestyle'}/>}/>
             </Routes>
         </main>
      );
