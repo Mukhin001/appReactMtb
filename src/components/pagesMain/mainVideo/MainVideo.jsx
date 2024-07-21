@@ -6,18 +6,19 @@ import PageSlopeStyleVideo from "./pageSlopeStyleVideo/PageSlopeStyleVideo";
 import PagesVideo from "./pagesVideo/PagesVideo";
 
 const MainVideo = () => {
+
     return ( 
         <main>
             Video
             <Routes>
                 <Route path="/" element={<PagesVideo />}/>
-                <Route path="/street" element={<PageStreetVideo />}/>
-                <Route path="/dirt" element={<PageDirtVideo />}/>
-                <Route path="/park" element={<PageParkVideo />}/>
-                <Route path="/slopestyle" element={<PageSlopeStyleVideo />}/>
+                <Route path="/street" element={<PageStreetVideo discipline={'street'}/>}/>
+                <Route path="/dirt" element={<PageDirtVideo discipline={'dirt'}/>}/>
+                <Route path="/park" element={<PageParkVideo discipline={'park'}/>}/>
+                <Route path="/slopestyle" element={<PageSlopeStyleVideo discipline={'slopestyle'}/>}/>
             </Routes>
         </main>
      );
-}
+};
  
 export default MainVideo; 

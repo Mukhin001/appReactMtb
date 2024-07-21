@@ -3,7 +3,7 @@ import HtmlPhoto from './HtmlPhoto';
 const PagePhotoOne = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft}) => {
     return ( 
         <div>
-            Page photo one!
+            {name}
             <HtmlPhoto 
                 name={name}
                 sliderOpacity={sliderOpacity} 

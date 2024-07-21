@@ -1,7 +1,10 @@
-const PageParkVideo = () => {
+import HtmlVideo from "../HtmlVideo";
+
+const PageParkVideo = ({discipline}) => {
     return ( 
         <div>
             PageParkVideo
+            <HtmlVideo discipline={discipline}/>
         </div>
      );
 }

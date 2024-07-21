@@ -16,6 +16,7 @@ const MainPhoto = ({getLikesFn}) => {
     const [countSlide, setCountSlide] = useState(1);
     const [sliderWrapperLeft, setSliderWrapperWidth] = useState('-100%');
 
+
     function slideClickLeft() {
         const arrSlide = [...slideWrapper.current.children];
         for(let i = 0; i < arrSlide.length; i++) { 
@@ -78,9 +79,9 @@ const MainPhoto = ({getLikesFn}) => {
                Photos!
               
                <Routes>
-                    <Route path="/" element={<PagePhotos getLikesFn={getLikesFn}/>} />
-                    <Route path="/pagePhotoOne" element={<PagePhotoOne 
-                        name={'pagePhotoOne'}
+                    <Route path="/" element={<PagePhotos getLikesFn={getLikesFn} />} />
+                    <Route path="/cap2013" element={<PagePhotoOne 
+                        name={'cap2013'}
                         sliderOpacity={sliderOpacity} 
                         closeSlider={closeSlider}
                         addImgArr={addImgArr} 
@@ -90,8 +91,8 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
                     />} />
-                    <Route path="/pagePhotoTwo" element={<PagePhotoTwo 
-                        name={'pagePhotoTwo'}
+                    <Route path="/cap2015" element={<PagePhotoTwo 
+                        name={'cap2015'}
                         sliderOpacity={sliderOpacity} 
                         closeSlider={closeSlider}
                         addImgArr={addImgArr} 
@@ -101,8 +102,8 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
                     />}/>
-                    <Route path="/pagePhotoThree" element={<PagePhotoThree 
-                         name={'pagePhotoThree'}
+                    <Route path="/IMG-6437" element={<PagePhotoThree 
+                         name={'IMG-6437'}
                          sliderOpacity={sliderOpacity} 
                          closeSlider={closeSlider}
                          addImgArr={addImgArr} 
@@ -112,8 +113,8 @@ const MainPhoto = ({getLikesFn}) => {
                          slideClickRight={slideClickRight}
                          sliderWrapperLeft={sliderWrapperLeft}
                     />} />
-                    <Route path="/pagePhotoFour" element={<PagePhotoFour 
-                        name={'pagePhotoFour'}
+                    <Route path="/IMG_6784" element={<PagePhotoFour 
+                        name={'IMG_6784'}
                         sliderOpacity={sliderOpacity} 
                         closeSlider={closeSlider}
                         addImgArr={addImgArr} 
@@ -123,8 +124,8 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
                     />} />
-                    <Route path="/pagePhotoFive" element={<PagePhotoFive 
-                        name={'pagePhotoFive'}
+                    <Route path="/scale_1200" element={<PagePhotoFive 
+                        name={'scale_1200'}
                         sliderOpacity={sliderOpacity} 
                         closeSlider={closeSlider}
                         addImgArr={addImgArr} 

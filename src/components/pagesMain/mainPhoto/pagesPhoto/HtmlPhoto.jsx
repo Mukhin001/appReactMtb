@@ -49,6 +49,6 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
             </div> 
         </>    
      );
-}
+};
  
 export default HtmlPhoto;
