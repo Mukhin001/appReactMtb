@@ -19,6 +19,9 @@ const MainPhoto = ({getLikesFn}) => {
 
     function slideClickLeft() {
         const arrSlide = [...slideWrapper.current.children];
+        if(arrSlide.length === 1) {
+            return
+        }
         for(let i = 0; i < arrSlide.length; i++) { 
             arrSlide[i].classList.remove(st.slideImgActive); 
         };
@@ -36,6 +39,9 @@ const MainPhoto = ({getLikesFn}) => {
 
     function slideClickRight() {
         const arrSlide = [...slideWrapper.current.children];
+        if(arrSlide.length === 1) {
+            return
+        }
         for(let i = 0; i < arrSlide.length; i++) { 
             arrSlide[i].classList.remove(st.slideImgActive); 
         };
@@ -57,21 +63,23 @@ const MainPhoto = ({getLikesFn}) => {
     }; 
 
     function openImg(e) { 
+        
         if(e.target.src) {
             setImgActive(e.target.src);
+            setSliderOpacity('1');
+            setSliderWrapperWidth('0');
+            let arr = [];
+                [...e.currentTarget.children].forEach(div => {
+                    [...div.children].forEach(img => 
+                        {
+                        arr.push(img)  
+                        } 
+                    )
+                });
+            setAddImgArr(arr);
+            document.body.style.overflow = 'hidden';
         }
-        setSliderOpacity('1');
-        setSliderWrapperWidth('0');
-        let arr = [];
-            [...e.currentTarget.children].forEach(div => {
-                [...div.children].forEach(img => 
-                    {
-                    arr.push(img)  
-                    } 
-                )
-            });
-        setAddImgArr(arr);
-        document.body.style.overflow = 'hidden';
+     
     };   
     
     return ( 

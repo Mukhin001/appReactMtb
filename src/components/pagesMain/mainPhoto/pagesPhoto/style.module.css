@@ -1,7 +1,7 @@
 .pagePhotosWrap ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: minmax(auto, 300px);
+    align-items: start;
 }
 
 .pagePhotoContainer {
@@ -12,6 +12,7 @@
 
 .photosImgLi {
     max-width: 250px;
+    position: relative;
 }
 
 .photosImgLi img {
@@ -59,4 +60,27 @@
 
 .sliderContainer {
     display: flex;
+}
+
+.imgName {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    z-index: -1;
+    transition: 1s ease;
+}
+
+.photosImgLi div:hover .imgName {
+    bottom: 0;
+    z-index: 0;
+}
+
+.gridHoverImg {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
 }

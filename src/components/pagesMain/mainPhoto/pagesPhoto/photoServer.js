@@ -11,7 +11,7 @@ export const photoServer = [
     },
     {
         name: 'IMG-6437',
-        url : ["../img/IMG_6437.jpeg", "../img/.jpg", "../img/.jpg", "../img/.png"],
+        url : ["../img/IMG_6437.jpeg", "../img/IMG_6784.jpeg", ], //"../img/.jpg", "../img/.jpg", "../img/.png"
         description: 'park IMG-6437 photo',
     },
     {
