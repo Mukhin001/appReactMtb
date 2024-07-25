@@ -25,9 +25,9 @@
     max-width: 300px;
 }
 
-/* .pagePhotoImg img {
+.pagePhotoImg img {
     max-width: 100%;
-} */
+}
 
 .photoSlide {
     display: flex;
@@ -37,9 +37,9 @@
     display: none;
 }
 
-/* .slideImg img {
+.slideImg img {
     width: 100%;
-} */
+}
 
 .slideImgActive {
     display: block;

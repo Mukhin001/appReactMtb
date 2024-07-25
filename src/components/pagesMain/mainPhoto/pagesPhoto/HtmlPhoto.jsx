@@ -8,6 +8,7 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
         <>
             <div onClick={openImg} className={st.pagePhotoContainer}>
                 {photoServer.map((elem) => {
+                    
                     return (
                         (elem.name === name) &&
                             elem.url.map((el, i) => {

@@ -68,7 +68,7 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
         videoServer.forEach((objMain) => {
             objMain.content.forEach((obj) => {
                     if(obj.description.toLocaleLowerCase().includes(inpue.target.value.toLocaleLowerCase())) {
-                        console.log(obj);
+                        //console.log(obj);
                         getVideoFn(obj);
                     }
                 })

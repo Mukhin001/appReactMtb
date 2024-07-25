@@ -1,51 +1,47 @@
 import { NavLink } from "react-router-dom";
 import st from './style.module.css';
 import { photoServer } from './photoServer';
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 
 const PagePhotos = ({getLikesFn}) => {
     const imgRef = useRef(null);
     const slideDots = useRef(null);
-    const [arrImg, setArrImg] = useState([]);
  
     function getLikes(e) {
+        //console.log(e.target.parentNode.parentNode);
         getLikesFn(e.target.parentNode.parentNode);
     };
 
-    function mouseOver() {
-        // [...imgRef.current.children].forEach(li => {
-        // //     [...li.children[0].children[0].children].slice(0, -1).forEach(img => img.style.display = 'none');
-        // //    // console.log([...li.children[0].children[0].children]);
-        // //     [...li.children[0].children[0].children][0].style.display = 'block';
-        // });
-        // console.log(1);
-       
-        [...imgRef.current.children].forEach(li => {
-            let dots = ([...li.children[0].children[0].children].slice(-1));
-            //[...li.children[0].children[0].children].slice(0, -1).forEach(img => img.style.display = 'none');
-
-            for(let i = 0; i < dots.length; i++) {
-                
-        // //    // console.log([...li.children[0].children[0].children]);
-          //  [...li.children[0].children[0].children][i].style.display = 'block';
-                for(let j = 0; j < [...li.children[0].children[0].children].length; j++) {
-                     [...li.children[0].children[0].children][i].style.display = 'none';
-                }
-                //console.log( [...li.children[0].children[0].children]);
-            }
-        });
-    };
-
-   useEffect(() => {
+    useEffect(() => {
         [...imgRef.current.children].forEach(li => {
          
             [...li.children[0].children[0].children][0].style.display = 'block';
             ([...li.children[0].children[0].children].slice(-1));
         });
-       // setArrImg(imgRef.current.children);
-       
-   });
+
+        [...imgRef.current.children].forEach(li => {
+            let coverDivImgCard = ([...li.children[0].children[0].children].slice(-1));
+                coverDivImgCard.forEach(coverDivImg => {
+                    
+                    let dotsSlider = [...coverDivImg.children];
+                        for(let i = 0; i < dotsSlider.length; i++) {
+                            dotsSlider[i].addEventListener('mouseover', () => {
+                                let imgSlider = [...dotsSlider[i].parentNode.parentNode.children].slice(0, -1);
+                                imgSlider.forEach(img => img.style.display = 'none');
+                                imgSlider[i].style.display = 'block';
+                            });
+                        };
+                    coverDivImg.addEventListener('mouseout', (e) => {
+                        let imgArr = [...e.target.parentNode.parentNode.children].slice(0, -1);
+                            for(let i = 0; i < imgArr.length; i++) {
+                                imgArr[i].style.display = 'none';
+                                imgArr[0].style.display = 'block';
+                            };
+                    });
+                });
+        });
+    });
 
     return ( 
         <div className={st.pagePhotosWrap}>
@@ -54,7 +50,7 @@ const PagePhotos = ({getLikesFn}) => {
                     
                     return (
                         <li atrlike={obj.name} namephoto={obj.name} className={st.photosImgLi} key={obj.name}>
-                            <div style={{position: 'relative'}}  onMouseOver={mouseOver} >
+                            <div style={{position: 'relative'}} >
                                 <NavLink to={`/photo/${obj.name}`}>
                                
                                 {obj.url.map(url => {

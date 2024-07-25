@@ -63,7 +63,7 @@ const MainPhoto = ({getLikesFn}) => {
     }; 
 
     function openImg(e) { 
-        
+       
         if(e.target.src) {
             setImgActive(e.target.src);
             setSliderOpacity('1');
