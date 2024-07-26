@@ -12,7 +12,7 @@
 }
 
 .photosImgLi {
-    max-width: 250px;
+    
     position: relative;
 }
 
@@ -90,4 +90,20 @@
 .slideTods {
     color: white;
     text-align: center;
+}
+
+@media (max-width: 600px ) {
+    .pagePhotosWrap ul {
+      
+        grid-template-columns: repeat(2, 1fr);
+       
+    }
+}
+
+@media (max-width: 300px ) {
+    .pagePhotosWrap ul {
+      
+        grid-template-columns: repeat(1, 1fr);
+       
+    }
 }

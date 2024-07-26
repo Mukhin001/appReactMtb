@@ -28,6 +28,7 @@ const PagePhotos = ({getLikesFn}) => {
                         for(let i = 0; i < dotsSlider.length; i++) {
                             dotsSlider[i].addEventListener('mouseover', () => {
                                 let imgSlider = [...dotsSlider[i].parentNode.parentNode.children].slice(0, -1);
+                                
                                 imgSlider.forEach(img => img.style.display = 'none');
                                 imgSlider[i].style.display = 'block';
                             });
@@ -45,6 +46,13 @@ const PagePhotos = ({getLikesFn}) => {
 
     return ( 
         <div className={st.pagePhotosWrap}>
+            <div>
+                <label htmlFor="sort"></label>
+                <select id="sort">
+                    <option value='comment'>comment</option>
+                    <option value='date'>date</option>
+                </select>
+            </div>
             <ul ref={imgRef}>
                 {photoServer.map((obj) => {
                     
@@ -54,7 +62,7 @@ const PagePhotos = ({getLikesFn}) => {
                                 <NavLink to={`/photo/${obj.name}`}>
                                
                                 {obj.url.map(url => {
-                                    return ( <img src={url} key={url} alt={url.substring(26)}  />)})}
+                                    return ( <img src={url} key={url} alt={url.substring(26)} /> )})}
                                 <div ref={slideDots} className={st.gridHoverImg} style={{gridTemplateColumns: `repeat(${obj.url.length}, 1fr)`}}>
                                     {obj.url.map((url, i) => {
                                         return (<div className={st.slideTods} key={url.substring(2)}>{i}</div>)
@@ -65,7 +73,13 @@ const PagePhotos = ({getLikesFn}) => {
                                 <h3 className={st.imgName}>{obj.name}</h3>
                                 
                             </div>
-                            <div style={{display: 'flex', justifyContent: 'flex-end'}}><button onClick={getLikes}>Likes</button></div>
+                            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                                <div>
+                                    <div>comment 26</div>
+                                    <div>date 26.05.2022</div>
+                                </div>
+                                <button onClick={getLikes}>Likes</button>
+                            </div>
                         </li>
                     )
                 })}
