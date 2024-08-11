@@ -32,6 +32,6 @@ const ApiCityLogin = ({loginExit, linkExit}) => {
             <Login loginExit={loginExit} linkExit={linkExit} />
         </div>
      );
-}
+};
  
 export default ApiCityLogin;

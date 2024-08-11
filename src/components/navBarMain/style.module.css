@@ -10,7 +10,7 @@
 }
 
 .NavBarMainWrapper button {
-   padding: 0 25px;
+   width: 100px;
    background-color: transparent;
    cursor: pointer;
 }

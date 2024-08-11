@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import st from './style.module.css';
+import mobile from '../../../mobileFile/mobile.module.css';
 import { photoServer } from './photoServer';
 import { useRef, useEffect } from "react";
 
@@ -45,7 +46,7 @@ const PagePhotos = ({getLikesFn}) => {
     });
 
     return ( 
-        <div className={st.pagePhotosWrap}>
+        <div className={`${st.pagePhotosWrap} ${mobile.pagePhotosWrap}`}>
             <div>
                 <label htmlFor="sort"></label>
                 <select id="sort">
@@ -58,8 +59,8 @@ const PagePhotos = ({getLikesFn}) => {
                     
                     return (
                         <li atrlike={obj.name} namephoto={obj.name} className={st.photosImgLi} key={obj.name}>
-                            <div style={{position: 'relative'}} >
-                                <NavLink to={`/photo/${obj.name}`}>
+                            <div style={{position: 'relative'}}>
+                                <NavLink to={`/photo/${obj.name}`} className={st.imgWrapSlide}>
                                
                                 {obj.url.map(url => {
                                     return ( <img src={url} key={url} alt={url.substring(26)} /> )})}

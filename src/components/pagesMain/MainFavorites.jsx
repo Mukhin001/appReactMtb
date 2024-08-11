@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import st from '../pagesMain/mainPhoto/pagesPhoto/style.module.css';
+import mobile from '../mobileFile/mobile.module.css';
 import { useRef, useEffect } from "react";
 
 const MainFavorites = ({likes}) => {
@@ -50,7 +51,7 @@ const MainFavorites = ({likes}) => {
 
     return (
         <main>
-            <div className={st.pagePhotosWrap}>
+            <div className={`${st.pagePhotosWrap} ${mobile.pagePhotosWrap}`}>
                 Likes
                 <ul ref={imgRef}>
                     {   Object.entries(likes).map(([key, value]) => {
@@ -59,7 +60,7 @@ const MainFavorites = ({likes}) => {
                             return (
                                 <li key={key} atrlike={key} className={st.photosImgLi}>
                                     <div style={{position: 'relative'}} >
-                                        <NavLink to={ value.children[0].children[0].href.substring(21)}>
+                                        <NavLink to={ value.children[0].children[0].href.substring(21)}  className={st.imgWrapSlide}>
                                             {imgMouseSlide.map(img => { return (<img src={img.src} key={img.alt} alt={img.alt} />)})}
 
                                             <div ref={slideDots} className={st.gridHoverImg} style={{gridTemplateColumns: `repeat(${imgMouseSlide.length}, 1fr)`}}>

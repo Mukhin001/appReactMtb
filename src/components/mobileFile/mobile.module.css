@@ -1,0 +1,23 @@
+.pagePhotosWrap ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    gap: 20px;
+}
+
+@media (max-width: 750px ) {
+    .pagePhotosWrap ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .NavBarMainWrapper {
+        display: none;
+    }
+}
+
+@media (max-width: 450px ) {
+    .pagePhotosWrap ul {
+      
+        grid-template-columns: repeat(1, 1fr);
+       
+    }
+}
