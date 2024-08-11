@@ -40,6 +40,17 @@ function App() {
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
 
+    // const [widthHeigtDisplay, setWidthHeigtDisplay] = useState([0, 0]);
+
+    // function setWidthDisplay(event) {
+    //     setWidthHeigtDisplay([event.target.window.innerWidth, event.target.window.innerHeiht]);
+       
+        
+    // };
+    // console.log(widthHeigtDisplay);
+    //window.addEventListener('resize', setWidthDisplay);
+   
+
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...prev, obj]);   
     };
