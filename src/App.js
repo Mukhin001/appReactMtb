@@ -19,7 +19,8 @@ import MainFavorites from './components/pagesMain/MainFavorites';
 
 import React from "react";
 
-export const VideoContext = React.createContext();
+// export const VideoContext = React.createContext();
+export const ContextClientWidth = React.createContext();
 
 const arrLink = [
     '/',
@@ -40,16 +41,17 @@ function App() {
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
 
-    // const [widthHeigtDisplay, setWidthHeigtDisplay] = useState([0, 0]);
+    
+    const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
 
-    // function setWidthDisplay(event) {
-    //     setWidthHeigtDisplay([event.target.window.innerWidth, event.target.window.innerHeiht]);
-       
-        
-    // };
-    // console.log(widthHeigtDisplay);
-    //window.addEventListener('resize', setWidthDisplay);
-   
+    function setWidthDisplayFn(event) { 
+        setWidthDisplay(event.target.window.innerWidth);
+    };
+    
+    window.addEventListener('resize', setWidthDisplayFn);
+    // setTimeout(() => {
+    //     window.removeEventListener('resize', setWidthDisplayFn);
+    // }, 5000);
 
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...prev, obj]);   
@@ -117,8 +119,13 @@ function App() {
   return (
     <div className="App">
        <Router>
-            <VideoContext.Provider value={'namePhoto'}>
-                <Header userGreeting={userName} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}/>
+            {/* <VideoContext.Provider value={'namePhoto'}> */}
+                <ContextClientWidth.Provider  value={widthDisplay}>
+                    <Header userGreeting={userName} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
+                            setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
+                    />
+                </ContextClientWidth.Provider>
+
                 <div className='navBarWrapper'>
                 
                     <NavBarMain />
@@ -141,7 +148,7 @@ function App() {
                         <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                     </div>
                 </div>
-            </VideoContext.Provider>
+            {/* </VideoContext.Provider> */}
             <Footer />
        </Router>
        <button onClick={btnAppTo} className='btnApp' style={{display: `${btnToDisplay}`}}>up</button>
