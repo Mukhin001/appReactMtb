@@ -61,12 +61,12 @@ const MainFavorites = ({likes}) => {
                                 <li key={key} atrlike={key} className={st.photosImgLi}>
                                     <div style={{position: 'relative'}} >
                                         <NavLink to={ value.children[0].children[0].href.substring(21)}  className={st.imgWrapSlide}>
-                                            {imgMouseSlide.map(img => { return (<img src={img.src} key={img.alt} alt={img.alt} />)})}
+                                            {imgMouseSlide.map(img => { return (<img src={img.src} key={img.src} alt={img.src} />)})}
 
                                             <div ref={slideDots} className={st.gridHoverImg} style={{gridTemplateColumns: `repeat(${imgMouseSlide.length}, 1fr)`}}>
                                                 {imgMouseSlide.map((img, i) => {
                                                     
-                                                    return (<div className={st.slideTods} key={img.alt}>{i}</div>)
+                                                    return (<div className={st.slideTods} key={img.src.substring(3)}>{i}</div>)
                                                 })}
                                             </div>
                                         </NavLink>

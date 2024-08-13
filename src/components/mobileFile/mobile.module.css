@@ -5,6 +5,11 @@
     gap: 20px;
 }
 
+.pagePhotoContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
 @media (max-width: 750px ) {
     .pagePhotosWrap ul {
         grid-template-columns: repeat(2, 1fr);
@@ -16,8 +21,9 @@
 
 @media (max-width: 450px ) {
     .pagePhotosWrap ul {
-      
         grid-template-columns: repeat(1, 1fr);
-       
+    }
+    .pagePhotoContainer {
+        grid-template-columns: repeat(1, 1fr);
     }
 }

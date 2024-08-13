@@ -1,12 +1,13 @@
 import st from './style.module.css';
 import {photoServer} from './photoServer';
+import mobile from '../../../mobileFile/mobile.module.css';
 
 const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft}) => {
 
 
     return ( 
-        <>
-            <div onClick={openImg} className={st.pagePhotoContainer}>
+        <div className='htmlPhoto'>
+            <div onClick={openImg} className={`${st.pagePhotoContainer} ${mobile.pagePhotoContainer}`}>
                 {photoServer.map((elem) => {
                     
                     return (
@@ -23,7 +24,7 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
             )
                 }
             </div>
-            {/* transform: translateX(-200%); */}
+            
             <div style={{ left: `${sliderWrapperLeft}`, opacity: `${sliderOpacity}`}} className={st.sliderWrapper}>
                 <div className={st.sliderContainer}>
                     <button onClick={slideClickLeft} className={st.btn}>left</button>
@@ -48,7 +49,35 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
                 </div>
                 <button onClick={closeSlider} className={st.closeSlider}>close</button>
             </div> 
-        </>    
+
+            <div className='comment'>
+
+                <div>
+                    <form>
+                        <label htmlFor=""></label>
+                        <input type="text" />
+                        <textarea name="" id=""></textarea>
+                        <button>submit</button>
+                    </form>
+                </div>        
+
+                 { photoServer.map(elem =>  {
+                    
+                    return (
+                        (elem.name === name) &&
+                            elem.comments.map(objComment => {
+                                return (
+                                    <article key={objComment.userName}>
+                                        <h5>{objComment.userName}</h5>
+                                        <p>{objComment.userComment}</p> 
+                                        <time dateTime={objComment.date}>{objComment.date}</time>       
+                                    </article>
+                                )
+                            })
+                    )
+                 })}       
+            </div>
+        </div>    
      );
 };
  
