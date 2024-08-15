@@ -4,7 +4,7 @@ import st from './style.module.css';
 import { ContextClientWidth } from '../../App';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-const Header = ({userName, loginExit, linkExit, getPhotoFn, setSearchPhoto, getVideoFn}) => {
+const Header = ({userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, getVideoFn}) => {
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
@@ -49,7 +49,7 @@ const Header = ({userName, loginExit, linkExit, getPhotoFn, setSearchPhoto, getV
 
             <button ref={btnOpenRef} style={{display: stDisplayActiveBtn}} onClick={openHeaderMenuMobile}>Open</button> 
                                    
-            <h4>{`Hello ${userName}`}</h4>
+            <h4>{`Hello ${userNameLogin}`}</h4>
 
         </header>
         

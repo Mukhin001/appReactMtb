@@ -1,6 +1,6 @@
 import HtmlPhoto from "./HtmlPhoto";
 
-const PagePhotoThree = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userName}) => {
+const PagePhotoThree = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userNameLogin}) => {
     return ( 
         <div>
             Page PhotoThree
@@ -14,7 +14,7 @@ const PagePhotoThree = ({name, sliderOpacity, closeSlider, addImgArr, imgActive,
                 slideClickLeft={slideClickLeft}
                 slideClickRight={slideClickRight}
                 sliderWrapperLeft={sliderWrapperLeft}
-                userName={userName}
+                userNameLogin={userNameLogin}
             />
         </div>
      );

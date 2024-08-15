@@ -1,14 +1,34 @@
 import st from './style.module.css';
 import {photoServer} from './photoServer';
 import mobile from '../../../mobileFile/mobile.module.css';
+import { useState } from 'react';
 
-const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userName}) => {
+const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userNameLogin}) => {
+    const [userNameServer, setUserNameServer] = useState(userNameLogin);
+    const [userCommentServer, setUserCommentServer] = useState('');
 
-    function getUserComment(value) {
-        console.log(value.target.parentNode[0].value);
-        console.log(userName);
-          
-    }
+    function setUserNameServerFn(value) {
+        setUserNameServer(value.target.value);
+    };
+
+    function setUserCommentServerFn(value) {
+        setUserCommentServer(value.target.value);
+    };
+
+    function getUserComment() {
+
+        photoServer.forEach(obj => {
+            if(obj.name === name) {
+                obj.comments.push({ userName: userNameServer,
+                                    userComment: userCommentServer,
+                                    answer: [],
+                });
+                console.log(obj);
+                
+            }
+            
+        })
+    };
 
     return ( 
         <div className='htmlPhoto'>
@@ -58,27 +78,27 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
             <div className='comment'>
 
                 <div>
-                    <form>
+                    {/* <form> */}
                         <div>
                             <label htmlFor="userName">userName</label>
-                            <input type="text" name='userName' id='userName' placeholder='userName' />
+                            <input type="text" name='userName' id='userName' placeholder='userName' onChange={setUserNameServerFn} value={(userNameLogin !== 'anonimus') ? userNameLogin : ''}/>
                         </div>
                         <div>
                             <label htmlFor="userComment">userComment</label>
-                            <textarea name="userComment" id="userComment" placeholder='userComment' required ></textarea>
+                            <textarea name="userComment" id="userComment" placeholder='userComment' required onChange={setUserCommentServerFn}></textarea>
                         </div>
                         <button type='reset'>reset</button>
                         <button onClick={getUserComment}>submit</button>
-                    </form>
+                    {/* </form> */}
                 </div>        
 
                  { photoServer.map(elem =>  {
                     
                     return (
                         (elem.name === name) &&
-                            elem.comments.map(objComment => {
+                            elem.comments.map((objComment, index) => {
                                 return (
-                                    <article key={objComment.userName}>
+                                    <article key={objComment.userName + index}>
                                         <h5>{objComment.userName}</h5>
                                         <p>{objComment.userComment}</p> 
                                         <time dateTime={objComment.date}>{objComment.date}</time>       

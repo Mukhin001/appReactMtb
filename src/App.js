@@ -33,7 +33,7 @@ const arrLink = [
 function App() {
     
     const [countLink, setCountLink] = useState(1);
-    const [userName, setUserName] = useState('anonimus');
+    const [userNameLogin, setUserNameLogin] = useState('anonimus');
     const [loginExit, setLoginExit] = useState('Login');
     const [linkExit, setLinkExit] = useState('/login');
     const [likes, setLikes] = useState({});
@@ -80,8 +80,8 @@ function App() {
     };
 
 
-    function userNameEnterFn(value) {
-        setUserName('Hello ' + value + '!');
+    function userNameLoginEnterFn(value) {
+        setUserNameLogin(value);
     };
 
     function getLoginFn(value) {
@@ -112,7 +112,7 @@ function App() {
        <Router>
             {/* <VideoContext.Provider value={'namePhoto'}> */}
                 <ContextClientWidth.Provider  value={widthDisplay}>
-                    <Header userName={userName} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
+                    <Header userNameLogin={userNameLogin} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
                             setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
                     />
                 </ContextClientWidth.Provider>
@@ -125,13 +125,13 @@ function App() {
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                             <Routes>
                                 <Route path="/" element={<MainHome />} />
-                                <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userName={userName}/>} />
+                                <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userNameLogin={userNameLogin}/>} />
                                 <Route path="/video/*" element={<MainVideo />} />
                                 <Route path="/news" element={<MainNews />} />
                                 <Route path="/about" element={<MainAbout />} />
-                                <Route path="/login" element={<MainLogin enterAcc={userNameEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
-                                <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
-                                <Route path="/exit" element={<MainExit  enterAcc={userNameEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn} />} />
+                                <Route path="/login" element={<MainLogin enterAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
+                                <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
+                                <Route path="/exit" element={<MainExit  enterAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn} />} />
                                 <Route path="/bye" element={<MainBye />} />
                                 <Route path="/search" element={<MainSearch searchPhoto={searchPhoto} searchVideo={searchVideo} getLikesFn={getLikesFn}/>} />
                                 <Route path='/favorites' element={<MainFavorites likes={likes}/>} />

@@ -8,7 +8,7 @@ import PagePhotoFive from './pagesPhoto/PagePhotoFive';
 import st from './pagesPhoto/style.module.css';
 
 import { useState,  useRef} from 'react'; 
-const MainPhoto = ({getLikesFn, userName}) => {
+const MainPhoto = ({getLikesFn, userNameLogin}) => {
     const [sliderOpacity, setSliderOpacity] = useState('0'); 
     const [addImgArr, setAddImgArr] = useState([]);
     const [imgActive, setImgActive] = useState();
@@ -98,7 +98,7 @@ const MainPhoto = ({getLikesFn, userName}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
-                        userName={userName}
+                        userNameLogin={userNameLogin}
                     />} />
                     <Route path="/cap2015" element={<PagePhotoTwo 
                         name={'cap2015'}
@@ -110,7 +110,7 @@ const MainPhoto = ({getLikesFn, userName}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
-                        userName={userName}
+                        userNameLogin={userNameLogin}
                     />}/>
                     <Route path="/IMG-6437" element={<PagePhotoThree 
                          name={'IMG-6437'}
@@ -122,7 +122,7 @@ const MainPhoto = ({getLikesFn, userName}) => {
                          slideClickLeft={slideClickLeft}
                          slideClickRight={slideClickRight}
                          sliderWrapperLeft={sliderWrapperLeft}
-                         userName={userName}
+                         userNameLogin={userNameLogin}
                     />} />
                     <Route path="/IMG_6784" element={<PagePhotoFour 
                         name={'IMG_6784'}
@@ -134,7 +134,7 @@ const MainPhoto = ({getLikesFn, userName}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
-                        userName={userName}
+                        userNameLogin={userNameLogin}
                     />} />
                     <Route path="/scale_1200" element={<PagePhotoFive 
                         name={'scale_1200'}
@@ -146,7 +146,7 @@ const MainPhoto = ({getLikesFn, userName}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
-                        userName={userName}
+                        userNameLogin={userNameLogin}
                     />} />
                </Routes>
         </main>
