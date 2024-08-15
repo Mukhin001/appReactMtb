@@ -33,14 +33,13 @@ const arrLink = [
 function App() {
     
     const [countLink, setCountLink] = useState(1);
-    const [userName, setUserName] = useState('the user did not log in');
+    const [userName, setUserName] = useState('anonimus');
     const [loginExit, setLoginExit] = useState('Login');
     const [linkExit, setLinkExit] = useState('/login');
     const [likes, setLikes] = useState({});
 
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
-
     
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
 
@@ -49,9 +48,6 @@ function App() {
     };
     
     window.addEventListener('resize', setWidthDisplayFn);
-    // setTimeout(() => {
-    //     window.removeEventListener('resize', setWidthDisplayFn);
-    // }, 5000);
 
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...prev, obj]);   
@@ -86,12 +82,6 @@ function App() {
 
     function userNameEnterFn(value) {
         setUserName('Hello ' + value + '!');
-       //console.log(localStorage);
-    };
-
-    function userNameRegisterFn(value) {
-        setUserName('Hello ' + value + '!');
-       //console.log(localStorage);
     };
 
     function getLoginFn(value) {
@@ -99,8 +89,9 @@ function App() {
     };
 
     function linkExitFn(value) {
-        setLinkExit(value);
+        setLinkExit(value); 
     };
+
     const [btnToDisplay, setBtnToDisplay] = useState('none');
     
     window.addEventListener('scroll', function() {
@@ -121,7 +112,7 @@ function App() {
        <Router>
             {/* <VideoContext.Provider value={'namePhoto'}> */}
                 <ContextClientWidth.Provider  value={widthDisplay}>
-                    <Header userGreeting={userName} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
+                    <Header userName={userName} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
                             setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
                     />
                 </ContextClientWidth.Provider>
@@ -134,13 +125,13 @@ function App() {
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                             <Routes>
                                 <Route path="/" element={<MainHome />} />
-                                <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn}/>} />
+                                <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userName={userName}/>} />
                                 <Route path="/video/*" element={<MainVideo />} />
                                 <Route path="/news" element={<MainNews />} />
                                 <Route path="/about" element={<MainAbout />} />
-                                <Route path="/login" element={<MainLogin enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn}/>}/>
-                                <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameRegisterFn} />}/>
-                                <Route path="/exit" element={<MainExit  enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn} />} />
+                                <Route path="/login" element={<MainLogin enterAcc={userNameEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
+                                <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
+                                <Route path="/exit" element={<MainExit  enterAcc={userNameEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn} />} />
                                 <Route path="/bye" element={<MainBye />} />
                                 <Route path="/search" element={<MainSearch searchPhoto={searchPhoto} searchVideo={searchVideo} getLikesFn={getLikesFn}/>} />
                                 <Route path='/favorites' element={<MainFavorites likes={likes}/>} />

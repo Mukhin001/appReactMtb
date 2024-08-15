@@ -2,8 +2,13 @@ import st from './style.module.css';
 import {photoServer} from './photoServer';
 import mobile from '../../../mobileFile/mobile.module.css';
 
-const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft}) => {
+const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userName}) => {
 
+    function getUserComment(value) {
+        console.log(value.target.parentNode[0].value);
+        console.log(userName);
+          
+    }
 
     return ( 
         <div className='htmlPhoto'>
@@ -54,10 +59,16 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
 
                 <div>
                     <form>
-                        <label htmlFor=""></label>
-                        <input type="text" />
-                        <textarea name="" id=""></textarea>
-                        <button>submit</button>
+                        <div>
+                            <label htmlFor="userName">userName</label>
+                            <input type="text" name='userName' id='userName' placeholder='userName' />
+                        </div>
+                        <div>
+                            <label htmlFor="userComment">userComment</label>
+                            <textarea name="userComment" id="userComment" placeholder='userComment' required ></textarea>
+                        </div>
+                        <button type='reset'>reset</button>
+                        <button onClick={getUserComment}>submit</button>
                     </form>
                 </div>        
 

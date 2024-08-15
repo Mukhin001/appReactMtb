@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
 
-const MainExit = ({loginExit, linkExit, enterAcc}) => {
+const MainExit = ({getLoginFn, linkExitFn, enterAcc}) => {
 
     function exitFn() {
         enterAcc('the user did not log in');
-        loginExit('Login');
-        linkExit('/login');
+        getLoginFn('Login');
+        linkExitFn('/login');
     };
 
     return ( 

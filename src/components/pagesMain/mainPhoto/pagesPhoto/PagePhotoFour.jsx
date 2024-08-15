@@ -1,7 +1,7 @@
 import HtmlPhoto from "./HtmlPhoto";
 
 
-const PagePhotoFour = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft}) => {
+const PagePhotoFour = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userName}) => {
     return ( 
         <>
             <HtmlPhoto 
@@ -14,6 +14,7 @@ const PagePhotoFour = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, 
                 slideClickLeft={slideClickLeft}
                 slideClickRight={slideClickRight}
                 sliderWrapperLeft={sliderWrapperLeft}
+                userName={userName}
             />
         </>    
      );
