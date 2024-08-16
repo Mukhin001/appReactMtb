@@ -35,7 +35,7 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
 
     function setUserCommentServerFn(value) {
         setUserCommentServer(value.target.value);
-    };
+    }; 
 
     function getUserComment() {
         console.log(inputName.current.value);
