@@ -1,12 +1,34 @@
 import st from './style.module.css';
 import {photoServer} from './photoServer';
 import mobile from '../../../mobileFile/mobile.module.css';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userNameLogin}) => {
     const [userNameServer, setUserNameServer] = useState(userNameLogin);
     const [userCommentServer, setUserCommentServer] = useState('');
+    const [, setServer] = useState(photoServer);
+    const inputName = useRef();
+    const textarea = useRef();
 
+    useEffect(() => {
+        if(userNameLogin !== 'anonimus') {
+            inputName.current.setAttribute('value', userNameLogin);
+            inputName.current.setAttribute('readonly', '');
+        }
+        // (userNameLogin !== 'anonimus') && userNameLogin
+    });
+  
+    function clearTextArea() {
+        if(userNameLogin !== 'anonimus') {
+            inputName.current.setAttribute('value', userNameLogin);
+            inputName.current.setAttribute('readonly', '');
+        }  else {
+            inputName.current.value = '';
+        }
+        
+        textarea.current.value = '';
+    };
+    
     function setUserNameServerFn(value) {
         setUserNameServer(value.target.value);
     };
@@ -16,24 +38,44 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
     };
 
     function getUserComment() {
+        console.log(inputName.current.value);
+        
+        const date = new Date();
+        
+        let commentDateDay;
+            (date.getDate() < 10) ? commentDateDay = `0${date.getDate()}` : commentDateDay = date.getDate();
+        let commentDateMonth;
+            (date.getMonth() < 10) ? commentDateMonth = `0${date.getMonth() + 1}` : commentDateMonth = date.getMonth() + 1;
+
+        const commentDateYear = date.getFullYear();
 
         photoServer.forEach(obj => {
             if(obj.name === name) {
                 obj.comments.push({ userName: userNameServer,
                                     userComment: userCommentServer,
+                                    date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                     answer: [],
                 });
-                console.log(obj);
-                
-            }
-            
-        })
+                setServer({ userName: userNameServer,
+                            userComment: userCommentServer,
+                            date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
+                            answer: [],
+                });   
+            } 
+        });
+        if(userNameLogin !== 'anonimus') {
+            inputName.current.setAttribute('value', userNameLogin);
+            inputName.current.setAttribute('readonly', '');
+        }  else {
+            inputName.current.value = '';
+        }
+        textarea.current.value = ''; 
     };
 
     return ( 
         <div className='htmlPhoto'>
             <div onClick={openImg} className={`${st.pagePhotoContainer} ${mobile.pagePhotoContainer}`}>
-                {photoServer.map((elem) => {
+                { photoServer.map((elem) => {
                     
                     return (
                         (elem.name === name) &&
@@ -81,22 +123,23 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
                     {/* <form> */}
                         <div>
                             <label htmlFor="userName">userName</label>
-                            <input type="text" name='userName' id='userName' placeholder='userName' onChange={setUserNameServerFn} value={(userNameLogin !== 'anonimus') ? userNameLogin : ''}/>
+                            <input ref={inputName} type="text" name='userName' id='userName' placeholder='userName' onChange={setUserNameServerFn} />
                         </div>
                         <div>
                             <label htmlFor="userComment">userComment</label>
-                            <textarea name="userComment" id="userComment" placeholder='userComment' required onChange={setUserCommentServerFn}></textarea>
+                            <textarea ref={textarea} name="userComment" id="userComment" placeholder='userComment' required onChange={setUserCommentServerFn}></textarea>
                         </div>
-                        <button type='reset'>reset</button>
+                        <button onClick={clearTextArea} type='reset'>reset</button>
                         <button onClick={getUserComment}>submit</button>
                     {/* </form> */}
                 </div>        
 
-                 { photoServer.map(elem =>  {
-                    
+                { photoServer.map(obj =>  {
+
                     return (
-                        (elem.name === name) &&
-                            elem.comments.map((objComment, index) => {
+                        (obj.name === name) &&
+                            
+                            obj.comments.map((objComment, index) => {
                                 return (
                                     <article key={objComment.userName + index}>
                                         <h5>{objComment.userName}</h5>
@@ -105,8 +148,9 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
                                     </article>
                                 )
                             })
+                           
                     )
-                 })}       
+                })}       
             </div>
         </div>    
      );
