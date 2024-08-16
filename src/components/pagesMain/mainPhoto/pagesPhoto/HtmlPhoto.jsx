@@ -15,7 +15,7 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
             inputName.current.setAttribute('value', userNameLogin);
             inputName.current.setAttribute('readonly', '');
         }
-        // (userNameLogin !== 'anonimus') && userNameLogin
+        
     });
   
     function clearTextArea() {

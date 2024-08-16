@@ -13,6 +13,6 @@ const MainExit = ({getLoginFn, linkExitFn, enterAcc}) => {
             <NavLink to="/bye" onClick={exitFn}>Yes</NavLink>
         </main>
      );
-}
+};
  
 export default MainExit;
