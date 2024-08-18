@@ -9,7 +9,7 @@ import Favorites from "./favorites/Favorites";
 const ApiCityLogin = ({loginExit, linkExit}) => {
     const [city, setCity] = useState('Berlin');
     const [language, setLanguage] = useState('GER');
-   // const [temp, setTemp] = useState();
+    //const [temp, setTemp] = useState();
 
     function getLanguage(value) {
         setLanguage(value);
