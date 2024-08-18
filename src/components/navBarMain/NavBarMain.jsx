@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import st from './style.module.css';
+import mobile from '../mobileFile/mobile.module.css';
 import { useRef, useState } from 'react';
 import NavHomeMain from './navPhotoMain/NavPhotoMain';
 import NavVideoMain from './navVideoMain/NavVideoMain';
@@ -49,7 +50,7 @@ const NavBarMain = () => {
    };
 
     return ( 
-        <div className={st.NavBarMainWrapper}>
+        <div className={`${st.NavBarMainWrapper} ${mobile.NavBarMainWrapper}`}>
             <button onClick={navTransitionRight} ref={btnOpen} style={{display: `${styleBtnOpen}`}}>Open</button>
             <button onClick={navTransitionLeft} ref={btnClose} style={{display: `${styleBtnClose}`}}>Close</button>
             <nav onMouseOver={ulMouseOver} onMouseLeave={ulMouseLeave} className={st.NavBarMainNav}>

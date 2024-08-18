@@ -1,4 +1,5 @@
 .NavFixed {
     display: flex;
     gap: 30px;
+    flex-flow: wrap;
 }

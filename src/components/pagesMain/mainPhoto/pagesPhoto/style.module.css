@@ -1,21 +1,11 @@
-.pagePhotosWrap ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: minmax(auto, 300px);
-}
-
-.pagePhotoContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    
-}
-
 .photosImgLi {
-    max-width: 250px;
+    
+    position: relative;
 }
 
 .photosImgLi img {
-    width: 100%;
+    
+    display: none;
 }
 
 .pagePhotoImg {
@@ -59,4 +49,45 @@
 
 .sliderContainer {
     display: flex;
+}
+
+.imgName {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    z-index: -1;
+    transition: 1s ease;
+}
+
+.photosImgLi div:hover .imgName {
+    bottom: -10%;
+    z-index: 0;
+}
+
+.gridHoverImg {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+
+}
+
+.slideTods {
+    color: white;
+    text-align: center;
+}
+
+.imgWrapSlide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+    background-color: aqua;
+}
+
+.imgWrapSlide img {
+    max-width: 100%;
+    max-height: 100%;
 }

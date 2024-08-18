@@ -1,10 +1,18 @@
 import HtmlVideo from "../HtmlVideo";
+import { Routes, Route } from "react-router-dom";
+import Otradnoe from "./otradnoe/Otradnoe";
+import Baltic from "./baltic/Baltic";
 
-const PageParkVideo = ({discipline}) => {
+const PageParkVideo = ({disciplineRoute}) => {
     return ( 
         <div>
             PageParkVideo
-            <HtmlVideo discipline={discipline}/>
+            
+            <Routes>
+                <Route path="/" element={ <HtmlVideo disciplineRoute={disciplineRoute} />}/>
+                <Route path="/baltic" element={ <Baltic /> }/>
+                <Route path="/otradnoe" element={ <Otradnoe /> }/>
+            </Routes>
         </div>
      );
 }

@@ -45,7 +45,7 @@ export const videoServer = [
                 }],
     },
     {
-    discipline: 'slopestyle', 
+    discipline: 'slopestyle',  
     content:    [  {      
                     name: 'NewZealand',
                     discipline: 'slopestyle', 

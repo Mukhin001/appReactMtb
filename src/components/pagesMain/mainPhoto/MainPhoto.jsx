@@ -8,7 +8,7 @@ import PagePhotoFive from './pagesPhoto/PagePhotoFive';
 import st from './pagesPhoto/style.module.css';
 
 import { useState,  useRef} from 'react'; 
-const MainPhoto = ({getLikesFn}) => {
+const MainPhoto = ({getLikesFn, userNameLogin}) => {
     const [sliderOpacity, setSliderOpacity] = useState('0'); 
     const [addImgArr, setAddImgArr] = useState([]);
     const [imgActive, setImgActive] = useState();
@@ -19,6 +19,9 @@ const MainPhoto = ({getLikesFn}) => {
 
     function slideClickLeft() {
         const arrSlide = [...slideWrapper.current.children];
+        if(arrSlide.length === 1) {
+            return
+        }
         for(let i = 0; i < arrSlide.length; i++) { 
             arrSlide[i].classList.remove(st.slideImgActive); 
         };
@@ -36,6 +39,9 @@ const MainPhoto = ({getLikesFn}) => {
 
     function slideClickRight() {
         const arrSlide = [...slideWrapper.current.children];
+        if(arrSlide.length === 1) {
+            return
+        }
         for(let i = 0; i < arrSlide.length; i++) { 
             arrSlide[i].classList.remove(st.slideImgActive); 
         };
@@ -57,21 +63,23 @@ const MainPhoto = ({getLikesFn}) => {
     }; 
 
     function openImg(e) { 
+       
         if(e.target.src) {
             setImgActive(e.target.src);
+            setSliderOpacity('1');
+            setSliderWrapperWidth('0');
+            let arr = [];
+                [...e.currentTarget.children].forEach(div => {
+                    [...div.children].forEach(img => 
+                        {
+                        arr.push(img)  
+                        } 
+                    )
+                });
+            setAddImgArr(arr);
+            document.body.style.overflow = 'hidden';
         }
-        setSliderOpacity('1');
-        setSliderWrapperWidth('0');
-        let arr = [];
-            [...e.currentTarget.children].forEach(div => {
-                [...div.children].forEach(img => 
-                    {
-                    arr.push(img)  
-                    } 
-                )
-            });
-        setAddImgArr(arr);
-        document.body.style.overflow = 'hidden';
+     
     };   
     
     return ( 
@@ -90,6 +98,7 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
+                        userNameLogin={userNameLogin}
                     />} />
                     <Route path="/cap2015" element={<PagePhotoTwo 
                         name={'cap2015'}
@@ -101,6 +110,7 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
+                        userNameLogin={userNameLogin}
                     />}/>
                     <Route path="/IMG-6437" element={<PagePhotoThree 
                          name={'IMG-6437'}
@@ -112,6 +122,7 @@ const MainPhoto = ({getLikesFn}) => {
                          slideClickLeft={slideClickLeft}
                          slideClickRight={slideClickRight}
                          sliderWrapperLeft={sliderWrapperLeft}
+                         userNameLogin={userNameLogin}
                     />} />
                     <Route path="/IMG_6784" element={<PagePhotoFour 
                         name={'IMG_6784'}
@@ -123,6 +134,7 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
+                        userNameLogin={userNameLogin}
                     />} />
                     <Route path="/scale_1200" element={<PagePhotoFive 
                         name={'scale_1200'}
@@ -134,6 +146,7 @@ const MainPhoto = ({getLikesFn}) => {
                         slideClickLeft={slideClickLeft}
                         slideClickRight={slideClickRight}
                         sliderWrapperLeft={sliderWrapperLeft}
+                        userNameLogin={userNameLogin}
                     />} />
                </Routes>
         </main>

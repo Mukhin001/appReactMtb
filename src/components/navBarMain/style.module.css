@@ -10,7 +10,7 @@
 }
 
 .NavBarMainWrapper button {
-   padding: 0 25px;
+   width: 100px;
    background-color: transparent;
    cursor: pointer;
 }
@@ -21,6 +21,7 @@
     background-color: salmon;
     padding: 20px 0 20px 20px;
     height: 100%;
+    z-index: 5;
 }
 
 .NavBarMainUl li {

@@ -1,10 +1,14 @@
 .Heading {
     display: flex;
     justify-content: space-between;
-    
+    flex-flow: wrap;
 }
 
 .logoAndSerch {
     display: flex;
-    
+    flex-flow: wrap;
 }
+
+.logoAndSerch h3 {
+    hyphens: manual;
+}   

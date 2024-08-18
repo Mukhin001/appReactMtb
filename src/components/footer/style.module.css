@@ -1,6 +1,11 @@
+footer {
+    margin-top: 30px;
+}
+
 .footerUl {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
     margin-bottom: 200px;
 }
 

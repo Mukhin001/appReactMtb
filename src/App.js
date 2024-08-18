@@ -19,7 +19,8 @@ import MainFavorites from './components/pagesMain/MainFavorites';
 
 import React from "react";
 
-export const VideoContext = React.createContext();
+// export const VideoContext = React.createContext();
+export const ContextClientWidth = React.createContext();
 
 const arrLink = [
     '/',
@@ -32,13 +33,21 @@ const arrLink = [
 function App() {
     
     const [countLink, setCountLink] = useState(1);
-    const [userName, setUserName] = useState('the user did not log in');
+    const [userNameLogin, setUserNameLogin] = useState('anonimus');
     const [loginExit, setLoginExit] = useState('Login');
     const [linkExit, setLinkExit] = useState('/login');
     const [likes, setLikes] = useState({});
 
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
+    
+    const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
+
+    function setWidthDisplayFn(event) { 
+        setWidthDisplay(event.target.window.innerWidth);
+    };
+    
+    window.addEventListener('resize', setWidthDisplayFn);
 
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...prev, obj]);   
@@ -71,14 +80,8 @@ function App() {
     };
 
 
-    function userNameEnterFn(value) {
-        setUserName('Hello ' + value + '!');
-       //console.log(localStorage);
-    };
-
-    function userNameRegisterFn(value) {
-        setUserName('Hello ' + value + '!');
-       //console.log(localStorage);
+    function userNameLoginEnterFn(value) {
+        setUserNameLogin(value);
     };
 
     function getLoginFn(value) {
@@ -86,14 +89,34 @@ function App() {
     };
 
     function linkExitFn(value) {
-        setLinkExit(value);
+        setLinkExit(value); 
+    };
+
+    const [btnToDisplay, setBtnToDisplay] = useState('none');
+    
+    window.addEventListener('scroll', function() {
+       
+        if( this.window.scrollY > (document.documentElement.clientHeight / 3)) {
+            setBtnToDisplay('block');
+        } else {
+            setBtnToDisplay('none');
+        }
+    });
+
+    function btnAppTo() {
+        window.scrollTo({top: 0, left: 0, behavior: "smooth",});
     };
 
   return (
     <div className="App">
        <Router>
-            <VideoContext.Provider value={'namePhoto'}>
-                <Header userGreeting={userName} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}/>
+            {/* <VideoContext.Provider value={'namePhoto'}> */}
+                <ContextClientWidth.Provider  value={widthDisplay}>
+                    <Header userNameLogin={userNameLogin} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
+                            setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
+                    />
+                </ContextClientWidth.Provider>
+
                 <div className='navBarWrapper'>
                 
                     <NavBarMain />
@@ -102,13 +125,13 @@ function App() {
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                             <Routes>
                                 <Route path="/" element={<MainHome />} />
-                                <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn}/>} />
+                                <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userNameLogin={userNameLogin}/>} />
                                 <Route path="/video/*" element={<MainVideo />} />
                                 <Route path="/news" element={<MainNews />} />
                                 <Route path="/about" element={<MainAbout />} />
-                                <Route path="/login" element={<MainLogin enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn}/>}/>
-                                <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameRegisterFn} />}/>
-                                <Route path="/exit" element={<MainExit  enterAcc={userNameEnterFn} loginExit={getLoginFn} linkExit={linkExitFn} />} />
+                                <Route path="/login" element={<MainLogin enterAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
+                                <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
+                                <Route path="/exit" element={<MainExit  enterAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn} />} />
                                 <Route path="/bye" element={<MainBye />} />
                                 <Route path="/search" element={<MainSearch searchPhoto={searchPhoto} searchVideo={searchVideo} getLikesFn={getLikesFn}/>} />
                                 <Route path='/favorites' element={<MainFavorites likes={likes}/>} />
@@ -116,9 +139,10 @@ function App() {
                         <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                     </div>
                 </div>
-            </VideoContext.Provider>
+            {/* </VideoContext.Provider> */}
             <Footer />
        </Router>
+       <button onClick={btnAppTo} className='btnApp' style={{display: `${btnToDisplay}`}}>up</button>
     </div>
   );
 };

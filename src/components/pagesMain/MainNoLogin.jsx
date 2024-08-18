@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 
-const MainNoLogin = ({registerAcc}) => {
+const MainNoLogin = ({registerAcc, getLoginFn, linkExitFn}) => {
     const [createUserName, getCreateUserName] = useState('');
     const [createUserEmail, getcreateUserEmail] = useState('');
     const [createPassowordOne, getCreatePassowordOne] = useState('');    
@@ -45,8 +45,13 @@ const MainNoLogin = ({registerAcc}) => {
             e.preventDefault();
             alert('password rait > 6 word');
         } else if(createPassowordOne === createPassowordTwo) {
+            
             localStorage.setItem(createUserName, createPassowordOne);
             registerAcc(createUserName);
+
+            getLoginFn('Exit');
+            linkExitFn('/exit');
+            
         } else {
             e.preventDefault();
             alert("passwords don't match.");

@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-const MainLogin = ({enterAcc, loginExit, linkExit}) => {
+const MainLogin = ({enterAcc, getLoginFn, linkExitFn}) => {
     const [login, setLOgin] = useState('');
     const [password, setPassword] = useState('');
+
 
     function setLOginFn(e) {
         setLOgin(e.target.value);
@@ -20,8 +21,8 @@ const MainLogin = ({enterAcc, loginExit, linkExit}) => {
                     
                 if(key === login && localStorage.getItem(key) === password)  {
                     enterAcc(key);
-                    loginExit('Exit');
-                    linkExit('/exit');
+                    getLoginFn('Exit');
+                    linkExitFn('/exit');
                     break;
                 } else if(login === '' || password === '') {
                     alert('empty');
@@ -41,7 +42,7 @@ const MainLogin = ({enterAcc, loginExit, linkExit}) => {
             alert('localStorage empty create accaunt please.');
             e.preventDefault();
         }
-
+            
     };
 
     return ( 
@@ -49,13 +50,13 @@ const MainLogin = ({enterAcc, loginExit, linkExit}) => {
             {/* <form action=""> */}
                 <div>
                     <label htmlFor="login">Login</label>
-                    <input type="text" id="login" onChange={setLOginFn}/>
+                    <input type="text" id="login" name="login" onChange={setLOginFn}/>
                 </div>
                 <div>
                     <label htmlFor="password">password</label>
-                    <input type="password" id="password" onChange={setPasswordFn}/>
+                    <input type="password" id="password" name="password" onChange={setPasswordFn}/>
                 </div>
-                <NavLink type="submit" onClick={checkUserAccaunt} to="/">Enter</NavLink>
+                <NavLink onClick={checkUserAccaunt} to="/">Enter</NavLink>
                 <p>NavLink</p>
                 <NavLink to="/createAccaunt">no accaunt</NavLink>
             {/* </form>     */}
