@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, NavLink} from 'react-router-dom';
 import './app.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
@@ -42,6 +42,8 @@ function App() {
     const [searchVideo, setSearchVideo] = useState([]);
     
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
+
+    //useEffect(() => {}, [countLink]);
 
     function setWidthDisplayFn(event) { 
         setWidthDisplay(event.target.window.innerWidth);

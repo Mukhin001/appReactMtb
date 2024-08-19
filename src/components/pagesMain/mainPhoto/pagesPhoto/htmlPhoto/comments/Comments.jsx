@@ -4,12 +4,12 @@ import { useState, useEffect, useRef } from "react";
 const Comments = ({name, userNameLogin}) => {
     const [userNameServer, setUserNameServer] = useState(userNameLogin);
     const [userCommentServer, setUserCommentServer] = useState('');
-   // const [userAnswerComment, setUserAnswerComment] = useState('');
+    const [userAnswerComment, setUserAnswerComment] = useState('');
     const [, setServer] = useState(photoServer);
     const inputName = useRef();
-    const textarea = useRef();
+    const textarea = useRef(); 
 
-    //const [clickAnswer, setClickAnswer] = useState({userName: '', userComment: '',});
+    const [clickAnswer, setClickAnswer] = useState({userName: '', userComment: '',});
 
     useEffect(() => {
         if(userNameLogin !== 'anonimus') {
@@ -19,7 +19,7 @@ const Comments = ({name, userNameLogin}) => {
         
     });
 
-    //useEffect(() => {}, [clickAnswer]);
+    useEffect(() => {}, [clickAnswer]);
   
     function clearTextArea() {
         if(userNameLogin !== 'anonimus') {
@@ -41,15 +41,16 @@ const Comments = ({name, userNameLogin}) => {
     }; 
 
     function getUserComment() {
-        // if(userCommentServer === '') {
-        //     alert('add comment!');
-        //     return;
-        // }
+        if(userCommentServer === '') {
+            alert('add comment!');
+            return;
+        }
         const date = new Date();
 
-        const commentMinutes = date.getMinutes();
-        const commentHours = date.getHours(); 
-
+        let commentMinutes;
+            (date.getMinutes() < 10) ? commentMinutes = `0${date.getMinutes()}` : commentMinutes = date.getMinutes();
+        let commentHours; 
+            (date.getHours() < 10) ? commentHours = `0${date.getHours()}` : commentHours = date.getHours();
         let commentDateDay;
             (date.getDate() < 10) ? commentDateDay = `0${date.getDate()}` : commentDateDay = date.getDate();
         let commentDateMonth;
@@ -85,62 +86,69 @@ const Comments = ({name, userNameLogin}) => {
         textarea.current.value = ''; 
     };
 
-    // function answerComment(elem) {
-    //     setClickAnswer({   
-    //                         userName: `${elem.target.getAttribute('data-username')}`,
-    //                         userComment: `${elem.target.getAttribute('data-usercomment')}`,
-    //                     });
-        
-    //     elem.target.parentNode.lastChild.style.display = 'block'; 
-    // };
+    function answerComment(elem) {
+        setClickAnswer({   
+                            userName: `${elem.target.getAttribute('data-username')}`,
+                            userComment: `${elem.target.getAttribute('data-usercomment')}`,
+                        });             
+        elem.target.parentNode.lastChild.style.display = 'block'; 
+    };
 
-    // function closeUserAnswerComment(elem) {
-    //     elem.target.parentNode.parentNode.style.display = 'none';
-    // };
+    function closeUserAnswerComment(elem) {
+        elem.target.previousSibling.value = '';
+      
+        elem.target.parentNode.nextSibling.children[1].value = '';
+        elem.target.parentNode.parentNode.style.display = 'none';
+    };
 
-    // function setUserAnswerCommentFn(value) {
-    //     setUserAnswerComment(value.target.value);
-    // };
+    function setUserAnswerCommentFn(value) {
+        setUserAnswerComment(value.target.value);
+    };
 
-    // function submitAnswer() {
-    //     // if(userAnswerComment === '') {
-    //     //     alert('add comment!');
-    //     //     return;
-    //     // }
+    function submitAnswer(elem) {
+        if(userAnswerComment === '') {
+            alert('add comment!');
+            return;
+        }
 
-    //     const date = new Date();
+        const date = new Date();
 
-    //     const commentMinutes = date.getMinutes();
-    //     const commentHours = date.getHours(); 
+        let commentMinutes;
+            (date.getMinutes() < 10) ? commentMinutes = `0${date.getMinutes()}` : commentMinutes = date.getMinutes();
+        let commentHours; 
+            (date.getHours() < 10) ? commentHours = `0${date.getHours()}` : commentHours = date.getHours();
+        let commentDateDay;
+            (date.getDate() < 10) ? commentDateDay = `0${date.getDate()}` : commentDateDay = date.getDate();
+        let commentDateMonth;
+            (date.getMonth() < 10) ? commentDateMonth = `0${date.getMonth() + 1}` : commentDateMonth = date.getMonth() + 1;
 
-    //     let commentDateDay;
-    //         (date.getDate() < 10) ? commentDateDay = `0${date.getDate()}` : commentDateDay = date.getDate();
-    //     let commentDateMonth;
-    //         (date.getMonth() < 10) ? commentDateMonth = `0${date.getMonth() + 1}` : commentDateMonth = date.getMonth() + 1;
+        const commentDateYear = date.getFullYear();
 
-    //     const commentDateYear = date.getFullYear();
+        photoServer.forEach(obj => {
+            if(obj.name === name) {
+                obj.comments.forEach(object => {
+                    if(object.userName === clickAnswer.userName && object.userComment === clickAnswer.userComment) {
+                        //console.log(object.answer);
+                        object.answer.push({ userNameAnswer: userNameServer,
+                                             userCommentAnswer: userAnswerComment,
+                                             date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
+                                             time: `${commentHours}:${commentMinutes}`,
+                        });
 
-    //     photoServer.forEach(obj => {
-    //         if(obj.name === name) {
-    //             obj.comments.forEach(object => {
-    //                 if(object.userName === clickAnswer.userName && object.userComment === clickAnswer.userComment) {
-    //                     //console.log(object.answer);
-    //                     object.answer.push({ userNameAnswer: userNameServer,
-    //                                          userCommentAnswer: userAnswerComment,
-    //                                          date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
-    //                                          time: `${commentHours}:${commentMinutes}`,
-    //                     });
-
-    //                     setServer({ userNameAnswer: userNameServer,
-    //                                 userCommentAnswer: userAnswerComment,
-    //                                 date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
-    //                                 time: `${commentHours}:${commentMinutes}`,
-    //                     });   
-    //                 }
-    //             })
-    //         } 
-    //     });
-    // };
+                        setServer({ userNameAnswer: userNameServer,
+                                    userCommentAnswer: userAnswerComment,
+                                    date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
+                                    time: `${commentHours}:${commentMinutes}`,
+                        });
+                        }
+                })
+            } 
+        });
+            
+            elem.target.parentNode.firstChild.children[1].value = '';
+            elem.target.parentNode.children[1].children[1].value = '';
+            elem.target.parentNode.style.display = 'none';
+    };
 
     return ( 
         <div className='comment'>
@@ -177,9 +185,11 @@ const Comments = ({name, userNameLogin}) => {
                                         <time dateTime={objComment.time}>{objComment.time}</time>       
                                     </article>
 
-                                    {/* <button onClick={answerComment} data-username={objComment.userName} data-usercomment={objComment.userComment}>answer</button> */}
+                                    
 
-                                    {/* {objComment.answer.map((objAnswer, i) => {
+                                    <button onClick={answerComment} data-username={objComment.userName} data-usercomment={objComment.userComment}>answer</button>
+                                   
+                                    {objComment.answer.map((objAnswer, i) => {
                                         return (
                                             <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
                                                 <article>
@@ -205,7 +215,7 @@ const Comments = ({name, userNameLogin}) => {
                                         </div>
                                         <button>reset</button>
                                         <button onClick={submitAnswer}>submit</button>
-                                    </div> */}
+                                    </div>
 
                                 </div>
                             )

@@ -1,6 +1,6 @@
 export const photoServer = [
     {
-        name: 'cap2013',
+        name: 'cap2013', 
         url : ["../img/cap2013/WP_20160325_004.jpg", "../img/cap2013/WP_20160325_005.jpg", "../img/cap2013/WP_20160325_007.jpg", "../img/cap2013/WP_20160325_008.jpg"],
         description: 'street cap2013 photo',
         comments: [ 
