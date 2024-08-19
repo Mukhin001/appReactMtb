@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import st from './style.module.css';
 import mobile from '../../../mobileFile/mobile.module.css';
-import { photoServer } from './photoServer';
+import { photoServer } from '../../../../server/photoServer';
 import { useRef, useEffect } from "react";
 
 

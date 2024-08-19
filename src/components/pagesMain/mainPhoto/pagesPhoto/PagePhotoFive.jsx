@@ -1,4 +1,4 @@
-import HtmlPhoto from './HtmlPhoto';
+import HtmlPhoto from './htmlPhoto/HtmlPhoto';
 
 const PagePhotoFive = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userNameLogin}) => {
 

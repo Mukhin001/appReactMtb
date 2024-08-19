@@ -1,4 +1,4 @@
-import sendRequestServer from '../../../../sendRequestServer';
+import sendRequestServer from '../../../../server/sendRequestServer';
 import { useState } from 'react';
 
 const Course = () => {

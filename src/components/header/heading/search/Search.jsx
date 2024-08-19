@@ -1,7 +1,7 @@
 import st from './style.module.css';
 import { useState , useRef} from 'react';
 import { NavLink } from 'react-router-dom';
-import { photoServer } from '../../../pagesMain/mainPhoto/pagesPhoto/photoServer';
+import { photoServer } from '../../../../server/photoServer';
 import { videoServer } from '../../../pagesMain/mainVideo/videoServer';
 
 const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
