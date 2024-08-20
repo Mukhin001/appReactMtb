@@ -90,7 +90,7 @@ const MainPhoto = ({getLikesFn, userNameLogin}) => {
                     <Route path="/" element={<PagePhotos getLikesFn={getLikesFn} />} />
                     <Route path="/cap2013" element={<PagePhotoOne 
                         name={'cap2013'}
-                        sliderOpacity={sliderOpacity} 
+                        sliderOpacity={sliderOpacity}  
                         closeSlider={closeSlider}
                         addImgArr={addImgArr} 
                         imgActive={imgActive} openImg={openImg}

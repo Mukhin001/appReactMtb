@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, NavLink} from 'react-router-dom';
 import './app.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";

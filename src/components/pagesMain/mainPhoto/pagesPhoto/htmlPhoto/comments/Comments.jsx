@@ -8,8 +8,7 @@ const Comments = ({name, userNameLogin}) => {
     const [, setServer] = useState(photoServer);
     const inputName = useRef();
     const textarea = useRef(); 
-
-    const [clickAnswer, setClickAnswer] = useState({userName: '', userComment: '',});
+    const [clickAnswer, setClickAnswer] = useState({userName: '', id: 0,});
 
     useEffect(() => {
         if(userNameLogin !== 'anonimus') {
@@ -61,22 +60,26 @@ const Comments = ({name, userNameLogin}) => {
 
         photoServer.forEach(obj => {
             
-            if(obj.name === name) {
-                obj.comments.push({ userName: userNameServer,
-                                    userComment: userCommentServer,
-                                    date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
-                                    time: `${commentHours}:${commentMinutes}`,
-                                    answer: [],
-                });
-                setServer({ userName: userNameServer,
-                            userComment: userCommentServer,
-                            date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
-                            time: `${commentHours}:${commentMinutes}`,
-                            answer: [],
-                });   
+            if(obj.name === name) { 
+                    
+                    obj.comments.push({ userName: userNameServer,
+                                        id: obj.comments.at(-1).id + 1,
+                                        userComment: userCommentServer,
+                                        date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
+                                        time: `${commentHours}:${commentMinutes}`,
+                                        answer: [],
+                    });
+                    setServer({ userName: userNameServer,
+                                id: obj.comments.at(-1).id + 1,
+                                userComment: userCommentServer,
+                                date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
+                                time: `${commentHours}:${commentMinutes}`,
+                                answer: [],
+                    });     
             } 
  
         });
+        
         if(userNameLogin !== 'anonimus') {
             inputName.current.setAttribute('value', userNameLogin);
             inputName.current.setAttribute('readonly', '');
@@ -89,9 +92,11 @@ const Comments = ({name, userNameLogin}) => {
     function answerComment(elem) {
         setClickAnswer({   
                             userName: `${elem.target.getAttribute('data-username')}`,
-                            userComment: `${elem.target.getAttribute('data-usercomment')}`,
+                            id: `${elem.target.getAttribute('data-userid')}`,
+                            //userComment: `${elem.target.getAttribute('data-usercomment')}`,
                         });             
-        elem.target.parentNode.lastChild.style.display = 'block'; 
+        elem.target.nextSibling.style.display = 'block'; 
+       
     };
 
     function closeUserAnswerComment(elem) {
@@ -125,9 +130,11 @@ const Comments = ({name, userNameLogin}) => {
         const commentDateYear = date.getFullYear();
 
         photoServer.forEach(obj => {
+            
             if(obj.name === name) {
                 obj.comments.forEach(object => {
-                    if(object.userName === clickAnswer.userName && object.userComment === clickAnswer.userComment) {
+                    
+                    if(object.userName === clickAnswer.userName && object.id === +clickAnswer.id) {
                         //console.log(object.answer);
                         object.answer.push({ userNameAnswer: userNameServer,
                                              userCommentAnswer: userAnswerComment,
@@ -148,6 +155,18 @@ const Comments = ({name, userNameLogin}) => {
             elem.target.parentNode.firstChild.children[1].value = '';
             elem.target.parentNode.children[1].children[1].value = '';
             elem.target.parentNode.style.display = 'none';
+    };
+
+    function showAnswersFn(elem) {
+        elem.target.style.display = 'none';
+        elem.target.nextSibling.style.display = 'block';
+        elem.target.parentNode.lastChild.style.display = 'block';
+    };
+
+    function hiddenAnswersFn(elem) {
+        elem.target.style.display = 'none';
+        elem.target.previousSibling.style.display = 'block';
+        elem.target.nextSibling.style.display = 'none';
     };
 
     return ( 
@@ -185,23 +204,12 @@ const Comments = ({name, userNameLogin}) => {
                                         <time dateTime={objComment.time}>{objComment.time}</time>       
                                     </article>
 
-                                    
+                                    <div>
+                                        <button>Like</button>
+                                        <button>Dislike</button>
+                                    </div>
 
-                                    <button onClick={answerComment} data-username={objComment.userName} data-usercomment={objComment.userComment}>answer</button>
-                                   
-                                    {objComment.answer.map((objAnswer, i) => {
-                                        return (
-                                            <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
-                                                <article>
-                                                    <h6>{objAnswer.userNameAnswer}</h6>
-                                                    <p>{objAnswer.userCommentAnswer}</p>
-                                                    <time dateTime={objAnswer.date}>{objAnswer.date}</time>
-                                                    <span> in </span>
-                                                    <time dateTime={objAnswer.time}>{objAnswer.time}</time>
-                                                </article>
-                                            </div>
-                                        )
-                                    })}
+                                    <button onClick={answerComment} data-username={objComment.userName} data-userid={objComment.id}>answer</button>
 
                                     <div style={{marginLeft: '60px', display: 'none',}}>
                                         <div>
@@ -216,6 +224,44 @@ const Comments = ({name, userNameLogin}) => {
                                         <button>reset</button>
                                         <button onClick={submitAnswer}>submit</button>
                                     </div>
+
+                                    {(objComment.answer.length <= 1) ? 
+                                        objComment.answer.map((objAnswer, i) => {
+                                        
+                                            return (
+                                                <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
+                                                    <article>
+                                                        <h6>{objAnswer.userNameAnswer}</h6>
+                                                        <p>{objAnswer.userCommentAnswer}</p>
+                                                        <time dateTime={objAnswer.date}>{objAnswer.date}</time>
+                                                        <span> in </span>
+                                                        <time dateTime={objAnswer.time}>{objAnswer.time}</time>
+                                                    </article>
+                                                </div>
+                                            )
+                                        }) 
+                                        : 
+                                        <>
+                                            <button onClick={showAnswersFn}>{`Show answers ${objComment.answer.length}`}</button>
+                                            <button onClick={hiddenAnswersFn} style={{display: 'none',}}>Hidden answers</button>
+                                            <div style={{display: 'none',}}>
+                                                {objComment.answer.map((objAnswer, i) => {
+                                                    
+                                                    return (
+                                                        <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
+                                                            <article>
+                                                                <h6>{objAnswer.userNameAnswer}</h6>
+                                                                <p>{objAnswer.userCommentAnswer}</p>
+                                                                <time dateTime={objAnswer.date}>{objAnswer.date}</time>
+                                                                <span> in </span>
+                                                                <time dateTime={objAnswer.time}>{objAnswer.time}</time>
+                                                            </article>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                        </>
+                                    }
 
                                 </div>
                             )
