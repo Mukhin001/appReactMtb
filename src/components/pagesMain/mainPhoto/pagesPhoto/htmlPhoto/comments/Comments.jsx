@@ -169,6 +169,65 @@ const Comments = ({name, userNameLogin}) => {
         elem.target.nextSibling.style.display = 'none';
     };
 
+    function increaseLikeComment(elem) {
+        photoServer.forEach(obj => {
+            obj.comments.forEach(objComment => {
+                
+                if(objComment.userName === elem.target.parentNode.nextSibling.getAttribute('data-username') && objComment.id === +elem.target.parentNode.nextSibling.getAttribute('data-userid')) {
+                    objComment.like += 1;
+                    
+                      setClickAnswer({   
+                        like: objComment.like,
+                    }); 
+                }
+            })
+        })
+    };
+
+    function increaseDisLikeComment(elem) {
+        photoServer.forEach(obj => {
+            obj.comments.forEach(objComment => {
+                
+                if(objComment.userName === elem.target.parentNode.nextSibling.getAttribute('data-username') && objComment.id === +elem.target.parentNode.nextSibling.getAttribute('data-userid')) {
+                    objComment.dislike += 1;
+                    
+                      setClickAnswer({   
+                        dislike: objComment.dislike,
+                    }); 
+                }
+            })
+        })
+    };
+
+
+    function increaseLikeAnswer(elem) {
+        
+        photoServer.forEach(obj => {
+            obj.comments.forEach(objComment => {
+
+                if(objComment.userName === elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-username') && objComment.id === +elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-userid')) {
+                    objComment.answer.forEach(objAnswer => {
+                        objAnswer.likeAnswer += 1;
+
+                    setClickAnswer({   
+                        likeAnswer: objAnswer.likeAnswer,
+                    }); 
+                    })
+                    
+                    
+                }
+
+               
+                
+            })
+        })
+        
+    };
+
+    function increaseDisLikeAnswer(elem) {
+
+    };
+
     return ( 
         <div className='comment'>
 
@@ -205,8 +264,8 @@ const Comments = ({name, userNameLogin}) => {
                                     </article>
 
                                     <div>
-                                        <button>Like</button>
-                                        <button>Dislike</button>
+                                        <button onClick={increaseLikeComment}>{`Like ${objComment.like}`}</button>
+                                        <button onClick={increaseDisLikeComment}>{`Dislike ${objComment.dislike}`}</button>
                                     </div>
 
                                     <button onClick={answerComment} data-username={objComment.userName} data-userid={objComment.id}>answer</button>
@@ -229,19 +288,27 @@ const Comments = ({name, userNameLogin}) => {
                                         objComment.answer.map((objAnswer, i) => {
                                         
                                             return (
-                                                <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
-                                                    <article>
-                                                        <h6>{objAnswer.userNameAnswer}</h6>
-                                                        <p>{objAnswer.userCommentAnswer}</p>
-                                                        <time dateTime={objAnswer.date}>{objAnswer.date}</time>
-                                                        <span> in </span>
-                                                        <time dateTime={objAnswer.time}>{objAnswer.time}</time>
-                                                    </article>
+                                                <div  key={objAnswer.userNameAnswer + 'answer' + i} >
+                                                    <div>
+                                                        <div className='answer' style={{marginLeft: '30px',}}>
+                                                            <div>
+                                                                <button onClick={increaseLikeAnswer}>{`Like ${objAnswer.likeAnswer}`}</button>
+                                                                <button onClick={increaseDisLikeAnswer}>{`Dislike ${objAnswer.dislikeAnswer}`}</button>
+                                                            </div>
+                                                            <article>
+                                                                <h6>{objAnswer.userNameAnswer}</h6>
+                                                                <p>{objAnswer.userCommentAnswer}</p>
+                                                                <time dateTime={objAnswer.date}>{objAnswer.date}</time>
+                                                                <span> in </span>
+                                                                <time dateTime={objAnswer.time}>{objAnswer.time}</time>
+                                                            </article>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             )
                                         }) 
                                         : 
-                                        <>
+                                        <div>
                                             <button onClick={showAnswersFn}>{`Show answers ${objComment.answer.length}`}</button>
                                             <button onClick={hiddenAnswersFn} style={{display: 'none',}}>Hidden answers</button>
                                             <div style={{display: 'none',}}>
@@ -249,6 +316,10 @@ const Comments = ({name, userNameLogin}) => {
                                                     
                                                     return (
                                                         <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
+                                                            <div>
+                                                                <button onClick={increaseLikeAnswer}>{`Like ${objAnswer.likeAnswer}`}</button>
+                                                                <button onClick={increaseDisLikeAnswer}>{`Dislike ${objAnswer.dislikeAnswer}`}</button>
+                                                            </div>
                                                             <article>
                                                                 <h6>{objAnswer.userNameAnswer}</h6>
                                                                 <p>{objAnswer.userCommentAnswer}</p>
@@ -260,7 +331,7 @@ const Comments = ({name, userNameLogin}) => {
                                                     )
                                                 })}
                                             </div>
-                                        </>
+                                        </div>
                                     }
 
                                 </div>
