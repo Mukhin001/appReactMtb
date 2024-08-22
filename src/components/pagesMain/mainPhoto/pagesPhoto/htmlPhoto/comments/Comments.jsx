@@ -1,5 +1,5 @@
 import { photoServer } from "../../../../../../server/photoServer";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Comments = ({name, userNameLogin}) => {
     const [userNameServer, setUserNameServer] = useState(userNameLogin);
@@ -8,7 +8,10 @@ const Comments = ({name, userNameLogin}) => {
     const [, setServer] = useState(photoServer);
     const inputName = useRef();
     const textarea = useRef(); 
-    const [clickAnswer, setClickAnswer] = useState({userName: '', id: 0,});
+    const blockCommetsResf = useRef([])
+   
+
+    const [clickAnswer, setClickAnswer] = useState({userName: '', idComment: 0,});
 
     useEffect(() => {
         if(userNameLogin !== 'anonimus') {
@@ -63,14 +66,14 @@ const Comments = ({name, userNameLogin}) => {
             if(obj.name === name) { 
                     
                     obj.comments.push({ userName: userNameServer,
-                                        id: obj.comments.at(-1).id + 1,
+                                        idComment: obj.comments.at(-1).idComment + 1,
                                         userComment: userCommentServer,
                                         date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                         time: `${commentHours}:${commentMinutes}`,
                                         answer: [],
                     });
                     setServer({ userName: userNameServer,
-                                id: obj.comments.at(-1).id + 1,
+                                idComment: obj.comments.at(-1).idComment + 1,
                                 userComment: userCommentServer,
                                 date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                 time: `${commentHours}:${commentMinutes}`,
@@ -92,7 +95,7 @@ const Comments = ({name, userNameLogin}) => {
     function answerComment(elem) {
         setClickAnswer({   
                             userName: `${elem.target.getAttribute('data-username')}`,
-                            id: `${elem.target.getAttribute('data-userid')}`,
+                            idComment: `${elem.target.getAttribute('data-userid')}`,
                             //userComment: `${elem.target.getAttribute('data-usercomment')}`,
                         });             
         elem.target.nextSibling.style.display = 'block'; 
@@ -134,18 +137,24 @@ const Comments = ({name, userNameLogin}) => {
             if(obj.name === name) {
                 obj.comments.forEach(object => {
                     
-                    if(object.userName === clickAnswer.userName && object.id === +clickAnswer.id) {
-                        //console.log(object.answer);
+                    if(object.userName === clickAnswer.userName && object.idComment === +clickAnswer.idComment) {
+                    
                         object.answer.push({ userNameAnswer: userNameServer,
+                                             idAnswer: object.answer.length + 1,
                                              userCommentAnswer: userAnswerComment,
                                              date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                              time: `${commentHours}:${commentMinutes}`,
+                                             likeAnswer: 0,
+                                             dislikeAnswer: 0,
                         });
 
                         setServer({ userNameAnswer: userNameServer,
+                                    idAnswer: object.answer.length + 1,
                                     userCommentAnswer: userAnswerComment,
                                     date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                     time: `${commentHours}:${commentMinutes}`,
+                                    likeAnswer: 0,
+                                    dislikeAnswer: 0,
                         });
                         }
                 })
@@ -173,7 +182,7 @@ const Comments = ({name, userNameLogin}) => {
         photoServer.forEach(obj => {
             obj.comments.forEach(objComment => {
                 
-                if(objComment.userName === elem.target.parentNode.nextSibling.getAttribute('data-username') && objComment.id === +elem.target.parentNode.nextSibling.getAttribute('data-userid')) {
+                if(objComment.userName === elem.target.parentNode.nextSibling.getAttribute('data-username') && objComment.idComment === +elem.target.parentNode.nextSibling.getAttribute('data-userid')) {
                     objComment.like += 1;
                     
                       setClickAnswer({   
@@ -188,7 +197,7 @@ const Comments = ({name, userNameLogin}) => {
         photoServer.forEach(obj => {
             obj.comments.forEach(objComment => {
                 
-                if(objComment.userName === elem.target.parentNode.nextSibling.getAttribute('data-username') && objComment.id === +elem.target.parentNode.nextSibling.getAttribute('data-userid')) {
+                if(objComment.userName === elem.target.parentNode.nextSibling.getAttribute('data-username') && objComment.idComment === +elem.target.parentNode.nextSibling.getAttribute('data-userid')) {
                     objComment.dislike += 1;
                     
                       setClickAnswer({   
@@ -205,31 +214,70 @@ const Comments = ({name, userNameLogin}) => {
         photoServer.forEach(obj => {
             obj.comments.forEach(objComment => {
 
-                if(objComment.userName === elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-username') && objComment.id === +elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-userid')) {
-                    objComment.answer.forEach(objAnswer => {
-                        objAnswer.likeAnswer += 1;
+                if(objComment.userName === elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-username') && objComment.idComment === +elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-userid')) {
+                     objComment.answer.forEach(objAnswer => {
+                        if(objAnswer.userNameAnswer === elem.target.parentNode.parentNode.getAttribute('data-usernameanswer') && objAnswer.idAnswer === +elem.target.parentNode.parentNode.getAttribute('data-idanswer')) {
+                            objAnswer.likeAnswer += 1;
 
-                    setClickAnswer({   
-                        likeAnswer: objAnswer.likeAnswer,
-                    }); 
+                            setClickAnswer({   
+                                likeAnswer: objAnswer.likeAnswer,
+                            });             
+                        }   
                     })
-                    
-                    
-                }
 
-               
-                
+                }
             })
         })
         
     };
 
     function increaseDisLikeAnswer(elem) {
+        photoServer.forEach(obj => {
+            obj.comments.forEach(objComment => {
 
+                if(objComment.userName === elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-username') && objComment.idComment === +elem.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].getAttribute('data-userid')) {
+                     objComment.answer.forEach(objAnswer => {
+                        if(objAnswer.userNameAnswer === elem.target.parentNode.parentNode.getAttribute('data-usernameanswer') && objAnswer.idAnswer === +elem.target.parentNode.parentNode.getAttribute('data-idanswer')) {
+                            objAnswer.dislikeAnswer += 1;
+
+                            setClickAnswer({   
+                                dislikeAnswer: objAnswer.dislikeAnswer,
+                            });             
+                        }   
+                    })
+
+                }
+            })
+        })
+    };
+
+    function getValueSortCommet(elem) {
+        
+        if(elem.target.value === 'date') {
+           const sortedComments = blockCommetsResf.current.sort((a, b) => {
+              
+              return  +a.getAttribute('data-popular') - +b.getAttribute('data-popular')
+            });
+            
+            for(let i = 0; i < sortedComments.length; i++) {
+                elem.target.parentNode.parentNode.insertBefore(sortedComments[i], blockCommetsResf[i])
+            }
+       
+        }  
+        
     };
 
     return ( 
         <div className='comment'>
+
+            <div>
+                <label htmlFor="sortComment">sort-comment</label>
+                <select name="sortComment" id="sortComment" onChange={getValueSortCommet}>
+                    <option value="">shoose</option>
+                    <option value="date">date</option>
+                    <option value="like">like</option>
+                </select>
+            </div>
 
             <div>
                 {/* <form> */}
@@ -253,8 +301,7 @@ const Comments = ({name, userNameLogin}) => {
                         
                         obj.comments.map((objComment, index) => {
                             return (
-                                <div key={objComment.userName + index}>
-
+                                <div ref={(elem) => {if(elem !== null) {blockCommetsResf.current.push(elem)}}} data-datecomment={objComment.date} data-popular={objComment.like} key={objComment.userName + index}>
                                     <article>
                                         <h5>{objComment.userName}</h5>
                                         <p>{objComment.userComment}</p> 
@@ -268,7 +315,7 @@ const Comments = ({name, userNameLogin}) => {
                                         <button onClick={increaseDisLikeComment}>{`Dislike ${objComment.dislike}`}</button>
                                     </div>
 
-                                    <button onClick={answerComment} data-username={objComment.userName} data-userid={objComment.id}>answer</button>
+                                    <button onClick={answerComment} data-username={objComment.userName} data-userid={objComment.idComment}>answer</button>
 
                                     <div style={{marginLeft: '60px', display: 'none',}}>
                                         <div>
@@ -315,7 +362,7 @@ const Comments = ({name, userNameLogin}) => {
                                                 {objComment.answer.map((objAnswer, i) => {
                                                     
                                                     return (
-                                                        <div className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
+                                                        <div data-usernameanswer={objAnswer.userNameAnswer} data-idanswer={objAnswer.idAnswer} className='answer' key={objAnswer.userNameAnswer + 'answer' + i} style={{marginLeft: '30px',}}>
                                                             <div>
                                                                 <button onClick={increaseLikeAnswer}>{`Like ${objAnswer.likeAnswer}`}</button>
                                                                 <button onClick={increaseDisLikeAnswer}>{`Dislike ${objAnswer.dislikeAnswer}`}</button>
