@@ -7,7 +7,7 @@ export const photoServer = [
                     {   userName: 'Pavel',
                         idComment: 1,
                         userComment: 'Hello',
-                        date: '25.12.2015',
+                        date: '12.04.2008',
                         time: '10:28',
                         like: 15,
                         dislike: 33,

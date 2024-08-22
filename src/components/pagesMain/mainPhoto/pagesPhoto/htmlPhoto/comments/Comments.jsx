@@ -253,18 +253,16 @@ const Comments = ({name, userNameLogin}) => {
 
     function getValueSortCommet(elem) {
         
-        if(elem.target.value === 'date') {
-           const sortedComments = blockCommetsResf.current.sort((a, b) => {
-              
-              return  +a.getAttribute('data-popular') - +b.getAttribute('data-popular')
-            });
+        if(elem.target.value === 'like') {
+           const sortedComments = blockCommetsResf.current.sort((a, b) => +a.getAttribute('data-popular') - +b.getAttribute('data-popular'));
             
             for(let i = 0; i < sortedComments.length; i++) {
                 elem.target.parentNode.parentNode.insertBefore(sortedComments[i], blockCommetsResf[i])
             }
-       
-        }  
-        
+        } else if(elem.target.value === 'date') {
+            blockCommetsResf.current.forEach(div => console.log(Date.parse(div.getAttribute('data-datecomment'))))
+            
+        }
     };
 
     return ( 
