@@ -42,7 +42,7 @@ const Comments = ({name, userNameLogin}) => {
         setUserCommentServer(value.target.value);
     }; 
 
-    function getUserComment() {
+    function addUserComment() {
         if(userCommentServer === '') {
             alert('add comment!');
             return;
@@ -70,6 +70,8 @@ const Comments = ({name, userNameLogin}) => {
                                         userComment: userCommentServer,
                                         date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                         time: `${commentHours}:${commentMinutes}`,
+                                        like: 0,
+                                        dislike: 0,
                                         answer: [],
                     });
                     setServer({ userName: userNameServer,
@@ -77,6 +79,8 @@ const Comments = ({name, userNameLogin}) => {
                                 userComment: userCommentServer,
                                 date: `${commentDateDay}.${commentDateMonth}.${commentDateYear}`, 
                                 time: `${commentHours}:${commentMinutes}`,
+                                like: 0,
+                                dislike: 0,
                                 answer: [],
                     });     
             } 
@@ -254,14 +258,17 @@ const Comments = ({name, userNameLogin}) => {
     function getValueSortCommet(elem) {
         
         if(elem.target.value === 'like') {
-           const sortedComments = blockCommetsResf.current.sort((a, b) => +a.getAttribute('data-popular') - +b.getAttribute('data-popular'));
+           const sortedLikes = blockCommetsResf.current.sort((a, b) => +a.getAttribute('data-popular') - +b.getAttribute('data-popular'));
             
-            for(let i = 0; i < sortedComments.length; i++) {
-                elem.target.parentNode.parentNode.insertBefore(sortedComments[i], blockCommetsResf[i])
-            }
+            for(let i = 0; i < sortedLikes.length; i++) {
+                elem.target.parentNode.parentNode.insertBefore(sortedLikes[i], blockCommetsResf[i])
+            };
         } else if(elem.target.value === 'date') {
-            blockCommetsResf.current.forEach(div => console.log(Date.parse(div.getAttribute('data-datecomment'))))
+            const sortedDate = blockCommetsResf.current.sort((a, b) => new Date(a.getAttribute('data-datecomment').split('.').reverse().join('-')) - new Date(b.getAttribute('data-datecomment').split('.').reverse().join('-')));
             
+            for(let i = 0; i < sortedDate.length; i++) {
+                elem.target.parentNode.parentNode.insertBefore(sortedDate[i], blockCommetsResf[i])
+            };
         }
     };
 
@@ -288,7 +295,7 @@ const Comments = ({name, userNameLogin}) => {
                         <textarea ref={textarea} name="userComment" id="userComment" placeholder='userComment' required onChange={setUserCommentServerFn}></textarea>
                     </div>
                     <button onClick={clearTextArea} type='reset'>reset</button>
-                    <button onClick={getUserComment}>submit</button>
+                    <button onClick={addUserComment}>submit</button>
                 {/* </form> */}
             </div>        
 

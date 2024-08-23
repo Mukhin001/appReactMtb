@@ -45,20 +45,37 @@ const PagePhotos = ({getLikesFn}) => {
         });
     });
 
+    function sortedCardData(select) {
+        if(select.target.value === 'date') {
+            const sortedDateCard = [...imgRef.current.children].sort((a, b) => new Date(a.getAttribute('data-datecard').split(' ').reverse().join('-')) - new Date(b.getAttribute('data-datecard').split(' ').reverse().join('-')));
+
+            for(let i = 0; i < sortedDateCard.length; i++) {
+                imgRef.current.insertBefore(sortedDateCard[i], [...imgRef.current.children][i])
+            };
+        } else if(select.target.value === 'comments') {
+            const sortedDateCard = [...imgRef.current.children].sort((a, b) => b.getAttribute('data-comments') - a.getAttribute('data-comments'));
+
+            for(let i = 0; i < sortedDateCard.length; i++) {
+                imgRef.current.insertBefore(sortedDateCard[i], [...imgRef.current.children][i])
+            };
+        }
+    };
+
     return ( 
         <div className={`${st.pagePhotosWrap} ${mobile.pagePhotosWrap}`}>
             <div>
                 <label htmlFor="sort"></label>
-                <select id="sort">
+                <select id="sort" onChange={sortedCardData}>
                     <option value='comment'>comment</option>
                     <option value='date'>date</option>
+                    <option value="comments">comments</option>
                 </select>
             </div>
             <ul ref={imgRef}>
                 {photoServer.map((obj) => {
                     
                     return (
-                        <li atrlike={obj.name} namephoto={obj.name} className={st.photosImgLi} key={obj.name}>
+                        <li data-comments={obj.comments.length} data-datecard={obj.dateCard} atrlike={obj.name} namephoto={obj.name} className={st.photosImgLi} key={obj.name}>
                             <div style={{position: 'relative'}}>
                                 <NavLink to={`/photo/${obj.name}`} className={st.imgWrapSlide}>
                                
@@ -76,8 +93,8 @@ const PagePhotos = ({getLikesFn}) => {
                             </div>
                             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                                 <div>
-                                    <div>comment 26</div>
-                                    <div>date 26.05.2022</div>
+                                    <div>{obj.comments.length}</div>
+                                    <div>{obj.dateCard}</div>
                                 </div>
                                 <button onClick={getLikes}>Likes</button>
                             </div>
