@@ -4,15 +4,16 @@ import st from './style.module.css';
 import { ContextClientWidth } from '../../App';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-const Header = ({userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, getVideoFn}) => {
+const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, getVideoFn}) => {
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
     const headingRef = useRef();
     const btnOpenRef = useRef();
     const btnCloseRef = useRef();
-
+ 
     const contextClientWidth = useContext(ContextClientWidth);
+    const [btnThemeText, setBtnThemeText] = useState('light'); 
 
     useEffect(() => {
         
@@ -35,8 +36,18 @@ const Header = ({userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto,
         headingRef.current.style.display = 'none';
         btnOpenRef.current.style.display = 'block';
         btnCloseRef.current.style.display = 'none';
-    };   
-        
+    };  
+    
+    function btnTheme(elem) {
+        if(elem.target.textContent === 'light') {
+            setBtnThemeText('dark');
+            setThemeSite('dark');
+        } else {
+            setBtnThemeText('light'); 
+            setThemeSite('light');
+        }  
+    };
+    
     return ( 
         <header>
 
@@ -49,7 +60,10 @@ const Header = ({userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto,
 
             <button ref={btnOpenRef} style={{display: stDisplayActiveBtn}} onClick={openHeaderMenuMobile}>Open</button> 
                                    
-            <h4>{`Hello ${userNameLogin}`}</h4>
+            <div className={st.greetingTheme}>
+                <h4>{`Hello ${userNameLogin}`}</h4>
+                <button onClick={btnTheme}>{btnThemeText}</button>
+            </div>
 
         </header>
         

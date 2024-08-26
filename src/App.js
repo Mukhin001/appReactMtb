@@ -30,7 +30,7 @@ const arrLink = [
      '/about',
 ];
 
-function App() {
+function App() { 
     
     const [countLink, setCountLink] = useState(1);
     const [userNameLogin, setUserNameLogin] = useState('anonimus');
@@ -40,7 +40,7 @@ function App() {
 
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
-    
+    const [theme, setTheme] = useState('light');
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
 
     //useEffect(() => {}, [countLink]);
@@ -109,13 +109,18 @@ function App() {
         window.scrollTo({top: 0, left: 0, behavior: "smooth",});
     };
 
+    function setThemeSite(value) {
+        setTheme(value);
+    };
+
   return (
-    <div className="App">
+    <div className={`app ${theme}`}> 
        <Router>
             {/* <VideoContext.Provider value={'namePhoto'}> */}
                 <ContextClientWidth.Provider  value={widthDisplay}>
                     <Header userNameLogin={userNameLogin} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
                             setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
+                            setThemeSite={setThemeSite}
                     />
                 </ContextClientWidth.Provider>
 

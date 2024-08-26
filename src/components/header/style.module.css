@@ -11,6 +11,8 @@ header {
     background-color: rgb(246, 122, 147);
 }
 
-h4 {
+.greetingTheme {
+    display: flex;
+    justify-content: space-between;
     padding-top: 10px;
 }

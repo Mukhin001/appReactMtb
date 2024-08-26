@@ -9,6 +9,7 @@ const NavBarMain = () => {
    
     const btnOpen = useRef();
     const btnClose = useRef();
+    const ulRef = useRef();
 
     const [styleUlLeft, setStyleUlLeft] = useState('-200%');
     const [styleBtnOpen, setStyleBtnOpen] = useState('');
@@ -37,29 +38,35 @@ const NavBarMain = () => {
     
     document.body.addEventListener('click', closeNavBarMain);
 
-   function ulMouseOver() {
-        setStyleUlLeft('30px');
-        setStyleBtnOpen('none');
-        setStyleBtnClose('');
-   };
-   
-   function ulMouseLeave() {
-        setStyleUlLeft('-200%'); 
-        setStyleBtnOpen('');
-        setStyleBtnClose('none');
-   };
+    function ulMouseOver() {
+            ulRef.current.style.display = 'block';
+
+            setStyleUlLeft('30px');
+            setStyleBtnOpen('none');
+            setStyleBtnClose('');
+    };
+    
+    function ulMouseLeave() {
+            setStyleUlLeft('-200%'); 
+            setStyleBtnOpen('');
+            setStyleBtnClose('none');
+    };
+
+    function clickNavbarMain() {
+        ulRef.current.style.display = 'none';
+    };
 
     return ( 
         <div className={`${st.NavBarMainWrapper} ${mobile.NavBarMainWrapper}`}>
             <button onClick={navTransitionRight} ref={btnOpen} style={{display: `${styleBtnOpen}`}}>Open</button>
             <button onClick={navTransitionLeft} ref={btnClose} style={{display: `${styleBtnClose}`}}>Close</button>
             <nav onMouseOver={ulMouseOver} onMouseLeave={ulMouseLeave} className={st.NavBarMainNav}>
-                <ul style={{left: `${styleUlLeft}`}}  className={st.NavBarMainUl}>
-                    <li><NavLink to="/">home</NavLink></li>
-                    <li  className={st.navLiPhoto}><NavLink to="/photo">photo</NavLink><NavHomeMain /></li>
-                    <li  className={st.navLiVideo}><NavLink to="/video">video</NavLink><NavVideoMain /></li>
-                    <li><NavLink to="/news">news</NavLink></li>
-                    <li><NavLink to="/about">about</NavLink></li>
+                <ul ref={ulRef} style={{left: `${styleUlLeft}`}}  className={st.NavBarMainUl}>
+                    <li><NavLink to="/" onClick={clickNavbarMain}>home</NavLink></li>
+                    <li  className={st.navLiPhoto}><NavLink to="/photo" onClick={clickNavbarMain}>photo</NavLink><NavHomeMain clickNavbarMain={clickNavbarMain}/></li>
+                    <li  className={st.navLiVideo}><NavLink to="/video" onClick={clickNavbarMain}>video</NavLink><NavVideoMain clickNavbarMain={clickNavbarMain}/></li>
+                    <li><NavLink to="/news" onClick={clickNavbarMain}>news</NavLink></li>
+                    <li><NavLink to="/about" onClick={clickNavbarMain}>about</NavLink></li>
                 </ul>
             </nav>
         </div>
