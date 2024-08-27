@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, NavLink} from 'react-router-dom';
 import './app.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
@@ -44,6 +44,27 @@ function App() {
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
 
     //useEffect(() => {}, [countLink]);
+    const themeColorLight = {
+        '--color-text': 'darkblue',
+        '--color-border': 'crimson',
+        '--color-backGround': 'burlywood',
+        '--color-navBar': 'orange',
+    };
+
+    const themeColorDark = {
+        '--color-text': 'burlywood',
+        '--color-border': 'blueviolet',
+        '--color-backGround': '#543b54',
+        '--color-navBar': '#6b016b',
+    };
+
+    useEffect(() => {
+        if(theme === 'light') {
+            Object.entries(themeColorLight).forEach(([key, value]) => document.documentElement.style.setProperty(key, value));
+        } else {
+            Object.entries(themeColorDark).forEach(([key, value]) => document.documentElement.style.setProperty(key, value));
+        }
+    });
 
     function setWidthDisplayFn(event) { 
         setWidthDisplay(event.target.window.innerWidth);

@@ -16,19 +16,19 @@
     bottom: 10px;
 } 
 
-:root {
-    --backGroundDark: black;
-    --backGroundLight: bisque;
+/* theme */
+
+button {
+    color: var(--color-text);
+    background-color: var(--color-backGround);
+    border: 2px solid var(--color-border);
 }
 
-/* .light {
-    color-scheme: light;
-    background-color: var(--backGroundLight);
-    color: red;
+a {
+    color: var(--color-text);
 }
 
-.dark {
-    color-scheme: dark;
-    background-color: var(--backGroundDark);
-    color: darkmagenta;
-} */
+body {
+    color: var(--color-text);
+    background: var(--color-backGround);
+}

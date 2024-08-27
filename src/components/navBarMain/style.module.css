@@ -1,9 +1,9 @@
 .NavBarMainWrapper {
-    background-color: salmon;
+    background-color: var(--color-navBar);
 }
 
 .NavBarMainNav {
-    background-color: salmon;
+    background-color: var(--color-navBar);
     height: 100%;
     position: relative;
 

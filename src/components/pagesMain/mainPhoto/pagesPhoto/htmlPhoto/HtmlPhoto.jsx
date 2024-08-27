@@ -51,6 +51,41 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
                 <button onClick={closeSlider} className={st.closeSlider}>close</button>
             </div> 
 
+            <div className='descriptonTable'>
+                {photoServer.map(obj => {
+                    return (
+                        (obj.name === name) && 
+                            <table key={obj.name + 'descriptionCard'}>
+                                <caption>{obj.name}</caption>
+                                <thead>
+                                
+                                    <tr>
+                                        <th>parth</th>
+                                        <th>brand</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                        {Object.keys(obj.descriptionCard).map(key => {
+                                            return ( 
+                                            <tr key={key + 'discription'}>
+                                                <th>{key}</th>
+                                                <td>{obj.descriptionCard[key]}</td> 
+                                            </tr>
+                                        )})}
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th>quantity</th>
+                                        <td>{Object.keys(obj.descriptionCard).length}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                    )
+                })}
+            </div>
+
             <Comments name={name} userNameLogin={userNameLogin}></Comments>
 
         </div>    
