@@ -21,7 +21,7 @@
     --backGroundLight: bisque;
 }
 
-.light {
+/* .light {
     color-scheme: light;
     background-color: var(--backGroundLight);
     color: red;
@@ -31,4 +31,4 @@
     color-scheme: dark;
     background-color: var(--backGroundDark);
     color: darkmagenta;
-}
+} */
