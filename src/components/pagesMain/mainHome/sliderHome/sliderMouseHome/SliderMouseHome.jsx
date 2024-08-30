@@ -4,66 +4,69 @@ import st from './style.module.css';
 import { useState } from 'react';
 
 const SliderMouseHome = () => {
-    const ulWrapperImg = useRef();
+    const ulWrapperRef = useRef();
+    const wrapperDivRef = useRef();
     const [ulWrapperImgLeft, setUlWrapperImgLeft] = useState(0);
-    const [downMouse, setDownMouse] = useState();
-    const [upMouse, setUpMouse] = useState();
-    //const [moveMouse, setMoveMouse] = useState();
 
     function sliderMouseLeft() {
-        if(ulWrapperImg.current.getBoundingClientRect().x > 21) {
+        if(ulWrapperRef.current.getBoundingClientRect().x < -1800) {
             return
         } else {
             setUlWrapperImgLeft(prev => {
-                return +prev + 100;
+                return +prev - 100;
               })    
         }
     };
 
     function sliderMouseRight() {
-        if(ulWrapperImg.current.getBoundingClientRect().x < -1800) {
+        if(ulWrapperRef.current.getBoundingClientRect().x > 21) {
             return
         } else {
             setUlWrapperImgLeft(prev => {
-                return +prev - 100; 
-              });
-        }
-    };
-
-    function onMouseDownUpUl(event) {
-        
-        if(event.type === 'mousedown') {
-            setDownMouse(event.clientX);
-            event.preventDefault();
-
-        } else if (event.type === 'mouseup') {
-            setUpMouse(event.clientX);
-        }
-
-        if(downMouse - upMouse > 0) {
-            console.log(downMouse - upMouse);
-            setUlWrapperImgLeft(prev => {
-                return +prev - (downMouse - upMouse); 
-              });
-        } else if(downMouse - upMouse < 0) {
-            console.log(downMouse - upMouse);
-            setUlWrapperImgLeft(prev => {
-                return +prev + (downMouse - upMouse); 
+                return +prev + 100; 
               });
         }
     };
 
 
+  
+
+    function onMouseDownUl(event) {
+        event.preventDefault(); // предотвратить запуск выделения (действие браузера)
+
+        let clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
+        ulWrapperRef.current.addEventListener('mousemove', onMouseMoveUl);
+        ulWrapperRef.current.addEventListener('mouseup', onMouseUpUl);
+
+        function onMouseMoveUl(event) {
+            
+            let newLeft = event.clientX - clickX - wrapperDivRef.current.getBoundingClientRect().x;     
+                // setUlWrapperImgLeft(newLeft);  
+                if(ulWrapperRef.current.getBoundingClientRect().x > 21) {
+                    console.log(1);
+                    
+                } else {
+                    setUlWrapperImgLeft(newLeft);
+                }
+                
+           
+        };
+
+        function onMouseUpUl() {
+            ulWrapperRef.current.removeEventListener('mouseup', onMouseUpUl);
+            ulWrapperRef.current.removeEventListener('mousemove', onMouseMoveUl);     
+        };    
+    };
 
     return ( 
         <>
-            <div className={st.sliderMouseHome}> 
+            <div ref={wrapperDivRef} className={st.sliderMouseHome}> 
                 <div className={st.wrapperBtnSliderClickHome}>
                     <button onClick={sliderMouseLeft}>{' < left '}</button>
                   
                     <button className={st.btnRight} onClick={sliderMouseRight}>{' right > '}</button>
                 </div>
-                <ul onMouseDown={onMouseDownUpUl} onMouseUp={onMouseDownUpUl} ref={ulWrapperImg} className={st.ulWrapperImg} style={{left: `${ulWrapperImgLeft}px`}}>
+                <ul onMouseDown={onMouseDownUl} ref={ulWrapperRef} className={st.ulWrapperImg} style={{left: `${ulWrapperImgLeft}px`}}>
                 
                    {imgArrServer.map((img, i) => {
                         return (
