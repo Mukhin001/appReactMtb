@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, NavLink} from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import './app.css';
 import { useEffect, useState } from 'react';
 
@@ -32,7 +32,7 @@ const arrLink = [
 
 function App() { 
     
-    const [countLink, setCountLink] = useState(1);
+    const [countLink, setCountLink] = useState(0);
     const [userNameLogin, setUserNameLogin] = useState('anonimus');
     const [loginExit, setLoginExit] = useState('Login');
     const [linkExit, setLinkExit] = useState('/login');
@@ -42,8 +42,17 @@ function App() {
     const [searchVideo, setSearchVideo] = useState([]);
     const [theme, setTheme] = useState('light');
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
+    const locationRoute = useLocation();
 
-    //useEffect(() => {}, [countLink]);
+    //console.log(locationRoute);
+
+        // arrLink.forEach((e, i) => {
+        //     if(e === locationRoute.pathname) {
+        //         console.log(e, i);
+        //             //setCountLink(i + 1)
+        //     }
+        // });
+
     const themeColorLight = {
         '--color-text': 'darkblue',
         '--color-border': 'crimson',
@@ -84,22 +93,24 @@ function App() {
         setLikes(prev => ({...prev, [li.getAttribute('atrlike')] : li}))
     };
 
-    function rightLinkClick () {
+    function rightLinkClick() {
         
-        setCountLink(countLink + 1);
+        setCountLink(prev => prev + 1);
 
             if(countLink >= arrLink.length - 1) {
                 setCountLink(0);   
             }
+            console.log(countLink);
     };
 
-    function leftLinkClick () {
+    function leftLinkClick() {
         
-        setCountLink(countLink - 1);
+        setCountLink(prev => prev - 1);
             
             if(countLink <= 0) {
                 setCountLink(arrLink.length - 1)
-            } 
+            }
+            console.log(countLink); 
     };
 
 
@@ -136,7 +147,7 @@ function App() {
 
   return (
     <div className={`app ${theme}`}> 
-       <Router>
+       {/* <Router> */}
             {/* <VideoContext.Provider value={'namePhoto'}> */}
                 <ContextClientWidth.Provider  value={widthDisplay}>
                     <Header userNameLogin={userNameLogin} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
@@ -146,7 +157,7 @@ function App() {
                 </ContextClientWidth.Provider>
 
                 <div className='navBarWrapper'>
-                
+                    <p>{countLink}</p>
                     <NavBarMain />
                 
                     <div className='slideLinkMain'>
@@ -169,7 +180,7 @@ function App() {
                 </div>
             {/* </VideoContext.Provider> */}
             <Footer />
-       </Router>
+       {/* </Router> */}
        <button onClick={btnAppTo} className='btnApp' style={{display: `${btnToDisplay}`}}>up</button>
     </div>
   );

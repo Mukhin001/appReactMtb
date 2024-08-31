@@ -9,7 +9,7 @@ const SliderMouseHome = () => {
     const [ulWrapperImgLeft, setUlWrapperImgLeft] = useState(0);
 
     function sliderMouseLeft() {
-        if(ulWrapperRef.current.getBoundingClientRect().x < -1800) {
+        if(ulWrapperRef.current.getBoundingClientRect().x < -1400) {
             return
         } else {
             setUlWrapperImgLeft(prev => {
@@ -19,7 +19,7 @@ const SliderMouseHome = () => {
     };
 
     function sliderMouseRight() {
-        if(ulWrapperRef.current.getBoundingClientRect().x > 21) {
+        if(ulWrapperRef.current.getBoundingClientRect().x > 170) {
             return
         } else {
             setUlWrapperImgLeft(prev => {
@@ -41,14 +41,14 @@ const SliderMouseHome = () => {
         function onMouseMoveUl(event) {
             
             let newLeft = event.clientX - clickX - wrapperDivRef.current.getBoundingClientRect().x;     
-                // setUlWrapperImgLeft(newLeft);  
-                if(ulWrapperRef.current.getBoundingClientRect().x > 21) {
-                    console.log(1);
-                    
+
+                if(ulWrapperRef.current.getBoundingClientRect().x > 170) {
+                    setUlWrapperImgLeft(0);
+                } else if(ulWrapperRef.current.getBoundingClientRect().x < -1400) {
+                    setUlWrapperImgLeft(-1350);
                 } else {
                     setUlWrapperImgLeft(newLeft);
                 }
-                
            
         };
 
