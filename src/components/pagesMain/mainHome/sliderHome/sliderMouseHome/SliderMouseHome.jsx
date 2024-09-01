@@ -10,7 +10,7 @@ const SliderMouseHome = () => {
 
     function sliderMouseLeft() {
         if(ulWrapperRef.current.getBoundingClientRect().x < -1400) {
-            return
+            setUlWrapperImgLeft(-1350);
         } else {
             setUlWrapperImgLeft(prev => {
                 return +prev - 100;
@@ -20,16 +20,13 @@ const SliderMouseHome = () => {
 
     function sliderMouseRight() {
         if(ulWrapperRef.current.getBoundingClientRect().x > 170) {
-            return
+            setUlWrapperImgLeft(0);
         } else {
             setUlWrapperImgLeft(prev => {
                 return +prev + 100; 
               });
         }
     };
-
-
-  
 
     function onMouseDownUl(event) {
         event.preventDefault(); // предотвратить запуск выделения (действие браузера)

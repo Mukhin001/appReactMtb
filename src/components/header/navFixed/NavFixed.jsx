@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 import st from './style.module.css';
 
 const NavFixed = () => {
-    //console.log(NavBar);
+
+    
     return ( 
         <nav>
             <ul className={st.NavFixed}>

@@ -42,16 +42,7 @@ function App() {
     const [searchVideo, setSearchVideo] = useState([]);
     const [theme, setTheme] = useState('light');
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
-    const locationRoute = useLocation();
-
-    //console.log(locationRoute);
-
-        // arrLink.forEach((e, i) => {
-        //     if(e === locationRoute.pathname) {
-        //         console.log(e, i);
-        //             //setCountLink(i + 1)
-        //     }
-        // });
+    const loc = useLocation();
 
     const themeColorLight = {
         '--color-text': 'darkblue',
@@ -93,24 +84,21 @@ function App() {
         setLikes(prev => ({...prev, [li.getAttribute('atrlike')] : li}))
     };
 
-    function rightLinkClick() {
-        
+    function rightLinkClick(elem) {
         setCountLink(prev => prev + 1);
 
             if(countLink >= arrLink.length - 1) {
                 setCountLink(0);   
             }
-            console.log(countLink);
     };
 
-    function leftLinkClick() {
+    function leftLinkClick(elem) {
         
         setCountLink(prev => prev - 1);
             
             if(countLink <= 0) {
                 setCountLink(arrLink.length - 1)
-            }
-            console.log(countLink); 
+            } 
     };
 
 
@@ -154,10 +142,14 @@ function App() {
                             setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
                             setThemeSite={setThemeSite}
                     />
+                    <div>
+                        <p>index {countLink}</p>
+                        <p>locationRoute {loc.pathname}</p>
+                        
+                    </div>
                 </ContextClientWidth.Provider>
 
                 <div className='navBarWrapper'>
-                    <p>{countLink}</p>
                     <NavBarMain />
                 
                     <div className='slideLinkMain'>
