@@ -1,0 +1,31 @@
+.SocialNetworkWrapper {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.btnNetwork {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+}
+
+.wrapOpenChat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: tomato;
+}
+
+.closeChat {
+    position: absolute;
+    left: -10%;
+}
+
+/* .messageP {
+    text-align: end;
+} */
+
+.wpapInputMessage label {
+    display: block;
+}

@@ -18,8 +18,10 @@ import MainSearch from './components/pagesMain/MainSearch';
 import MainFavorites from './components/pagesMain/MainFavorites';
 
 import React from "react";
+import SocialNetwork from './components/commonPages/socialNetwork/SocialNetwork';
+import BtnUp from './components/commonPages/btnUp/BtnUp';
 
-// export const VideoContext = React.createContext();
+export const VideoContext = React.createContext();
 export const ContextClientWidth = React.createContext();
 
 const arrLink = [
@@ -114,21 +116,6 @@ function App() {
         setLinkExit(value); 
     };
 
-    const [btnToDisplay, setBtnToDisplay] = useState('none');
-    
-    window.addEventListener('scroll', function() {
-       
-        if( this.window.scrollY > (document.documentElement.clientHeight / 3)) {
-            setBtnToDisplay('block');
-        } else {
-            setBtnToDisplay('none');
-        }
-    });
-
-    function btnAppTo() {
-        window.scrollTo({top: 0, left: 0, behavior: "smooth",});
-    };
-
     function setThemeSite(value) {
         setTheme(value);
     };
@@ -173,7 +160,8 @@ function App() {
             {/* </VideoContext.Provider> */}
             <Footer />
        {/* </Router> */}
-       <button onClick={btnAppTo} className='btnApp' style={{display: `${btnToDisplay}`}}>up</button>
+        <SocialNetwork />
+       <BtnUp />
     </div>
   );
 };

@@ -7,7 +7,7 @@ import PagePhotoFour from './pagesPhoto/PagePhotoFour';
 import PagePhotoFive from './pagesPhoto/PagePhotoFive';
 import st from './pagesPhoto/style.module.css';
 
-import { useState,  useRef} from 'react'; 
+import { useState,  useRef,  } from 'react'; 
 const MainPhoto = ({getLikesFn, userNameLogin}) => {
     const [sliderOpacity, setSliderOpacity] = useState('0'); 
     const [addImgArr, setAddImgArr] = useState([]);
@@ -15,7 +15,7 @@ const MainPhoto = ({getLikesFn, userNameLogin}) => {
     const slideWrapper = useRef();
     const [countSlide, setCountSlide] = useState(1);
     const [sliderWrapperLeft, setSliderWrapperWidth] = useState('-100%');
-
+    const main = useRef();
 
     function slideClickLeft() {
         const arrSlide = [...slideWrapper.current.children];
@@ -55,15 +55,22 @@ const MainPhoto = ({getLikesFn, userNameLogin}) => {
         arrSlide[countSlide].classList.add(st.slideImgActive);
     };
 
+    function keyDown(key) {
+        console.log(key);
+    };
+
     function closeSlider() {   
         document.body.style.overflow = '';
         setSliderOpacity('0');
         setSliderWrapperWidth('-100%');
         setAddImgArr([]);
+        document.removeEventListener('keydown', keyDown, true );
     }; 
 
+
     function openImg(e) { 
-       
+        document.addEventListener('keydown', keyDown, true);
+
         if(e.target.src) {
             setImgActive(e.target.src);
             setSliderOpacity('1');
@@ -83,7 +90,7 @@ const MainPhoto = ({getLikesFn, userNameLogin}) => {
     };   
     
     return ( 
-        <main>
+        <main ref={main}>
                Photos!
               
                <Routes>
