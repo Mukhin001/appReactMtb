@@ -1,12 +1,13 @@
 import { useRef, useState, } from 'react';
 import st from './style.module.css';
 
-const SocialNetwork = () => {
+const SocialNetwork = ({ userNameLogin }) => {
 
     const wrapMessageChat = useRef();
     const [messages, setMessages] = useState([]);
     const [display, setDisplay] = useState('none');
-    const [greetingChat, setGreetingChat] = useState(true);
+    const greetingnameArr = ['friend!', 'my boy!', 'good boy!', 'dog!']; 
+    const [nameChat, setNameChat] = useState(userNameLogin);
 
     function sendMessageChat(elem) {
             
@@ -24,14 +25,17 @@ const SocialNetwork = () => {
     };
 
     function openBtnNetwork() {
+     
+        if(userNameLogin === 'anonimus') {
+            let indexRandom = Math.floor(Math.random() * greetingnameArr.length);
+            setNameChat(greetingnameArr[indexRandom]);
+        } else {
+            setNameChat(userNameLogin);
+        }
         
-        if(greetingChat === true) {
-
-            setGreetingChat(false);
-
             setTimeout(() => {
                 setMessages(prev => {
-                    return [...prev, 'Hello friend!'];
+                    return [...prev, `Hello ${nameChat}`];
                 });
             }, 1000);
     
@@ -41,12 +45,13 @@ const SocialNetwork = () => {
                 });
             }, 3000);
 
-        }
+        
         
         setDisplay('block');
     };
 
     function closeChat() {
+        setMessages([]);
         setDisplay('none');
     };
 

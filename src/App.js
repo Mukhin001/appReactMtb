@@ -160,7 +160,7 @@ function App() {
             {/* </VideoContext.Provider> */}
             <Footer />
        {/* </Router> */}
-        <SocialNetwork />
+        <SocialNetwork userNameLogin={userNameLogin}/>
        <BtnUp />
     </div>
   );

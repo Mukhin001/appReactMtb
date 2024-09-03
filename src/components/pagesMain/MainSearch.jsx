@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import st from '../pagesMain/mainPhoto/pagesPhoto/style.module.css';
+import st from './mainPhoto/pagesPhoto/style.module.css';
+import mobile from '../mobileFile/mobile.module.css';
 import { useRef, useEffect } from "react";
 
 const MainSearch = ({searchPhoto, searchVideo, getLikesFn}) => {
@@ -43,14 +44,14 @@ const MainSearch = ({searchPhoto, searchVideo, getLikesFn}) => {
     return ( 
         <main>
             MainSearch
-            <div className={st.pagePhotosWrap}>
+            <div className={`${st.pagePhotosWrap} ${mobile.pagePhotosWrap}`}>
                 <ul ref={imgRef}>
                     {searchPhoto.map((obj) => {
                         
                         return (
                             <li atrlike={obj.name} namephoto={obj.name} className={st.photosImgLi} key={obj.name}>
                                 <div style={{position: 'relative'}} >
-                                    <NavLink to={`/photo/${obj.name}`}>
+                                    <NavLink to={`/photo/${obj.name}`} className={st.imgWrapSlide}>
                                 
                                     {obj.url.map(url => {
                                         return ( <img src={url} key={url} alt={url.substring(26)}  />)})}

@@ -3,7 +3,96 @@ import {photoServer} from '../../../../../server/photoServer';
 import mobile from '../../../../mobileFile/mobile.module.css';
 import Comments from './comments/Comments';
 
-const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, openImg, slideWrapper, slideClickLeft, slideClickRight, sliderWrapperLeft, userNameLogin}) => {
+import { useState,  useRef,  } from 'react';
+
+const HtmlPhoto = ({name, userNameLogin}) => {
+    const sliderWrapper = useRef();
+    const [sliderOpacity, setSliderOpacity] = useState('0'); 
+    const [addImgArr, setAddImgArr] = useState([]);
+    const [imgActive, setImgActive] = useState();
+    const photoSlide = useRef();
+    const [countSlide, setCountSlide] = useState(1);
+    const [sliderWrapperLeft, setSliderWrapperWidth] = useState('-100%');
+
+    function slideClickLeft() {
+        const arrSlide = [...photoSlide.current.children];
+        if(arrSlide.length === 1) {
+            return
+        }
+        for(let i = 0; i < arrSlide.length; i++) { 
+            arrSlide[i].classList.remove(st.slideImgActive); 
+        };
+
+            if(countSlide <= 0) {
+                setCountSlide(arrSlide.length -1)
+            } else {
+                setCountSlide(countSlide - 1);
+            }
+        
+        arrSlide[countSlide].classList.add(st.slideImgActive);
+
+ 
+    };
+
+    function slideClickRight() {
+        const arrSlide = [...photoSlide.current.children];
+        if(arrSlide.length === 1) {
+            return
+        }
+        for(let i = 0; i < arrSlide.length; i++) { 
+            arrSlide[i].classList.remove(st.slideImgActive); 
+        };
+
+            if(countSlide >= arrSlide.length -1) {
+                setCountSlide(0)
+            } else {
+                setCountSlide(countSlide + 1);
+            }
+        
+        arrSlide[countSlide].classList.add(st.slideImgActive);
+    };
+
+    // function keyDown(key) {
+    //     console.log(key);
+    // };
+
+    function closeSlider() {   
+        document.body.style.overflow = '';
+        setSliderOpacity('0');
+        setSliderWrapperWidth('-100%');
+        setAddImgArr([]);
+        //document.removeEventListener('keydown', keyDown, true );
+    };
+
+
+    function openImg(e) { 
+        //document.addEventListener('keydown', keyDown, true);
+
+        if(e.target.src) {
+            setImgActive(e.target.src);
+            setSliderOpacity('1');
+            setSliderWrapperWidth('0');
+            let arr = [];
+                [...e.currentTarget.children].forEach(div => {
+                    [...div.children].forEach(img => 
+                        {
+                        arr.push(img)  
+                        } 
+                    )
+                });
+            setAddImgArr(arr);
+            document.body.style.overflow = 'hidden';
+        }
+     
+    };   
+    
+         
+    function closeSliderBackGound(elem) {
+        
+        if(elem.target === sliderWrapper.current || elem.target === photoSlide.current) {
+            closeSlider();
+        }  
+    };
 
     return ( 
         <div className='htmlPhoto'>
@@ -25,10 +114,13 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
                 }
             </div>
             
-            <div style={{ left: `${sliderWrapperLeft}`, opacity: `${sliderOpacity}`}} className={st.sliderWrapper}>
+            <div ref={sliderWrapper} onClick={closeSliderBackGound} style={{ left: `${sliderWrapperLeft}`, opacity: `${sliderOpacity}`}} className={st.sliderWrapper}>
+
+            <button onClick={closeSlider} className={st.closeSlider}>close</button>
+
                 <div className={st.sliderContainer}>
                     <button onClick={slideClickLeft} className={`${st.btnSlide} ${st.btnSlideLeft}`}>left</button>
-                    <div ref={slideWrapper} className={st.photoSlide}>
+                    <div ref={photoSlide} className={st.photoSlide}>
                         
                         {
                         addImgArr.map(e => {
@@ -48,7 +140,7 @@ const HtmlPhoto = ({name, sliderOpacity, closeSlider, addImgArr, imgActive, open
                     </div>
                     <button onClick={slideClickRight} className={`${st.btnSlide} ${st.btnSlideRight}`}>right</button>
                 </div>
-                <button onClick={closeSlider} className={st.closeSlider}>close</button>
+                
             </div> 
 
             <div className='descriptonTable'>

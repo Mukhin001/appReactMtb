@@ -4,6 +4,7 @@
 
 .photosImgLi img {
     display: none;
+    width: 100%;
 }
 
 .imgName {
@@ -110,4 +111,10 @@
     display: block;
     max-width: 1500px;
     max-height: 500px;
+}
+
+.closeSlider {
+    position: absolute;
+    right: 5%;
+    top: 5%;
 }
