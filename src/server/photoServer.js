@@ -166,7 +166,7 @@ export const photoServer = [
     {
         name: 'scale_1200',
         url : [ "../img/scale_1200.jpg", "../img/bodyFon.jpeg", "../img/dark-theme.jpg", "../img/shark.png"],
-        description: 'dirt ale_1200 photo',
+        description: 'scale_1200 dirt ale_1200 photo',
         dateCard: '25 12 2019',
         descriptionCard: {  
             frame: 'scale',

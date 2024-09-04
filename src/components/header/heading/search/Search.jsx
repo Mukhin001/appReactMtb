@@ -15,19 +15,27 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
     const btnCloseRef = useRef();
     const btnSearch = useRef();
     const searchWrap = useRef();
-    const [inpue, setInput] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
+    const [suggestSearchArr, setSuggestSearchArr] = useState([]);
+    
     function siteSearchDown() {
         setSiteSearchTop('0');
         setSearchWrapDisplay('1');
         setSearchWrapHeight('100%');
-        setSearchPhoto([]);
+        // setSearchPhoto([]);
     };
 
     function siteSearchUp() {
         setSiteSearchTop('-100px');
         setSearchWrapDisplay('0');
         setSearchWrapHeight('0');
+
+        // if(inputRef.current) {
+        //     inputRef.current.value = '';
+        // }
+        // setInputValue('');
+        // setSuggestSearchArr([]);
     };
 
     function closeSiteSear(e) {
@@ -42,6 +50,12 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
             setSearchWrapDisplay('0');
             setSearchWrapHeight('0');
             document.body.removeEventListener('click', closeSiteSear);
+            
+            // if(inputRef.current) {
+            //     inputRef.current.value = '';
+            // }
+            // setInputValue('');
+            // setSuggestSearchArr([]);
         }
     };
     
@@ -58,32 +72,63 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
     //     });
     // };
     
-    function foundPhoto() {
+    
+    function onChangeInput(input) {
+        
+        setInputValue(input.target.value);
+
+        if(suggestSearchArr.length === 0) {    
+            photoServer.forEach(obj => {
+                if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
+                setSuggestSearchArr(prev => [...new Set(prev), obj.name])
+                }   
+            });      
+        } else {
+           setSuggestSearchArr(suggestSearchArr.filter(e => e.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())))
+        }
+      //  console.log(suggestSearchArr);
+        
+    };
+
+    function foundWebSite() {
+
         photoServer.forEach(obj => {
-                if(obj.description.toLocaleLowerCase().includes(inpue.target.value.toLocaleLowerCase())) {
+                if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
                     getPhotoFn(obj);
                 }  
         });
 
-        videoServer.forEach((objMain) => {
-            objMain.content.forEach((obj) => {
-                    if(obj.description.toLocaleLowerCase().includes(inpue.target.value.toLocaleLowerCase())) {
-                        //console.log(obj);
-                        getVideoFn(obj);
-                    }
-                })
-        })
-        inpue.target.value = '';
+        // videoServer.forEach((objMain) => {
+        //     objMain.content.forEach((obj) => {
+        //             if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
+        //                 //console.log(obj);
+        //                 getVideoFn(obj);
+        //             }
+        //         })
+        // })
+        if(inputRef.current) {
+            inputRef.current.value = '';
+        }
+        setSearchPhoto([]);
+        setInputValue('');
+        setSuggestSearchArr([]);
     };
+
 
     return ( 
         <div>
             <div ref={siteRef} className={st.siteSearch} style={{transform: `translateY(${siteSearchTop})`}}>
-                <label ref={labelRef} htmlFor="site-search">Search the site:</label>
-                <input ref={inputRef} type="search" id='site-search' name='site-search' onChange={setInput}/>
-                <NavLink to="/search" onClick={foundPhoto}>search</NavLink>
-                <button ref={btnCloseRef} onClick={siteSearchUp}>close</button>
-                
+                <div>
+                    <label ref={labelRef} htmlFor="site-search">Search the site:</label>
+                    <input ref={inputRef} type="search" id='site-search' name='site-search' onChange={onChangeInput}/>
+                    <NavLink to="/search" onClick={foundWebSite}>search</NavLink>
+                    <button ref={btnCloseRef} onClick={siteSearchUp}>close</button>
+                </div>
+                <div>
+                    <ul className={st.suggestSearch}>
+                        { suggestSearchArr.map(li =>   <NavLink to={`/photo/${li}`} key={li + 'suggest'}><li>{li}</li></NavLink>  ) }
+                    </ul>
+                </div>
             </div>
             <div ref={searchWrap} className={st.searchWrap} style={{opacity: `${searchWrapDisplay}`, height: `${searchWrapHeight}`}}>
             </div>

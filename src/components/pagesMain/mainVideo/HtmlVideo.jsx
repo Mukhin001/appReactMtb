@@ -12,7 +12,7 @@ const HtmlVideo = ({disciplineRoute}) => {
                         
                         obj.content.map((e, i) => {
                             return (
-                                <li key={e.name + i}>{e.name}{obj.discipline}
+                                <li key={e.name + 'video'}>{e.name}{obj.discipline}
                                     <video src="#">video</video>
                                     <NavLink to={`/video/${obj.discipline}/${e.name}`}>{e.name}</NavLink>
                                 </li>
