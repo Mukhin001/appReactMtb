@@ -39,10 +39,12 @@
     align-items: center;
     justify-content: center;
     height: 350px;
+    max-width: 350px;
     background-color: aqua;
 }
 
 .imgWrapSlide img {
+    object-fit: contain;
     max-width: 100%;
     max-height: 100%;
 }
