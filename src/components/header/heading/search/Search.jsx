@@ -18,12 +18,13 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
     const [inputValue, setInputValue] = useState('');
 
     const [suggestSearchArr, setSuggestSearchArr] = useState([]);
+    //const [suggestSearchArr, setSuggestSearchArr] = useState({ photo: [], video: [], });
     
     function siteSearchDown() {
         setSiteSearchTop('0');
         setSearchWrapDisplay('1');
         setSearchWrapHeight('100%');
-        // setSearchPhoto([]);
+        setSearchPhoto([]);
     };
 
     function siteSearchUp() {
@@ -31,11 +32,11 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
         setSearchWrapDisplay('0');
         setSearchWrapHeight('0');
 
-        // if(inputRef.current) {
-        //     inputRef.current.value = '';
-        // }
-        // setInputValue('');
-        // setSuggestSearchArr([]);
+        if(inputRef.current) {
+            inputRef.current.value = '';
+            setSuggestSearchArr([]);
+        }
+        
     };
 
     function closeSiteSear(e) {
@@ -51,11 +52,10 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
             setSearchWrapHeight('0');
             document.body.removeEventListener('click', closeSiteSear);
             
-            // if(inputRef.current) {
-            //     inputRef.current.value = '';
-            // }
-            // setInputValue('');
-            // setSuggestSearchArr([]);
+            if(inputRef.current) {
+                inputRef.current.value = '';
+                setSuggestSearchArr([]);
+            }
         }
     };
     
@@ -82,10 +82,14 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
                 if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
                 setSuggestSearchArr(prev => [...new Set(prev), obj.name])
                 }   
+                // if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
+                //     setSuggestSearchArr(suggestSearchArr.photo.map((prev) => [...new Set(prev), obj.name]))
+                //     }   
             });      
         } else {
            setSuggestSearchArr(suggestSearchArr.filter(e => e.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())))
-        }
+          // setSuggestSearchArr(suggestSearchArr.photo.filter(e => e.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())))
+        }   
       //  console.log(suggestSearchArr);
         
     };
@@ -97,7 +101,7 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
                     getPhotoFn(obj);
                 }  
         });
-
+       // 
         // videoServer.forEach((objMain) => {
         //     objMain.content.forEach((obj) => {
         //             if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
@@ -108,10 +112,8 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
         // })
         if(inputRef.current) {
             inputRef.current.value = '';
+            setSuggestSearchArr([]);
         }
-        setSearchPhoto([]);
-        setInputValue('');
-        setSuggestSearchArr([]);
     };
 
 
@@ -126,7 +128,7 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
                 </div>
                 <div>
                     <ul className={st.suggestSearch}>
-                        { suggestSearchArr.map(li =>   <NavLink to={`/photo/${li}`} key={li + 'suggest'}><li>{li}</li></NavLink>  ) }
+                        { suggestSearchArr.map(li =>   <NavLink onClick={siteSearchUp} to={`/photo/${li}`} key={li + 'suggest'}><li>{li}</li></NavLink>  ) }
                     </ul>
                 </div>
             </div>
