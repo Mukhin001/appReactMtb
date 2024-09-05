@@ -3,9 +3,10 @@ import st from './mainPhoto/pagesPhoto/style.module.css';
 import mobile from '../mobileFile/mobile.module.css';
 import { useRef, useEffect } from "react";
 
-const MainSearch = ({searchPhoto, searchVideo, getLikesFn}) => {
+const MainSearch = ({searchPhoto, searchVideo, getLikesFn, searchUserText}) => {
     const imgRef = useRef(null);
     const slideDots = useRef(null);
+
 
     useEffect(() => {
         [...imgRef.current.children].forEach(li => {
@@ -44,6 +45,7 @@ const MainSearch = ({searchPhoto, searchVideo, getLikesFn}) => {
     return ( 
         <main>
             MainSearch
+            <p>{searchUserText}</p>
             <div className={`${st.pagePhotosWrap} ${mobile.pagePhotosWrap}`}>
                 <ul ref={imgRef}>
                     {searchPhoto.map((obj) => {

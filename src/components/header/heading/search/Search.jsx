@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { photoServer } from '../../../../server/photoServer';
 import { videoServer } from '../../../pagesMain/mainVideo/videoServer';
 
-const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
+const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchUserTextFn}) => {
     const [siteSearchTop, setSiteSearchTop] = useState('-100px');
     const [searchWrapDisplay, setSearchWrapDisplay] = useState('0');
     const [searchWrapHeight, setSearchWrapHeight] = useState('0');
@@ -15,16 +15,19 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
     const btnCloseRef = useRef();
     const btnSearch = useRef();
     const searchWrap = useRef();
-    const [inputValue, setInputValue] = useState('');
+    const [inputValuePhoto, setinputValuePhoto] = useState('');
+    const [inputValueVideo, setinputValueVideo] = useState('');
 
-    const [suggestSearchArr, setSuggestSearchArr] = useState([]);
-    //const [suggestSearchArr, setSuggestSearchArr] = useState({ photo: [], video: [], });
+    const [suggestSearchArrPhoto, setsuggestSearchArrPhoto] = useState([]);
+    const [suggestSearchArrVideo, setsuggestSearchArrVideo] = useState([]);
     
     function siteSearchDown() {
         setSiteSearchTop('0');
         setSearchWrapDisplay('1');
         setSearchWrapHeight('100%');
         setSearchPhoto([]);
+        setSearchVideo([]);
+        searchUserTextFn('');
     };
 
     function siteSearchUp() {
@@ -34,7 +37,8 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
 
         if(inputRef.current) {
             inputRef.current.value = '';
-            setSuggestSearchArr([]);
+            setsuggestSearchArrPhoto([]);
+            setsuggestSearchArrVideo([]);
         }
         
     };
@@ -54,7 +58,8 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
             
             if(inputRef.current) {
                 inputRef.current.value = '';
-                setSuggestSearchArr([]);
+                setsuggestSearchArrPhoto([]);
+                setsuggestSearchArrVideo([]);
             }
         }
     };
@@ -74,45 +79,92 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
     
     
     function onChangeInput(input) {
-        
-        setInputValue(input.target.value);
 
-        if(suggestSearchArr.length === 0) {    
+           photoServer.forEach(obj => {
+
+                if(obj.description.toLocaleLowerCase().includes(input.target.value.toLocaleLowerCase())) {
+                    setinputValuePhoto(input.target.value); 
+                } 
+           });
+
+            videoServer.forEach((objMain) => {
+
+                objMain.content.forEach((obj) => {
+                  
+                    if(obj.description.toLocaleLowerCase().includes(input.target.value.toLocaleLowerCase())){
+                        setinputValueVideo(input.target.value);
+                    }
+                });
+            });   
+
+        if(suggestSearchArrPhoto.length === 0) {    
             photoServer.forEach(obj => {
-                if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
-                setSuggestSearchArr(prev => [...new Set(prev), obj.name])
+                // проверка на пробелы
+                if(/^\s*$/.test(inputValuePhoto)) {
+                    return
+                }
+                if(obj.description.toLocaleLowerCase().includes(inputValuePhoto.toLocaleLowerCase())) {
+                    setsuggestSearchArrPhoto(prev => [...new Set(prev), obj.name]);
                 }   
-                // if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
-                //     setSuggestSearchArr(suggestSearchArr.photo.map((prev) => [...new Set(prev), obj.name]))
-                //     }   
-            });      
+            });   
+
         } else {
-           setSuggestSearchArr(suggestSearchArr.filter(e => e.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())))
-          // setSuggestSearchArr(suggestSearchArr.photo.filter(e => e.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())))
+           setsuggestSearchArrPhoto(suggestSearchArrPhoto.filter(e => e.toLocaleLowerCase().includes(inputValuePhoto.toLocaleLowerCase())));
         }   
-      //  console.log(suggestSearchArr);
+
+        if(suggestSearchArrVideo.length === 0) {
+               
+            videoServer.forEach((objMain) => {
+                objMain.content.forEach((obj) => {
+                        if(/^\s*$/.test(inputValueVideo)) {
+                            return
+                        }
+                        if(obj.description.toLocaleLowerCase().includes(inputValueVideo.toLocaleLowerCase())){
+                            setsuggestSearchArrVideo(prev => [...new Set(prev), obj.name]);
+                        }
+                });
+            });   
+        } else {
+            setsuggestSearchArrVideo(suggestSearchArrVideo.filter(e => e.toLocaleLowerCase().includes(inputValueVideo.toLocaleLowerCase())));
+        }
+     
         
     };
 
     function foundWebSite() {
+        //console.log(inputValueVideo, suggestSearchArrVideo);
+                
+            
+        if(/^\s*$/.test(inputValuePhoto) || !inputValuePhoto) {
+            return;
+        }
+        if(/^\s*$/.test(inputValueVideo) || !inputValueVideo) {
+            return;
+        }
+
+        searchUserTextFn(inputValuePhoto, inputValueVideo);
 
         photoServer.forEach(obj => {
-                if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
+                if(obj.description.toLocaleLowerCase().includes(inputValuePhoto.toLocaleLowerCase())) {
+                    //console.log(obj);
+                    
                     getPhotoFn(obj);
                 }  
         });
-       // 
-        // videoServer.forEach((objMain) => {
-        //     objMain.content.forEach((obj) => {
-        //             if(obj.description.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
-        //                 //console.log(obj);
-        //                 getVideoFn(obj);
-        //             }
-        //         })
-        // })
+       
+        videoServer.forEach((objMain) => {
+            objMain.content.forEach((obj) => {
+                    if(obj.description.toLocaleLowerCase().includes(inputValueVideo.toLocaleLowerCase())) {
+                        //console.log(obj);
+                        getVideoFn(obj);
+                    }
+                })
+        });
+
         if(inputRef.current) {
             inputRef.current.value = '';
-            setSuggestSearchArr([]);
+            setsuggestSearchArrPhoto([]);
+            setsuggestSearchArrVideo([]);
         }
     };
 
@@ -128,7 +180,10 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto}) => {
                 </div>
                 <div>
                     <ul className={st.suggestSearch}>
-                        { suggestSearchArr.map(li =>   <NavLink onClick={siteSearchUp} to={`/photo/${li}`} key={li + 'suggest'}><li>{li}</li></NavLink>  ) }
+                        { suggestSearchArrPhoto.map(li =>   <NavLink onClick={siteSearchUp} to={`/photo/${li}`} key={li + 'suggestphoto'}><li>{li}</li></NavLink>  ) }
+                    </ul>
+                    <ul className={st.suggestSearch}>
+                        { suggestSearchArrVideo.map(li =>   <NavLink onClick={siteSearchUp} to={`/video/${li}`} key={li + 'suggestvideo'}><li>{li}</li></NavLink> ) }
                     </ul>
                 </div>
             </div>

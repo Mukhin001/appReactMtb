@@ -46,6 +46,8 @@ function App() {
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
     const loc = useLocation();
 
+    const [searchUserText, setSearchUserTextFn] = useState('');
+
     const themeColorLight = {
         '--color-text': 'darkblue',
         '--color-border': 'crimson',
@@ -120,14 +122,19 @@ function App() {
         setTheme(value);
     };
 
+    function searchUserTextFn(value) {
+        setSearchUserTextFn(value);
+    };
+
   return (
     <div className={`app ${theme}`}> 
        {/* <Router> */}
             {/* <VideoContext.Provider value={'namePhoto'}> */}
                 <ContextClientWidth.Provider  value={widthDisplay}>
-                    <Header userNameLogin={userNameLogin} loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} 
-                            setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}
-                            setThemeSite={setThemeSite}
+                    <Header userNameLogin={userNameLogin} loginExit={loginExit} linkExit={linkExit} 
+                            setSearchPhoto={setSearchPhoto} getPhotoFn={getPhotoFn}  
+                            setSearchVideo={setSearchVideo} getVideoFn={getVideoFn}
+                            setThemeSite={setThemeSite} searchUserTextFn={searchUserTextFn}
                     />
                     <div>
                         <p>index {countLink}</p>
@@ -151,7 +158,7 @@ function App() {
                                 <Route path="/createAccaunt" element={<MainNoLogin registerAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn}/>}/>
                                 <Route path="/exit" element={<MainExit  enterAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn} />} />
                                 <Route path="/bye" element={<MainBye />} />
-                                <Route path="/search" element={<MainSearch searchPhoto={searchPhoto} searchVideo={searchVideo} getLikesFn={getLikesFn}/>} />
+                                <Route path="/search" element={<MainSearch searchUserText={searchUserText} searchPhoto={searchPhoto} searchVideo={searchVideo} getLikesFn={getLikesFn}/>} />
                                 <Route path='/favorites' element={<MainFavorites likes={likes}/>} />
                             </Routes>
                         <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>

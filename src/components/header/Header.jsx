@@ -4,7 +4,7 @@ import st from './style.module.css';
 import { ContextClientWidth } from '../../App';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, getVideoFn}) => {
+const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn}) => {
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
@@ -53,7 +53,10 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
 
             <div ref={headingRef} className={st.heading} style={{display: stDisplayActive}}>
                     
-                <Heading loginExit={loginExit} linkExit={linkExit} getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn}/>
+                <Heading    loginExit={loginExit} linkExit={linkExit} 
+                            getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} 
+                            getVideoFn={getVideoFn} setSearchVideo={setSearchVideo} 
+                            searchUserTextFn={searchUserTextFn} /> 
                 <button ref={btnCloseRef} style={{display: 'none'}} onClick={closeHeaderMenuMobile}>Close</button>   
                 <NavFixed />
             </div>
