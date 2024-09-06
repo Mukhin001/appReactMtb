@@ -77,11 +77,11 @@ function App() {
     window.addEventListener('resize', setWidthDisplayFn);
 
     function getPhotoFn(obj) {
-       setSearchPhoto(prev => [...prev, obj]);   
+       setSearchPhoto(prev => [...new Set(prev), obj]);   
     };
 
     function getVideoFn(obj) {
-        setSearchVideo(prev => [...prev, obj]);  
+        setSearchVideo(prev => [...new Set(prev), obj]);  
     };
     
     function getLikesFn(li) {

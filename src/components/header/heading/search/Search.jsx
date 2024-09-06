@@ -15,6 +15,9 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
     const btnCloseRef = useRef();
     const btnSearch = useRef();
     const searchWrap = useRef();
+
+    const [inputValueCommon, setinputValueCommon] = useState('');
+
     const [inputValuePhoto, setinputValuePhoto] = useState('');
     const [inputValueVideo, setinputValueVideo] = useState('');
 
@@ -69,7 +72,7 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
     // function listenerInput(event) {
 
     //     photoServer.forEach(elem => {
-    //         if(elem.name.toLowerCase().includes(event.target.value.toLowerCase())) {
+    //         if(elem.name.toLowerCase().startsWith(event.target.value.toLowerCase())) {
     //                 console.log(elem);
     //             //getPhotoFn(elem)
             
@@ -78,23 +81,28 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
     // };
     
     
+
     function onChangeInput(input) {
+        setinputValueCommon(input.target.value);
 
            photoServer.forEach(obj => {
-
-                if(obj.description.toLocaleLowerCase().includes(input.target.value.toLocaleLowerCase())) {
-                    setinputValuePhoto(input.target.value); 
-                } 
+                obj.description.forEach(element => {
+                    if(element.toLocaleLowerCase().startsWith(input.target.value.toLocaleLowerCase())) {
+                        setinputValuePhoto(input.target.value);
+                    }
+                })
            });
 
             videoServer.forEach((objMain) => {
 
                 objMain.content.forEach((obj) => {
-                  
-                    if(obj.description.toLocaleLowerCase().includes(input.target.value.toLocaleLowerCase())){
-                        setinputValueVideo(input.target.value);
-                    }
+                    obj.description.forEach(element => {
+                        if(element.toLocaleLowerCase().startsWith(input.target.value.toLocaleLowerCase())){  
+                                setinputValueVideo(input.target.value); 
+                        }
+                    })
                 });
+                
             });   
 
         if(suggestSearchArrPhoto.length === 0) {    
@@ -103,61 +111,70 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
                 if(/^\s*$/.test(inputValuePhoto)) {
                     return
                 }
-                if(obj.description.toLocaleLowerCase().includes(inputValuePhoto.toLocaleLowerCase())) {
-                    setsuggestSearchArrPhoto(prev => [...new Set(prev), obj.name]);
-                }   
+                obj.description.forEach(element => {
+                    if(element.toLocaleLowerCase().startsWith(inputValuePhoto.toLocaleLowerCase())) {
+                        setsuggestSearchArrPhoto(prev => [...new Set(prev), obj.name]);
+                    }   
+                })   
             });   
 
         } else {
-           setsuggestSearchArrPhoto(suggestSearchArrPhoto.filter(e => e.toLocaleLowerCase().includes(inputValuePhoto.toLocaleLowerCase())));
+           setsuggestSearchArrPhoto(suggestSearchArrPhoto.filter(e => e.toLocaleLowerCase().startsWith(inputValuePhoto.toLocaleLowerCase())));
         }   
 
         if(suggestSearchArrVideo.length === 0) {
-               
+            
             videoServer.forEach((objMain) => {
                 objMain.content.forEach((obj) => {
                         if(/^\s*$/.test(inputValueVideo)) {
                             return
                         }
-                        if(obj.description.toLocaleLowerCase().includes(inputValueVideo.toLocaleLowerCase())){
-                            setsuggestSearchArrVideo(prev => [...new Set(prev), obj.name]);
-                        }
+                        obj.description.forEach(element => {
+                                
+                            if(element.toLocaleLowerCase().startsWith(inputValueVideo.toLocaleLowerCase())){
+
+                                setsuggestSearchArrVideo(prev => [...new Set(prev), obj.name]);
+                               
+                            }
+                        })
                 });
             });   
         } else {
-            setsuggestSearchArrVideo(suggestSearchArrVideo.filter(e => e.toLocaleLowerCase().includes(inputValueVideo.toLocaleLowerCase())));
+            setsuggestSearchArrVideo(suggestSearchArrVideo.filter(e => e.toLocaleLowerCase().startsWith(inputValueVideo.toLocaleLowerCase())));
         }
      
         
     };
 
-    function foundWebSite() {
-        //console.log(inputValueVideo, suggestSearchArrVideo);
-                
-            
-        if(/^\s*$/.test(inputValuePhoto) || !inputValuePhoto) {
+    function foundWebSite() {           
+        if(/^\s*$/.test(inputValuePhoto) || !inputValueCommon) {
             return;
         }
-        if(/^\s*$/.test(inputValueVideo) || !inputValueVideo) {
+        if(/^\s*$/.test(inputValueVideo) || !inputValueCommon) {
             return;
         }
 
-        searchUserTextFn(inputValuePhoto, inputValueVideo);
+        searchUserTextFn(inputValueCommon, inputValuePhoto, inputValueVideo);
+
 
         photoServer.forEach(obj => {
-                if(obj.description.toLocaleLowerCase().includes(inputValuePhoto.toLocaleLowerCase())) {
-                    //console.log(obj);
-                    
+            obj.description.forEach(element => {
+                
+                if(element.toLocaleLowerCase().startsWith(inputValueCommon.toLocaleLowerCase())) {
                     getPhotoFn(obj);
                 }  
+            }) 
         });
        
         videoServer.forEach((objMain) => {
             objMain.content.forEach((obj) => {
-                    if(obj.description.toLocaleLowerCase().includes(inputValueVideo.toLocaleLowerCase())) {
-                        //console.log(obj);
+                obj.description.forEach(element => {
+                    if(element.toLocaleLowerCase().startsWith(inputValueCommon.toLocaleLowerCase())) {
+
                         getVideoFn(obj);
                     }
+                })    
+
                 })
         });
 

@@ -5,13 +5,13 @@ export const videoServer = [
                     name: 'secretSpot',
                     discipline: 'street', 
                     url: 'video.com',
-                    description: 'street secretSpot video',
+                    description: ['street', 'secretSpot', 'video'],
                 },
                 {
                     name: 'zikkyrat',
                     discipline: 'street', 
                     url: 'vimeo.ru',
-                    description: 'street zikkyrat video',
+                    description: ['street', 'zikkyrat', 'video'],
                 }],
     },
     {
@@ -20,13 +20,13 @@ export const videoServer = [
                     name: 'shelcovo',
                     discipline: 'dirt', 
                     url: 'video.com',
-                    description: 'dirt shelcovo video',
+                    description: ['dirt', 'shelcovo', 'video'],
                 },
                 {
                     name: 'losPark',
                     discipline: 'dirt', 
                     url: 'vimeo.ru',
-                    description: 'dirt losPark video',
+                    description: ['dirt', 'losPark', 'video'],
                 }],
     },
     {
@@ -35,13 +35,13 @@ export const videoServer = [
                     name: 'baltic',
                     discipline: 'park',
                     url: 'video.com',
-                    description: 'park baltic video',
+                    description: ['park', 'baltic', 'video'],
                 },
                 {
                     name: 'otradnoe',
                     discipline: 'park',
                     url: 'vimeo.ru',
-                    description: 'park otradnoe video',
+                    description: ['park', 'otradnoe', 'video'],
                 }],
     },
     {
@@ -50,13 +50,13 @@ export const videoServer = [
                     name: 'NewZealand',
                     discipline: 'slopestyle', 
                     url: 'video.com',
-                    description: 'slopesle NewZealand video',
+                    description: ['slopesle', 'NewZealand', 'video'],
                 },
                 {
                     name: 'Prague',
                     discipline: 'slopestyle', 
                     url: 'vimeo.ru',
-                    description: 'slopesle Prague video',
+                    description: ['slopesle', 'Prague', 'video'],
                 }],
     },
   
