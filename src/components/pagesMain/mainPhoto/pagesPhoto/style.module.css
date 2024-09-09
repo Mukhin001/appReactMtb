@@ -120,3 +120,14 @@
     right: 5%;
     top: 5%;
 }
+
+.btnSliderTods {
+    border: 2px solid red;
+    border-radius: 20%;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.todActive {
+    background-color: antiquewhite;
+}

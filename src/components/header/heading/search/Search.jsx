@@ -110,6 +110,7 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
     function foundWebSite() {           
         
         if(/^\s*$/.test(inputValueCommon) || /^\s*$/.test(inputValueCommon)) {
+            searchUserTextFn('empty search...');
             siteSearchUp();
             return;
         }

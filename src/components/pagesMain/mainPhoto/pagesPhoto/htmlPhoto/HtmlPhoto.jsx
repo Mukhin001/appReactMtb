@@ -11,16 +11,20 @@ const HtmlPhoto = ({name, userNameLogin}) => {
     const [addImgArr, setAddImgArr] = useState([]);
     const [imgActive, setImgActive] = useState();
     const photoSlide = useRef();
+    const sliderTodsWrapper = useRef();
     const [countSlide, setCountSlide] = useState(1);
     const [sliderWrapperLeft, setSliderWrapperWidth] = useState('-100%');
+    const [imgIndex, setImgIndex] = useState();
 
     function slideClickLeft() {
         const arrSlide = [...photoSlide.current.children];
+        const arrTods = [...sliderTodsWrapper.current.children];
         if(arrSlide.length === 1) {
             return
         }
         for(let i = 0; i < arrSlide.length; i++) { 
             arrSlide[i].classList.remove(st.slideImgActive); 
+            arrTods[i].classList.remove(st.todActive);
         };
 
             if(countSlide <= 0) {
@@ -29,18 +33,21 @@ const HtmlPhoto = ({name, userNameLogin}) => {
                 setCountSlide(countSlide - 1);
             }
         
+        
         arrSlide[countSlide].classList.add(st.slideImgActive);
-
+        arrTods[countSlide].classList.add(st.todActive);
  
     };
 
     function slideClickRight() {
         const arrSlide = [...photoSlide.current.children];
+        const arrTods = [...sliderTodsWrapper.current.children];
         if(arrSlide.length === 1) {
             return
         }
         for(let i = 0; i < arrSlide.length; i++) { 
             arrSlide[i].classList.remove(st.slideImgActive); 
+            arrTods[i].classList.remove(st.todActive);
         };
 
             if(countSlide >= arrSlide.length -1) {
@@ -50,28 +57,25 @@ const HtmlPhoto = ({name, userNameLogin}) => {
             }
         
         arrSlide[countSlide].classList.add(st.slideImgActive);
+        arrTods[countSlide].classList.add(st.todActive);
     };
 
-    // function keyDown(key) {
-    //     console.log(key);
-    // };
 
     function closeSlider() {   
         document.body.style.overflow = '';
         setSliderOpacity('0');
         setSliderWrapperWidth('-100%');
         setAddImgArr([]);
-        //document.removeEventListener('keydown', keyDown, true );
     };
 
 
     function openImg(e) { 
-        //document.addEventListener('keydown', keyDown, true);
-
+            
         if(e.target.src) {
             setImgActive(e.target.src);
             setSliderOpacity('1');
             setSliderWrapperWidth('0');
+            setImgIndex(+e.target.getAttribute('index'))
             let arr = [];
                 [...e.currentTarget.children].forEach(div => {
                     [...div.children].forEach(img => 
@@ -94,9 +98,36 @@ const HtmlPhoto = ({name, userNameLogin}) => {
         }  
     };
 
+    function onKeyDownFn(key) {
+        if(key.key === 'Escape') {
+            closeSlider();
+        } else if(key.key === 'ArrowLeft') {
+            slideClickLeft();
+        } else if(key.key === 'ArrowRight') {
+            slideClickRight();
+        }
+    };
+
+    function clickSliderTod(elem) {
+        const arrSlide = [...photoSlide.current.children];
+        const arrTods = [...sliderTodsWrapper.current.children];
+        
+        if(arrSlide.length === 1) {
+            return
+        }
+
+        for(let i = 0; i < arrSlide.length; i++) { 
+            arrSlide[i].classList.remove(st.slideImgActive);
+            arrTods[i].classList.remove(st.todActive); 
+        };
+        
+        arrSlide[+elem.target.getAttribute('index')].classList.add(st.slideImgActive);
+        arrTods[+elem.target.getAttribute('index')].classList.add(st.todActive);
+    };
+
     return ( 
         <div className='htmlPhoto'>
-            <div onClick={openImg} className={`${st.pagePhotoContainer} ${mobile.pagePhotoContainer}`}>
+            <div onClick={openImg} tabIndex={1} onKeyDown={onKeyDownFn} className={`${st.pagePhotoContainer} ${mobile.pagePhotoContainer}`}>
                 { photoServer.map((elem) => {
                     
                     return (
@@ -104,7 +135,7 @@ const HtmlPhoto = ({name, userNameLogin}) => {
                             elem.url.map((el, i) => {
                                 return (
                                     <div className={st.pagePhotoImg} key={i}>
-                                        <img src={el} alt={el.substring(26)} />
+                                        <img src={el} alt={el.substring(26)} index={i}/>
                                     </div>
                                 )
                             }) 
@@ -116,10 +147,10 @@ const HtmlPhoto = ({name, userNameLogin}) => {
             
             <div ref={sliderWrapper} onClick={closeSliderBackGound} style={{ left: `${sliderWrapperLeft}`, opacity: `${sliderOpacity}`}} className={st.sliderWrapper}>
 
-            <button onClick={closeSlider} className={st.closeSlider}>close</button>
+                <button onClick={closeSlider} className={st.closeSlider}>close</button>
 
                 <div className={st.sliderContainer}>
-                    <button onClick={slideClickLeft} className={`${st.btnSlide} ${st.btnSlideLeft}`}>left</button>
+                    <button onClick={slideClickLeft} tabIndex={1} onKeyDown={onKeyDownFn} className={`${st.btnSlide} ${st.btnSlideLeft}`}>left</button>
                     <div ref={photoSlide} className={st.photoSlide}>
                         
                         {
@@ -136,9 +167,20 @@ const HtmlPhoto = ({name, userNameLogin}) => {
                                 </div>
                         }
                         )}
-    
+                        
                     </div>
-                    <button onClick={slideClickRight} className={`${st.btnSlide} ${st.btnSlideRight}`}>right</button>
+                    <button onClick={slideClickRight} tabIndex={1} onKeyDown={onKeyDownFn} className={`${st.btnSlide} ${st.btnSlideRight}`}>right</button>
+                </div>
+
+                <div tabIndex={1} onKeyDown={onKeyDownFn} ref={sliderTodsWrapper}> {addImgArr.map((e, i) => {
+                         return(
+                            (imgIndex === i)
+                            ? 
+                            <span index={i} onClick={clickSliderTod} className={`${st.btnSliderTods} ${st.todActive}`} key={e.src.substring(36) + i}> {i + 1} {e.src.slice(26, -5)}</span>
+                            :
+                            <span index={i} onClick={clickSliderTod} className={`${st.btnSliderTods}`} key={e.src.substring(36) + i}> {i + 1} {e.src.slice(26, -5)}</span>   
+                        )
+                    })} 
                 </div>
                 
             </div> 
