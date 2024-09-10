@@ -4,7 +4,7 @@ import st from './style.module.css';
 import { ContextClientWidth } from '../../App';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn}) => {
+const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme}) => {
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
@@ -13,9 +13,19 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
     const btnCloseRef = useRef();
  
     const contextClientWidth = useContext(ContextClientWidth);
-    const [btnThemeText, setBtnThemeText] = useState('light'); 
+    const [btnThemeText, setBtnThemeText] = useState(); 
 
     useEffect(() => {
+       if(localStorage.getItem('theme')) {
+        setBtnThemeText(localStorage.getItem('theme'));
+       } else {
+        setBtnThemeText('light')
+       }
+      
+    }, [btnThemeText]);
+
+    useEffect(() => {
+
         
         if(contextClientWidth > 750) {
             setStDisplayActive('block');
@@ -42,7 +52,9 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
         if(elem.target.textContent === 'light') {
             setBtnThemeText('dark');
             setThemeSite('dark');
+            localStorage.setItem('theme', 'dark');
         } else {
+            localStorage.setItem('theme', 'light');
             setBtnThemeText('light'); 
             setThemeSite('light');
         }  
@@ -56,7 +68,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
                 <Heading    loginExit={loginExit} linkExit={linkExit} 
                             getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} 
                             getVideoFn={getVideoFn} setSearchVideo={setSearchVideo} 
-                            searchUserTextFn={searchUserTextFn} /> 
+                            searchUserTextFn={searchUserTextFn} theme={theme}/> 
                 <button ref={btnCloseRef} style={{display: 'none'}} onClick={closeHeaderMenuMobile}>Close</button>   
                 <NavFixed />
             </div>

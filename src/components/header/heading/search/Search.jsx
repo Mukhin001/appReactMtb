@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { photoServer } from '../../../../server/photoServer';
 import { videoServer } from '../../../pagesMain/mainVideo/videoServer';
 
-const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchUserTextFn}) => {
+const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchUserTextFn, theme}) => {
     const [siteSearchTop, setSiteSearchTop] = useState('-100px');
     const [searchWrapDisplay, setSearchWrapDisplay] = useState('0');
     const [searchWrapHeight, setSearchWrapHeight] = useState('0');
@@ -152,7 +152,7 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
             <div className={st.siteSearch} style={{transform: `translateY(${siteSearchTop})`}}>
                 <div>
                     <label htmlFor="site-search">Search the site:</label>
-                    <input ref={inputRef} type="search" id='site-search' name='site-search' onChange={onChangeInput}/>
+                    <input style={{colorScheme: `${theme}`}} ref={inputRef} type="search" id='site-search' name='site-search' onChange={onChangeInput}/>
                     <NavLink to="/search" onClick={foundWebSite}>search</NavLink>
                     <button onClick={siteSearchUp}>close</button>
                 </div>

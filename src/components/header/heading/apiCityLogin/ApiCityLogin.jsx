@@ -7,7 +7,7 @@ import { useState } from "react";
 import Favorites from "./favorites/Favorites";
 import SelectCity from "./selectCity/SelectCity";
 
-const ApiCityLogin = ({loginExit, linkExit}) => {
+const ApiCityLogin = ({loginExit, linkExit, theme}) => {
     const [city, setCity] = useState('Berlin');
     const [language, setLanguage] = useState('GER');
     //const [temp, setTemp] = useState();
@@ -30,7 +30,7 @@ const ApiCityLogin = ({loginExit, linkExit}) => {
     return ( 
         <div className={st.ApiCityLogin}>
             <Favorites />
-            <SelectCity getSelectCityValue={getSelectCityValue}/>
+            <SelectCity getSelectCityValue={getSelectCityValue} theme={theme}/>
             <City languageFn={getLanguage} cityFn={getCity} city={city} />
             <Language propLanguage={language} />
             <Weather city={city} />

@@ -40,7 +40,7 @@
     justify-content: center;
     height: 350px;
     max-width: 350px;
-    background-color: aqua;
+    background-color: var(--color-backImg);
 }
 
 .imgWrapSlide img {
@@ -53,8 +53,6 @@
 
 .sliderContainer {
     display: flex;
-    justify-content: center;
-    position: relative;
 }
 
 .pagePhotoImg {

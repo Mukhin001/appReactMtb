@@ -1,9 +1,11 @@
-const SelectCity = ({getSelectCityValue}) => {
+
+
+const SelectCity = ({getSelectCityValue, theme}) => {
 
     return ( 
         <div>
             <label htmlFor="SelectCity">SelectCity</label>
-            <select onChange={getSelectCityValue} name="SelectCity" id="SelectCity">
+            <select  style={{colorScheme: `${theme}`}} onChange={getSelectCityValue} name="SelectCity" id="SelectCity">
                 <option value="">--Please choose city--</option>
                 <option value="Sochi">Sochi</option>
                 <option value="Tver">Tver</option>

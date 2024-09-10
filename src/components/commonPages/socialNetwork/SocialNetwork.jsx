@@ -1,7 +1,7 @@
 import { useRef, useState, } from 'react';
 import st from './style.module.css';
 
-const SocialNetwork = ({ userNameLogin }) => {
+const SocialNetwork = ({ userNameLogin, theme }) => {
 
     const wrapMessageChat = useRef();
     const [messages, setMessages] = useState([]);
@@ -77,7 +77,7 @@ const SocialNetwork = ({ userNameLogin }) => {
                     <div>
                         <div className={st.wpapInputMessage}>
                             <label htmlFor="onlineChat">onlineChat</label>
-                            <input type="text" name='onlineChat' id='onlineChat' placeholder='onlineChat' />
+                            <input style={{colorScheme: `${theme}`}} type="text" name='onlineChat' id='onlineChat' placeholder='onlineChat' />
                         </div>
                         <button onClick={sendMessageChat}>send message</button>
                     </div>

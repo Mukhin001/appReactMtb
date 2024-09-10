@@ -16,13 +16,17 @@ button {
     color: var(--color-text);
     background-color: var(--color-backGround);
     border: 2px solid var(--color-border);
+    transition: background-color 1.5s ease;
+    transition: color 1.5s ease;
 }
 
 a {
     color: var(--color-text);
+    transition: color 3s ease;
 }
 
 body {
     color: var(--color-text);
-    background: var(--color-backGround);
+    background-color: var(--color-backGround);
+    transition: background-color 1.5s ease;
 }

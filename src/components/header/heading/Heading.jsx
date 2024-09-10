@@ -3,7 +3,7 @@ import Search from "./search/Search";
 import st from './style.module.css';
 import { ContextClientWidth } from '../../../App';
 
-const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn}) => {
+const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme}) => {
     
     return ( 
        
@@ -13,10 +13,10 @@ const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVide
                     { value => <h3>{(value < 450) ? 'A-R-MTB' : 'App-React_MTB'}</h3>}
                 </ContextClientWidth.Consumer>
                     
-                    <Search getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn} setSearchVideo={setSearchVideo} searchUserTextFn={searchUserTextFn}/>
+                    <Search theme={theme} getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn} setSearchVideo={setSearchVideo} searchUserTextFn={searchUserTextFn}/>
                     
                 </div>
-                <ApiCityLogin loginExit={loginExit} linkExit={linkExit}/>
+                <ApiCityLogin loginExit={loginExit} linkExit={linkExit} theme={theme}/>
             </div>
  
         

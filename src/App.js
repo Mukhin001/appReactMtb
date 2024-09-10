@@ -42,25 +42,36 @@ function App() {
 
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState();
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
     const loc = useLocation();
 
     const [searchUserText, setSearchUserTextFn] = useState('');
 
     const themeColorLight = {
-        '--color-text': 'darkblue',
-        '--color-border': 'crimson',
-        '--color-backGround': 'burlywood',
-        '--color-navBar': 'orange',
+        '--color-text': '#123C69',
+        '--color-border': '#BAB2B5',
+        '--color-backGround': '#EDC7B7',
+        '--color-navBar': '#AC3B61',
+        '--color-backImg': '#EEE2DC',
     };
 
     const themeColorDark = {
-        '--color-text': 'burlywood',
-        '--color-border': 'blueviolet',
-        '--color-backGround': '#543b54',
-        '--color-navBar': '#6b016b',
+        '--color-text': '#895061',
+        '--color-border': '#0677A1',
+        '--color-backGround': '#59253A',
+        '--color-navBar': '#78244C',
+        '--color-backImg': '#2D4159',
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('theme')) {
+            setTheme(localStorage.getItem('theme'));
+        } else {
+            setTheme('light');
+        }
+        
+    }, [theme]);
 
     useEffect(() => {
         if(theme === 'light') {
@@ -135,11 +146,13 @@ function App() {
                             setSearchPhoto={setSearchPhoto} getPhotoFn={getPhotoFn}  
                             setSearchVideo={setSearchVideo} getVideoFn={getVideoFn}
                             setThemeSite={setThemeSite} searchUserTextFn={searchUserTextFn}
+                            theme={theme}
                     />
                     <div>
                         <p>index {countLink}</p>
-                        <p>locationRoute {loc.pathname}</p>
-                        
+                        <nav>locationRoute:
+                            {loc.pathname.split('/').map(elem => (elem !== '') && <span key={elem} to={`/${elem}`}>{ elem} </span>)}
+                        </nav>
                     </div>
                 </ContextClientWidth.Provider>
 
@@ -167,7 +180,7 @@ function App() {
             {/* </VideoContext.Provider> */}
             <Footer />
        {/* </Router> */}
-        <SocialNetwork userNameLogin={userNameLogin}/>
+        <SocialNetwork userNameLogin={userNameLogin} theme={theme}/>
        <BtnUp />
     </div>
   );

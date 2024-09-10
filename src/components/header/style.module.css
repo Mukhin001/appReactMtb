@@ -9,6 +9,7 @@ header {
     width: 100%;
     z-index: 6;
     background-color: var(--color-navBar);
+    transition: background-color 1.5s ease;
 }
 
 .greetingTheme {
