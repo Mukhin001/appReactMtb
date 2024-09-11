@@ -8,6 +8,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
+    const [marginTopHeader, setMarginTopHeader] = useState();
     const headingRef = useRef();
     const btnOpenRef = useRef();
     const btnCloseRef = useRef();
@@ -30,9 +31,11 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
         if(contextClientWidth > 750) {
             setStDisplayActive('block');
             setStDisplayActiveBtn('none');
+            setMarginTopHeader('50px');
         } else {
             setStDisplayActive('none');
             setStDisplayActiveBtn('block');
+            setMarginTopHeader('');
         }
     }, [contextClientWidth]);
 
@@ -61,7 +64,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
     };
     
     return ( 
-        <header>
+        <header style={{marginTop: `${marginTopHeader}`}}>
 
             <div ref={headingRef} className={st.heading} style={{display: stDisplayActive}}>
                     

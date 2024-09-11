@@ -1,5 +1,6 @@
 .NavBarMainWrapper {
     background-color: var(--color-navBar);
+    border-radius: 15px;
 }
 
 .NavBarMainNav {
@@ -18,29 +19,45 @@
 .NavBarMainUl {
     position: absolute;
     transition: 2s;
-    background-color: salmon;
-    padding: 20px 0 20px 20px;
+    background-color: var(--color-backGround);
+    border-radius: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
     height: 100%;
     z-index: 5;
 }
 
-.NavBarMainUl li {
+.NavBarMainUl > li {
     padding: 0 20px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    border: 2px solid var(--color-backGround);
+}
+
+.NavPhotoMainNav li,
+.NavVideoMainNav li {
+    padding: 0 20px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    border: 2px solid var(--color-navBar);
 }
 
 .NavBarMainUl li:hover {
-    background-color: antiquewhite;
     border-radius: 20px;
+    margin-bottom: 5px;
+    border: 2px solid var(--color-border);
 }
 .NavBarMainUl
 .NavPhotoMainNav,
 .NavVideoMainNav {
-    padding: 20px 0;
+    padding-top: 10px;
+    padding-left: 10px;
     transition: 2s;
     position: absolute;
     transform: translateX(-200%);
     top: 0;
-    background-color: coral;
+    background-color: var(--color-navBar);
+    border-radius: 15px;
     opacity: 0;
 }
 

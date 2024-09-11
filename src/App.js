@@ -49,19 +49,23 @@ function App() {
     const [searchUserText, setSearchUserTextFn] = useState('');
 
     const themeColorLight = {
-        '--color-text': '#123C69',
+        '--color-text': '#F92C85',
         '--color-border': '#BAB2B5',
-        '--color-backGround': '#EDC7B7',
-        '--color-navBar': '#AC3B61',
-        '--color-backImg': '#EEE2DC',
+        '--color-backGround': '#FDF5DF',
+        '--color-navBar': '#5EBEC4',
+        '--color-backImg': '#5EBEC4',
+        '--filterTheme': 'brightness(1)',
+        '--filterThemeHover': 'brightness(80%)',
     };
 
     const themeColorDark = {
-        '--color-text': '#895061',
+        '--color-text': '#DEB992',
         '--color-border': '#0677A1',
-        '--color-backGround': '#59253A',
+        '--color-backGround': '#051622',
         '--color-navBar': '#78244C',
-        '--color-backImg': '#2D4159',
+        '--color-backImg': '#78244C',
+        '--filterTheme': 'brightness(80%)',
+        '--filterThemeHover': 'brightness(1)',
     };
 
     useEffect(() => {

@@ -4,6 +4,7 @@ import st from './style.module.css';
 const SocialNetwork = ({ userNameLogin, theme }) => {
 
     const wrapMessageChat = useRef();
+    const inputChat = useRef('');
     const [messages, setMessages] = useState([]);
     const [display, setDisplay] = useState('none');
     const greetingnameArr = ['friend!', 'my boy!', 'good boy!', 'dog!']; 
@@ -55,6 +56,10 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
         setDisplay('none');
     };
 
+    function deleteMessageChat() {
+        inputChat.current.value = '';
+    };
+
     return ( 
         <div className={st.SocialNetworkWrapper}>
             <button onClick={openBtnNetwork} className={st.btnNetwork}>network and chat</button>
@@ -63,23 +68,26 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
                 <button onClick={closeChat} className={st.closeChat} style={{display}}>x</button>
 
                 <div className={st.socialNetworkBtns} >
-                    <button>vk</button>
-                    <button>insta</button>
-                    <button>telega</button>
+                    <a href="https://vk.com/" target='blank'><button>vk</button></a>
+                    <a href="http://instagram.com/" target='blank'><button>instagram</button></a>
+                    <a href="https://t.me/telegram" target='blank'><button>telegram</button></a>
                 </div>
 
                 <div className={st.onlineChat}>
                 
-                    <div ref={wrapMessageChat}>
+                    <div ref={wrapMessageChat} className={st.wrapMessageChat}>
                         <p>wrapper text onlineChat</p>
                         {messages.map((p, i) => <p key={p + i} className={st.messageP}>{i} {p}</p> )}
                     </div>
                     <div>
                         <div className={st.wpapInputMessage}>
                             <label htmlFor="onlineChat">onlineChat</label>
-                            <input style={{colorScheme: `${theme}`}} type="text" name='onlineChat' id='onlineChat' placeholder='onlineChat' />
+                            <input ref={inputChat} style={{colorScheme: `${theme}`}} type="text" name='onlineChat' id='onlineChat' placeholder='onlineChat' />
                         </div>
-                        <button onClick={sendMessageChat}>send message</button>
+                       <div>
+                            <button onClick={sendMessageChat}>send message</button>
+                            <button onClick={deleteMessageChat}>X</button>
+                       </div>
                     </div>
 
                 </div>

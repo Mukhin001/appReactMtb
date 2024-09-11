@@ -41,12 +41,17 @@
     height: 350px;
     max-width: 350px;
     background-color: var(--color-backImg);
+    filter: var(--filterTheme);
 }
 
 .imgWrapSlide img {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
+}
+
+.imgWrapSlide:hover {
+    filter: var(--filterThemeHover);
 }
 
 /* slider */

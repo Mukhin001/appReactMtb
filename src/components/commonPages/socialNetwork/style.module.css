@@ -1,31 +1,47 @@
-.SocialNetworkWrapper {
+/* .SocialNetworkWrapper {
     display: flex;
     justify-content: flex-end;
     position: relative;
+} */
+
+.wrapMessageChat > p {
+    margin: 5px;
 }
 
 .btnNetwork {
     position: fixed;
     bottom: 10px;
-    right: 30px;
+    right: 50px;
 }
 
 .wrapOpenChat {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: tomato;
+    bottom: 10px;
+    right: 10px;
+    background-color: var(--color-backGround);
+    border: solid 2px var(--color-border);
+    padding: 7px;
+    border-radius: 15px;
+    z-index: 3;
 }
 
 .closeChat {
     position: absolute;
-    left: -10%;
+    left: -20%;
+    top: 0;
 }
 
-/* .messageP {
-    text-align: end;
-} */
+.wpapInputMessage {
+    margin: 5px;
+}
 
 .wpapInputMessage label {
     display: block;
+}
+
+
+.wpapInputMessage input {
+   margin: 5px 0;
+   padding: 2px 0 2px 5px;
+   border-radius: 15px;
 }

@@ -1,5 +1,5 @@
 .siteSearch {
-    background-color: darkgoldenrod;
+    background-color: var(--color-backImg);
     /* transform: translateY(-100px); */
     display: flex;
     align-items: center;
@@ -8,6 +8,7 @@
     transition: 1s;
     position: absolute;
     left: 0;
+    top: 0;
     width: 100%;
     z-index: 11;
     padding: 30px 0 20px 0;
