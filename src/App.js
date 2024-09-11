@@ -47,6 +47,7 @@ function App() {
     const loc = useLocation();
 
     const [searchUserText, setSearchUserTextFn] = useState('');
+    const [heightHeading, setHeightHeading] = useState();
 
     const themeColorLight = {
         '--color-text': '#F92C85',
@@ -84,12 +85,20 @@ function App() {
             Object.entries(themeColorDark).forEach(([key, value]) => document.documentElement.style.setProperty(key, value));
         }
     });
-
-    function setWidthDisplayFn(event) { 
-        setWidthDisplay(event.target.window.innerWidth);
-    };
     
-    window.addEventListener('resize', setWidthDisplayFn);
+    useEffect(() => {
+        //console.log(window.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
+        function setWidthDisplayFn(event) { 
+            setHeightHeading(event.target.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
+            setWidthDisplay(event.target.window.innerWidth);
+        };
+
+        window.addEventListener('resize', setWidthDisplayFn);
+
+        return () => {
+            window.removeEventListener('resize', setWidthDisplayFn);
+          }
+    }, []);
 
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...new Set(prev), obj]);   
@@ -103,7 +112,7 @@ function App() {
         setLikes(prev => ({...prev, [li.getAttribute('atrlike')] : li}))
     };
 
-    function rightLinkClick(elem) {
+    function rightLinkClick() {
         setCountLink(prev => prev + 1);
 
             if(countLink >= arrLink.length - 1) {
@@ -111,7 +120,7 @@ function App() {
             }
     };
 
-    function leftLinkClick(elem) {
+    function leftLinkClick() {
         
         setCountLink(prev => prev - 1);
             
@@ -150,7 +159,7 @@ function App() {
                             setSearchPhoto={setSearchPhoto} getPhotoFn={getPhotoFn}  
                             setSearchVideo={setSearchVideo} getVideoFn={getVideoFn}
                             setThemeSite={setThemeSite} searchUserTextFn={searchUserTextFn}
-                            theme={theme}
+                            theme={theme} heightHeading={heightHeading}
                     />
                     <div>
                         <p>index {countLink}</p>

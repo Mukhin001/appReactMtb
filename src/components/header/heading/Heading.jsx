@@ -2,12 +2,16 @@ import ApiCityLogin from "./apiCityLogin/ApiCityLogin";
 import Search from "./search/Search";
 import st from './style.module.css';
 import { ContextClientWidth } from '../../../App';
+import { useRef } from "react";
 
-const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme}) => {
+const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme }) => {
+    const heading = useRef();
+
+    
     
     return ( 
        
-            <div className={st.Heading}>
+            <div ref={heading} className={st.Heading}>
                 <div className={st.logoAndSerch}>
                 <ContextClientWidth.Consumer>
                     { value => <h3>{(value < 450) ? 'A-R-MTB' : 'App-React_MTB'}</h3>}

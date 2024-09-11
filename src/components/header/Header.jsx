@@ -4,11 +4,11 @@ import st from './style.module.css';
 import { ContextClientWidth } from '../../App';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme}) => {
+const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme, heightHeading}) => {
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
-    const [marginTopHeader, setMarginTopHeader] = useState();
+    //const [marginTopHeader, setMarginTopHeader] = useState();
     const headingRef = useRef();
     const btnOpenRef = useRef();
     const btnCloseRef = useRef();
@@ -27,15 +27,14 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
 
     useEffect(() => {
 
-        
         if(contextClientWidth > 750) {
             setStDisplayActive('block');
             setStDisplayActiveBtn('none');
-            setMarginTopHeader('50px');
+            //setMarginTopHeader('50px');
         } else {
             setStDisplayActive('none');
             setStDisplayActiveBtn('block');
-            setMarginTopHeader('');
+            //setMarginTopHeader('');
         }
     }, [contextClientWidth]);
 
@@ -64,11 +63,11 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
     };
     
     return ( 
-        <header style={{marginTop: `${marginTopHeader}`}}>
+        <header style={{marginTop: `${heightHeading}px`, }}>
 
             <div ref={headingRef} className={st.heading} style={{display: stDisplayActive}}>
                     
-                <Heading    loginExit={loginExit} linkExit={linkExit} 
+                <Heading    loginExit={loginExit} linkExit={linkExit} heightHeading={heightHeading}
                             getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} 
                             getVideoFn={getVideoFn} setSearchVideo={setSearchVideo} 
                             searchUserTextFn={searchUserTextFn} theme={theme}/> 
