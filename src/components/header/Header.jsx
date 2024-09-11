@@ -9,6 +9,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
     const [stDisplayActive, setStDisplayActive] = useState('block');
     const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
     //const [marginTopHeader, setMarginTopHeader] = useState();
+    ///
     const headingRef = useRef();
     const btnOpenRef = useRef();
     const btnCloseRef = useRef();
@@ -24,7 +25,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
        }
       
     }, [btnThemeText]);
-
+     
     useEffect(() => {
 
         if(contextClientWidth > 750) {

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import st from './style.module.css';
 import mobile from '../mobileFile/mobile.module.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NavHomeMain from './navPhotoMain/NavPhotoMain';
 import NavVideoMain from './navVideoMain/NavVideoMain';
 
@@ -15,6 +15,22 @@ const NavBarMain = () => {
     const [styleBtnOpen, setStyleBtnOpen] = useState('');
     const [styleBtnClose, setStyleBtnClose] = useState('none');
 
+    useEffect(() => {
+        function closeNavBarMain(e) {
+            if(btnOpen.current !== e.target) {
+                setStyleBtnOpen('');
+                setStyleBtnClose('none');
+                setStyleUlLeft('-200%'); 
+            }
+        };
+    
+        document.body.addEventListener('click', closeNavBarMain);
+
+        return () => {
+            document.body.removeEventListener('click', closeNavBarMain);
+        }
+    }, []);
+
     function navTransitionRight() {
             setStyleUlLeft('30px');
             setStyleBtnOpen('none');
@@ -26,17 +42,6 @@ const NavBarMain = () => {
         setStyleBtnOpen('');
         setStyleBtnClose('none');
     };
-
-    function closeNavBarMain(e) {
-        if(btnOpen.current !== e.target) {
-            document.body.removeEventListener('click', closeNavBarMain);
-            setStyleBtnOpen('');
-            setStyleBtnClose('none');
-            setStyleUlLeft('-200%'); 
-        }
-    };
-    
-    document.body.addEventListener('click', closeNavBarMain);
 
     function ulMouseOver() {
             ulRef.current.style.display = 'block';
