@@ -87,7 +87,12 @@ function App() {
     });
     
     useEffect(() => {
-        //console.log(window.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
+        if(window.innerWidth < 750) {
+            setHeightHeading(0)
+        } else {
+            setHeightHeading(window.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
+        }
+        
         function setWidthDisplayFn(event) { 
             setHeightHeading(event.target.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
             setWidthDisplay(event.target.window.innerWidth);

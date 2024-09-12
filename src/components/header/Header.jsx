@@ -16,7 +16,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
  
     const contextClientWidth = useContext(ContextClientWidth);
     const [btnThemeText, setBtnThemeText] = useState(); 
-
+        
     useEffect(() => {
        if(localStorage.getItem('theme')) {
         setBtnThemeText(localStorage.getItem('theme'));
@@ -31,7 +31,7 @@ const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, s
         if(contextClientWidth > 750) {
             setStDisplayActive('block');
             setStDisplayActiveBtn('none');
-            //setMarginTopHeader('50px');
+            //setMarginTopHeader(heightHeading);
         } else {
             setStDisplayActive('none');
             setStDisplayActiveBtn('block');
