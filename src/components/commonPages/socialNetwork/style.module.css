@@ -17,18 +17,19 @@
 .wrapOpenChat {
     position: fixed;
     bottom: 10px;
-    right: 10px;
+    right: 50px;
     background-color: var(--color-backGround);
     border: solid 2px var(--color-border);
     padding: 7px;
     border-radius: 15px;
     z-index: 3;
+    transition: 2s all ease;
 }
 
 .closeChat {
     position: absolute;
     left: -20%;
-    top: 0;
+    bottom: 0;
 }
 
 .wpapInputMessage {

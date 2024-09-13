@@ -3,7 +3,7 @@ import st from './style.module.css';
 
 const BtnUp = () => {
 
-    const [btnToDisplay, setBtnToDisplay] = useState('none');
+    const [btnToDisplay, setBtnToDisplay] = useState('-30');
 
     function btnAppTo() {
         window.scrollTo({top: 0, left: 0, behavior: "smooth",});
@@ -13,9 +13,9 @@ const BtnUp = () => {
 
         function scrollHeight() {
             if( this.window.scrollY > (document.documentElement.clientHeight / 3)) {
-                setBtnToDisplay('block');
+                setBtnToDisplay('10');
             } else {
-                setBtnToDisplay('none');
+                setBtnToDisplay('-30');
             }
         };
 
@@ -29,7 +29,7 @@ const BtnUp = () => {
 
     return ( 
         <>
-            <button onClick={btnAppTo} className={st.btnApp} style={{display: `${btnToDisplay}`}}>up</button>
+            <button onClick={btnAppTo} className={st.btnApp} style={{bottom: `${btnToDisplay}px`}}>up</button>
         </>
      );
 }

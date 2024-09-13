@@ -7,7 +7,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 const Header = ({setThemeSite, userNameLogin, loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme, heightHeading}) => {
     
     const [stDisplayActive, setStDisplayActive] = useState('block');
-    const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('none');
+    const [stDisplayActiveBtn, setStDisplayActiveBtn] = useState('-30');
     //const [marginTopHeader, setMarginTopHeader] = useState();
     ///
     const headingRef = useRef();

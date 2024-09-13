@@ -6,22 +6,22 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
     const wrapMessageChat = useRef();
     const inputChat = useRef('');
     const [messages, setMessages] = useState([]);
-    const [display, setDisplay] = useState('none');
+    const [bottom, setBottom] = useState('-210');
+    const [opacity, setOpacity] = useState('0');
     const greetingnameArr = ['friend!', 'my boy!', 'good boy!', 'dog!']; 
     const [nameChat, setNameChat] = useState(userNameLogin);
 
     function sendMessageChat(elem) {
-            
-        if(elem.target.previousSibling.children[1].value === '') { 
+        if(elem.target.parentNode.previousSibling.children[1].value === '') { 
             return 
         }
 
         setMessages(prev => {
-            return [...prev, elem.target.previousSibling.children[1].value];
+            return [...prev, elem.target.parentNode.previousSibling.children[1].value];
         });
         
         setTimeout(() => {
-            elem.target.previousSibling.children[1].value = '';
+            elem.target.parentNode.previousSibling.children[1].value = '';
         }, 0);
     };
 
@@ -38,7 +38,7 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
                 setMessages(prev => {
                     return [...prev, `Hello ${nameChat}`];
                 });
-            }, 1000);
+            }, 2000);
     
             setTimeout(() => {
                 setMessages(prev => {
@@ -47,13 +47,14 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
             }, 3000);
 
         
-        
-        setDisplay('block');
+        setOpacity('1')
+        setBottom('10');
     };
 
     function closeChat() {
         setMessages([]);
-        setDisplay('none');
+        setBottom('-210');
+        setOpacity('0');
     };
 
     function deleteMessageChat() {
@@ -63,9 +64,9 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
     return ( 
         <div className={st.SocialNetworkWrapper}>
             <button onClick={openBtnNetwork} className={st.btnNetwork}>network and chat</button>
-            <div style={{display}} className={st.wrapOpenChat}>
+            <div style={{bottom: `${bottom}px`, opacity: opacity}} className={st.wrapOpenChat}>
 
-                <button onClick={closeChat} className={st.closeChat} style={{display}}>x</button>
+                <button onClick={closeChat} className={st.closeChat}>x</button>
 
                 <div className={st.socialNetworkBtns} >
                     <a href="https://vk.com/" target='blank'><button>vk</button></a>
