@@ -180,7 +180,7 @@ function App() {
                     <div className='slideLinkMain'>
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                             <Routes>
-                                <Route path="/" element={<MainHome />} />
+                                <Route path="/" element={<MainHome widthDisplay={widthDisplay} />} />
                                 <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userNameLogin={userNameLogin}/>} />
                                 <Route path="/video/*" element={<MainVideo />} />
                                 <Route path="/news" element={<MainNews />} />

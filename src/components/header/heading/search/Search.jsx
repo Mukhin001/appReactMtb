@@ -29,7 +29,9 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
         setSiteSearchTop('-100px');
         setSearchWrapDisplay('0');
         setSearchWrapHeight('0');  
-        
+        setsuggestSearchArrPhoto([]);
+        setsuggestSearchArrVideo([]); 
+        inputRef.current.value = '';
     };
 
     function closeSiteSear(e) {
