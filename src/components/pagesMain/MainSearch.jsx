@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import st from './mainPhoto/pagesPhoto/style.module.css';
 import mobile from '../mobileFile/mobile.module.css';
 import { useRef, useEffect } from "react";
+import { upScroll } from '../../commonFunction/commonFunction';
 
 const MainSearch = ({searchPhoto, searchVideo, getLikesFn, searchUserText}) => {
     const imgRef = useRef(null);
@@ -41,7 +42,7 @@ const MainSearch = ({searchPhoto, searchVideo, getLikesFn, searchUserText}) => {
     function getLikes(e) {
         getLikesFn(e.target.parentNode.parentNode);
     };
-    
+
     return ( 
         <main>
             MainSearch
@@ -53,15 +54,15 @@ const MainSearch = ({searchPhoto, searchVideo, getLikesFn, searchUserText}) => {
                         return (
                             <li atrlike={obj.name} namephoto={obj.name} className={st.photosImgLi} key={obj.name}>
                                 <div style={{position: 'relative'}} >
-                                    <NavLink to={`/photo/${obj.name}`} className={st.imgWrapSlide}>
+                                    <NavLink onClick={upScroll} to={`/photo/${obj.name}`} className={st.imgWrapSlide}>
                                 
-                                    {obj.url.map(url => {
-                                        return ( <img src={url} key={url} alt={url.substring(26)}  />)})}
-                                    <div ref={slideDots} className={st.gridHoverImg} style={{gridTemplateColumns: `repeat(${obj.url.length}, 1fr)`}}>
-                                        {obj.url.map((url, i) => {
-                                            return (<div className={st.slideTods} key={url.substring(2)}>{i}</div>)
-                                        })}
-                                    </div>
+                                        {obj.url.map(url => {
+                                            return ( <img src={url} key={url} alt={url.substring(26)}  />)})}
+                                        <div ref={slideDots} className={st.gridHoverImg} style={{gridTemplateColumns: `repeat(${obj.url.length}, 1fr)`}}>
+                                            {obj.url.map((url, i) => {
+                                                return (<div className={st.slideTods} key={url.substring(2)}>{i}</div>)
+                                            })}
+                                        </div>
                                     
                                     </NavLink>
                                     <h3 className={st.imgName}>{obj.name}</h3>
@@ -75,14 +76,13 @@ const MainSearch = ({searchPhoto, searchVideo, getLikesFn, searchUserText}) => {
             </div>
             <div className={st.pagePhotosWrap}>
                 <ul>
-                    { searchVideo.map((obj) => {
+                    { searchVideo.map(obj => {                     
                         return (
-                            <li atrlike={obj.name} className={st.photosImgLi} key={obj.name}>
-                                <NavLink to={`/video/${obj.name}`}><video src="#" />{obj.name}</NavLink>
+                            <li atrlike={obj.name} namevideo={obj.name} key={obj.name} className={st.photosImgLi}>
+                                <NavLink onClick={upScroll} to={`/video/${obj.discipline}/${obj.name}`} key={obj.name + 'suggestphoto'}><video src="#" />{obj.name}</NavLink>   
                             </li>
-                        )
-                    })
-                    }
+                        ) 
+                    })}
                 </ul>
             </div>
         </main>

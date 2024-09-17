@@ -14,7 +14,8 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
     const [inputValueCommon, setinputValueCommon] = useState('');
     const [suggestSearchArrPhoto, setsuggestSearchArrPhoto] = useState([]);
     const [suggestSearchArrVideo, setsuggestSearchArrVideo] = useState([]);
-    
+   // const [suggestSearchArrVideoOO, setsuggestSearchArrVideoOO] = useState([{park: []}, {dirt: []}, {street: []}, {slopestyle: []}]);
+
     function siteSearchDown() {
         setSiteSearchTop('0');
         setSearchWrapDisplay('1');
@@ -96,10 +97,10 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
                         obj.description.forEach(element => {
                                 
                             if(element.toLocaleLowerCase().startsWith(inputValueCommon.toLocaleLowerCase())){
-
                                 setsuggestSearchArrVideo(prev => [...new Set(prev), obj.name]);
                                
                             }
+
                         })
                 });
             });   
@@ -132,8 +133,8 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
             objMain.content.forEach((obj) => {
                 obj.description.forEach(element => {
                     if(element.toLocaleLowerCase().startsWith(inputValueCommon.toLocaleLowerCase())) {
+                         getVideoFn(obj);
 
-                        getVideoFn(obj);
                     }
                 })    
 
@@ -163,7 +164,19 @@ const Search = ({getPhotoFn, getVideoFn, setSearchPhoto, setSearchVideo, searchU
                         { suggestSearchArrPhoto.map(li => <NavLink onClick={siteSearchUp} to={`/photo/${li}`} key={li + 'suggestphoto'}><li>{li}</li></NavLink>  ) }
                     </ul>
                     <ul className={st.suggestSearch}>
-                        { suggestSearchArrVideo.map(li => <NavLink onClick={siteSearchUp} to={`/video/${li}`} key={li + 'suggestvideo'}><li>{li}</li></NavLink> ) }
+                        { suggestSearchArrVideo.map(li => {
+
+                                return (
+                                    videoServer.map(obj => { return (
+                                        obj.content.map(arr => {
+                                            return (
+                                                (arr.description.includes(li)) &&
+                                                    <NavLink onClick={siteSearchUp} to={`/video/${arr.discipline}/${li}`} key={li + 'suggestphoto'}><li>{li}</li></NavLink>   
+                                            )   
+                                        })
+                                    )})
+                                ) 
+                            })}
                     </ul>
                 </div>
             </div>

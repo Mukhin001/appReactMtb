@@ -50,7 +50,7 @@ const SliderClickHome = () => {
                 </div>
                 <ul className={st.ulWrapperImg}>
                 
-                   {arrImgState.map((img, i) => {
+                   {arrImgState.map(img => {
                         return (
                             <li className={st.wrapperImg} key={img}>
                                 <img src={`./img/Стикеры/${img}`} alt={img} /> 

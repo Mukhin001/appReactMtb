@@ -110,6 +110,7 @@ function App() {
     };
 
     function getVideoFn(obj) {
+        
         setSearchVideo(prev => [...new Set(prev), obj]);  
     };
     
