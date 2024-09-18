@@ -20,7 +20,6 @@ const SliderMouseHome = ({ widthDisplay }) => {
         setElementaryLeftWrapperUl(wrapperUlMouse.current.getBoundingClientRect().x);
     },[]);
 
-    
 
     function sliderMouseLeft() {
  
@@ -48,11 +47,14 @@ const SliderMouseHome = ({ widthDisplay }) => {
         }
     };
     
-    function onMouseDownUl(event) {
+     function onMouseDownUl(event) {
+    //         console.log(widthDisplay);
+    //         console.log(fullWidthtUl);
+            
+            
+         event.preventDefault(); // предотвратить запуск выделения (действие браузера)
 
-        event.preventDefault(); // предотвратить запуск выделения (действие браузера)
-
-        let clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
+         let clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
 
         ulWrapperRef.current.addEventListener('mousemove', onMouseMoveUl);
         ulWrapperRef.current.addEventListener('mouseup', onMouseUpUl);
@@ -88,7 +90,7 @@ const SliderMouseHome = ({ widthDisplay }) => {
                     <button onClick={sliderMouseRight}>{' right > '}</button>
                 </div>
                 <div  ref={wrapperUlMouse} className={st.sliderMouseHome}>
-                    <ul onMouseDown={onMouseDownUl} ref={ulWrapperRef} className={st.ulWrapperImg} style={{left: `${ulWrapperImgLeft}px`, transition: transitionUl}}>
+                    <ul onMouseDown={onMouseDownUl}  ref={ulWrapperRef} className={st.ulWrapperImg} style={{left: `${ulWrapperImgLeft}px`, transition: transitionUl}}>
                         {imgArrServer.map(img => {
                             return (
                                 <li className={st.wrapperImg} key={img}>

@@ -10,6 +10,7 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
     const [opacity, setOpacity] = useState('0');
     const greetingnameArr = ['friend!', 'my boy!', 'good boy!', 'dog!']; 
     const [nameChat, setNameChat] = useState(userNameLogin);
+    const [scale, setScale] = useState('0.1');
 
     function sendMessageChat(elem) {
         if(elem.target.parentNode.previousSibling.children[1].value === '') { 
@@ -49,12 +50,14 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
         
         setOpacity('1')
         setBottom('10');
+        setScale('1');
     };
 
     function closeChat() {
         setMessages([]);
         setBottom('-210');
         setOpacity('0');
+        setScale('0.1')
     };
 
     function deleteMessageChat() {
@@ -64,7 +67,7 @@ const SocialNetwork = ({ userNameLogin, theme }) => {
     return ( 
         <div className={st.SocialNetworkWrapper}>
             <button onClick={openBtnNetwork} className={st.btnNetwork}>network and chat</button>
-            <div style={{bottom: `${bottom}px`, opacity: opacity}} className={st.wrapOpenChat}>
+            <div style={{bottom: `${bottom}px`, opacity: opacity, scale: scale}} className={st.wrapOpenChat}>
 
                 <button onClick={closeChat} className={st.closeChat}>x</button>
 
