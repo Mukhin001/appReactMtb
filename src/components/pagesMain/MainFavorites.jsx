@@ -3,9 +3,11 @@ import st from '../pagesMain/mainPhoto/pagesPhoto/style.module.css';
 import mobile from '../mobileFile/mobile.module.css';
 import { useRef, useEffect } from "react";
 
-const MainFavorites = ({likes}) => {
+const MainFavorites = ({ likes, likesLength, setLikesLengthFn }) => {
     const imgRef = useRef(null);
     const slideDots = useRef(null);
+    
+    // Object.keys(likes).length
  
     useEffect(() => {
         [...imgRef.current.children].forEach(li => {
@@ -39,20 +41,22 @@ const MainFavorites = ({likes}) => {
     
     
     function deleteLike(e) {
-       
-        e.target.parentNode.parentNode.remove();
+        
+        //e.target.parentNode.parentNode.remove();
 
         for(let key in likes) {
             if(key === e.target.parentNode.parentNode.getAttribute('atrlike')) {
                 delete likes[key];
             };
         };
+
+        setLikesLengthFn(Object.keys(likes).length);
     };
 
     return (
         <main>
             <div className={`${st.pagePhotosWrap} ${mobile.pagePhotosWrap}`}>
-                Likes
+                {`Likes ${likesLength}`}
                 <ul ref={imgRef}>
                     {   Object.entries(likes).map(([key, value]) => {
                            

@@ -17,13 +17,14 @@ const NavBarMain = () => {
 
     useEffect(() => {
         function closeNavBarMain(e) {
+            
             if(btnOpen.current !== e.target) {
                 setStyleBtnOpen('');
                 setStyleBtnClose('none');
                 setStyleUlLeft('-200%'); 
             }
         };
-    
+        
         document.body.addEventListener('click', closeNavBarMain);
 
         return () => {

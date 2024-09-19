@@ -3,7 +3,7 @@ import Search from "./search/Search";
 import st from './style.module.css';
 import { ContextClientWidth } from '../../../App';
 
-const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme }) => {
+const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVideo, getVideoFn, searchUserTextFn, theme, likesLength }) => {
     
     return ( 
        
@@ -16,7 +16,7 @@ const Heading = ({loginExit, linkExit, getPhotoFn, setSearchPhoto, setSearchVide
                     <Search theme={theme} getPhotoFn={getPhotoFn} setSearchPhoto={setSearchPhoto} getVideoFn={getVideoFn} setSearchVideo={setSearchVideo} searchUserTextFn={searchUserTextFn}/>
                     
                 </div>
-                <ApiCityLogin loginExit={loginExit} linkExit={linkExit} theme={theme}/>
+                <ApiCityLogin loginExit={loginExit} linkExit={linkExit} theme={theme} likesLength={likesLength}/>
             </div>
  
         

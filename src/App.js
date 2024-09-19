@@ -39,6 +39,7 @@ function App() {
     const [loginExit, setLoginExit] = useState('Login');
     const [linkExit, setLinkExit] = useState('/login');
     const [likes, setLikes] = useState({});
+    const [likesLength, setLikesLength] = useState(0);
 
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
@@ -115,7 +116,8 @@ function App() {
     };
     
     function getLikesFn(li) {
-        setLikes(prev => ({...prev, [li.getAttribute('atrlike')] : li}))
+        setLikes(prev => ({...prev, [li.getAttribute('atrlike')] : li}));
+        setLikesLength(Object.keys(likes).length + 1);
     };
 
     function rightLinkClick() {
@@ -156,6 +158,10 @@ function App() {
         setSearchUserTextFn(value);
     };
 
+    function setLikesLengthFn(value) {
+        setLikesLength(value);
+    };
+
   return (
     <div className={`app ${theme}`}> 
        {/* <Router> */}
@@ -165,7 +171,7 @@ function App() {
                             setSearchPhoto={setSearchPhoto} getPhotoFn={getPhotoFn}  
                             setSearchVideo={setSearchVideo} getVideoFn={getVideoFn}
                             setThemeSite={setThemeSite} searchUserTextFn={searchUserTextFn}
-                            theme={theme} heightHeading={heightHeading}
+                            theme={theme} heightHeading={heightHeading} likesLength={likesLength}
                     />
                     <div>
                         <p>index {countLink}</p>
@@ -191,7 +197,7 @@ function App() {
                                 <Route path="/exit" element={<MainExit  enterAcc={userNameLoginEnterFn} getLoginFn={getLoginFn} linkExitFn={linkExitFn} />} />
                                 <Route path="/bye" element={<MainBye />} />
                                 <Route path="/search" element={<MainSearch searchUserText={searchUserText} searchPhoto={searchPhoto} searchVideo={searchVideo} getLikesFn={getLikesFn}/>} />
-                                <Route path='/favorites' element={<MainFavorites likes={likes}/>} />
+                                <Route path='/favorites' element={<MainFavorites likes={likes} likesLength={likesLength} setLikesLengthFn={setLikesLengthFn} />} />
                             </Routes>
                         <NavLink onClick={rightLinkClick} to={arrLink[countLink]}>right</NavLink>
                     </div>

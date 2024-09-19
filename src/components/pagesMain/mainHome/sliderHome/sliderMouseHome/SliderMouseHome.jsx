@@ -20,6 +20,49 @@ const SliderMouseHome = ({ widthDisplay }) => {
         setElementaryLeftWrapperUl(wrapperUlMouse.current.getBoundingClientRect().x);
     },[]);
 
+    useEffect(() => {
+        const ul = ulWrapperRef.current;
+        let clickX;
+
+        function onMouseDownFn(event) {
+
+       
+            //console.log(event);
+            
+            clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
+
+            ul.addEventListener('mousemove', onMouseMoveUl);
+            ul.addEventListener('mouseup', onMouseUpUl);
+            event.preventDefault();
+        };
+
+        function onMouseMoveUl(event) {
+            let newLeft = event.clientX - clickX - elementaryLeftWrapperUl; 
+            setTransitionUl('none');
+            setUlWrapperImgLeft(newLeft);
+        };
+
+        function onMouseUpUl() {
+            if(ul.getBoundingClientRect().x > elementaryLeftWrapperUl) {
+                setUlWrapperImgLeft(0);
+                setTransitionUl('ease 1.5s');
+            } 
+            else if(ul.getBoundingClientRect().x < -(fullWidthtUl - widthDisplay)) {
+                setUlWrapperImgLeft(-(fullWidthtUl - widthDisplay));
+                setTransitionUl('ease 1.5s'); 
+            }  
+            ul.removeEventListener('mousemove', onMouseMoveUl);
+            
+        };
+
+        ul.addEventListener('mousedown', onMouseDownFn);
+
+        return () => {
+            ul.removeEventListener('mousedown', onMouseDownFn);
+            ul.removeEventListener('mouseup', onMouseUpUl);
+        };
+
+    }, [elementaryLeftWrapperUl, fullWidthtUl, widthDisplay]);
 
     function sliderMouseLeft() {
  
@@ -47,39 +90,7 @@ const SliderMouseHome = ({ widthDisplay }) => {
         }
     };
     
-     function onMouseDownUl(event) {
-    //         console.log(widthDisplay);
-    //         console.log(fullWidthtUl);
-            
-            
-         event.preventDefault(); // предотвратить запуск выделения (действие браузера)
 
-         let clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
-
-        ulWrapperRef.current.addEventListener('mousemove', onMouseMoveUl);
-        ulWrapperRef.current.addEventListener('mouseup', onMouseUpUl);
-
-        function onMouseMoveUl(event) {
-
-            let newLeft = event.clientX - clickX - elementaryLeftWrapperUl; 
-            setTransitionUl('none');
-            setUlWrapperImgLeft(newLeft);
-        };
-
-        function onMouseUpUl() {
-            
-            if(ulWrapperRef.current.getBoundingClientRect().x > elementaryLeftWrapperUl) {
-                setUlWrapperImgLeft(0);
-                setTransitionUl('ease 1.5s');
-            } 
-            else if(ulWrapperRef.current.getBoundingClientRect().x < -(fullWidthtUl - widthDisplay)) {
-                setUlWrapperImgLeft(-(fullWidthtUl - widthDisplay));
-                setTransitionUl('ease 1.5s'); 
-            }  
-            ulWrapperRef.current.removeEventListener('mouseup', onMouseUpUl);
-            ulWrapperRef.current.removeEventListener('mousemove', onMouseMoveUl);       
-        };    
-    };
 
     return ( 
         <>
@@ -90,7 +101,8 @@ const SliderMouseHome = ({ widthDisplay }) => {
                     <button onClick={sliderMouseRight}>{' right > '}</button>
                 </div>
                 <div  ref={wrapperUlMouse} className={st.sliderMouseHome}>
-                    <ul onMouseDown={onMouseDownUl}  ref={ulWrapperRef} className={st.ulWrapperImg} style={{left: `${ulWrapperImgLeft}px`, transition: transitionUl}}>
+                    {/* onMouseDown={onMouseDownUl} */}
+                    <ul   ref={ulWrapperRef} className={st.ulWrapperImg} style={{left: `${ulWrapperImgLeft}px`, transition: transitionUl}}>
                         {imgArrServer.map(img => {
                             return (
                                 <li className={st.wrapperImg} key={img}>
@@ -107,3 +119,34 @@ const SliderMouseHome = ({ widthDisplay }) => {
 };
  
 export default SliderMouseHome;
+
+    // function onMouseDownUl(event) {
+            
+    //      event.preventDefault(); // предотвратить запуск выделения (действие браузера)
+
+    //      let clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
+
+    //     ulWrapperRef.current.addEventListener('mousemove', onMouseMoveUl);
+    //     ulWrapperRef.current.addEventListener('mouseup', onMouseUpUl);
+
+    //     function onMouseMoveUl(event) {
+
+    //         let newLeft = event.clientX - clickX - elementaryLeftWrapperUl; 
+    //         setTransitionUl('none');
+    //         setUlWrapperImgLeft(newLeft);
+    //     };
+
+    //     function onMouseUpUl() {
+            
+    //         if(ulWrapperRef.current.getBoundingClientRect().x > elementaryLeftWrapperUl) {
+    //             setUlWrapperImgLeft(0);
+    //             setTransitionUl('ease 1.5s');
+    //         } 
+    //         else if(ulWrapperRef.current.getBoundingClientRect().x < -(fullWidthtUl - widthDisplay)) {
+    //             setUlWrapperImgLeft(-(fullWidthtUl - widthDisplay));
+    //             setTransitionUl('ease 1.5s'); 
+    //         }  
+    //         ulWrapperRef.current.removeEventListener('mouseup', onMouseUpUl);
+    //         ulWrapperRef.current.removeEventListener('mousemove', onMouseMoveUl);       
+    //     };    
+    // };

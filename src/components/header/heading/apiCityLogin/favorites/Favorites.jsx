@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 
-const Favorites = () => {
+const Favorites = ({ likesLength }) => {
     return ( 
         <div>
-            <NavLink to='/favorites'>Favorites</NavLink>
+            <NavLink to='/favorites'>{`Favorites ${likesLength}`}</NavLink>
         </div>
      );
 };
