@@ -26,14 +26,14 @@ const SliderMouseHome = ({ widthDisplay }) => {
 
         function onMouseDownFn(event) {
 
-       
-            //console.log(event);
+        event.preventDefault();
+            console.log(event);
             
             clickX = event.clientX - ulWrapperRef.current.getBoundingClientRect().x;
 
             ul.addEventListener('mousemove', onMouseMoveUl);
             ul.addEventListener('mouseup', onMouseUpUl);
-            event.preventDefault();
+           
         };
 
         function onMouseMoveUl(event) {
