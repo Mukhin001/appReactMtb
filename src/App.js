@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import './app.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
@@ -162,6 +162,8 @@ function App() {
         setLikesLength(value);
     };
 
+    const slideLinkMain = useRef();
+
   return (
     <div className={`app ${theme}`}> 
        {/* <Router> */}
@@ -184,7 +186,7 @@ function App() {
                 <div className='navBarWrapper'>
                     <NavBarMain />
                 
-                    <div className='slideLinkMain'>
+                    <div className='slideLinkMain' ref={slideLinkMain}>
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
                             <Routes>
                                 <Route path="/" element={<MainHome widthDisplay={widthDisplay} />} />
