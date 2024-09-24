@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import st from './style.module.css';
 import { imgArrServer } from '../../../../../server/imgArrServer';
 
@@ -6,7 +6,9 @@ const SliderClickHome = () => {
 
 
     const [arrImgState, setArrImgState] = useState(imgArrServer);
-    const [stopSlide, setStopSlide] = useState();
+    //const [stopSlide, setStopSlide] = useState();
+    const intervalRef = useRef();
+    const [disabled, setDisabled] = useState(false);
 
     function sliderClickLeft() {
 
@@ -22,10 +24,14 @@ const SliderClickHome = () => {
     function slideClickPlay(elem) {        
         if(elem.target.innerText === 'play') {
             elem.target.innerText = 'stop';
-            setStopSlide(setInterval(sliderClickLeft, 1000)); 
+            //setStopSlide(setInterval(sliderClickLeft, 1000)); 
+            intervalRef.current = setInterval(sliderClickLeft, 1000);
+            setDisabled(true);
         } else {
             elem.target.innerText = 'play';
-            clearInterval(stopSlide);
+            //clearInterval(stopSlide);
+            clearInterval(intervalRef.current);
+            setDisabled(false);
         }
     };
 
@@ -44,9 +50,9 @@ const SliderClickHome = () => {
         <>
             <div className={st.sliderClickHome}> 
                 <div className={st.wrapperBtnSliderClickHome}>
-                    <button onClick={sliderClickLeft}>{' < left '}</button>
+                    <button disabled={disabled} onClick={sliderClickLeft}>{' < left '}</button>
                     <button onClick={slideClickPlay}>play</button>
-                    <button onClick={sliderClickRight}>{' right > '}</button>
+                    <button disabled={disabled} onClick={sliderClickRight}>{' right > '}</button>
                 </div>
                 <ul className={st.ulWrapperImg}>
                 
