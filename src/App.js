@@ -43,32 +43,12 @@ function App() {
 
     const [searchPhoto, setSearchPhoto] = useState([]);
     const [searchVideo, setSearchVideo] = useState([]);
-    const [theme, setTheme] = useState();
+    const [theme, setTheme] = useState('light');
     const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
     const loc = useLocation();
 
     const [searchUserText, setSearchUserTextFn] = useState('');
     const [heightHeading, setHeightHeading] = useState();
-
-    const themeColorLight = {
-        '--color-text': '#F92C85',
-        '--color-border': '#BAB2B5',
-        '--color-backGround': '#FDF5DF',
-        '--color-navBar': '#5EBEC4',
-        '--color-backImg': '#5EBEC4',
-        '--filterTheme': 'brightness(1)',
-        '--filterThemeHover': 'brightness(80%)',
-    };
-
-    const themeColorDark = {
-        '--color-text': '#DEB992',
-        '--color-border': '#0677A1',
-        '--color-backGround': '#051622',
-        '--color-navBar': '#78244C',
-        '--color-backImg': '#78244C',
-        '--filterTheme': 'brightness(80%)',
-        '--filterThemeHover': 'brightness(1)',
-    };
 
     useEffect(() => {
         if(localStorage.getItem('theme')) {
@@ -76,24 +56,44 @@ function App() {
         } else {
             setTheme('light');
         }
-        
-    }, [theme]);
+    }, []);
 
     useEffect(() => {
+        const themeColorLight = {
+            '--color-text': '#F92C85',
+            '--color-border': '#BAB2B5',
+            '--color-backGround': '#FDF5DF',
+            '--color-navBar': '#5EBEC4',
+            '--color-backImg': '#5EBEC4',
+            '--filterTheme': 'brightness(1)',
+            '--filterThemeHover': 'brightness(80%)',
+        };
+    
+        const themeColorDark = {
+            '--color-text': '#DEB992',
+            '--color-border': '#0677A1',
+            '--color-backGround': '#051622',
+            '--color-navBar': '#78244C',
+            '--color-backImg': '#78244C',
+            '--filterTheme': 'brightness(80%)',
+            '--filterThemeHover': 'brightness(1)',
+        };
+
         if(theme === 'light') {
             Object.entries(themeColorLight).forEach(([key, value]) => document.documentElement.style.setProperty(key, value));
         } else {
             Object.entries(themeColorDark).forEach(([key, value]) => document.documentElement.style.setProperty(key, value));
         }
-    });
+        
+    }, [theme]);
     
     useEffect(() => {
-        if(window.innerWidth < 750) {
+        if(widthDisplay < 750) {
             setHeightHeading(0)
         } else {
             setHeightHeading(window.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
         }
-        
+
         function setWidthDisplayFn(event) { 
             setHeightHeading(event.target.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
             setWidthDisplay(event.target.window.innerWidth);
@@ -104,7 +104,7 @@ function App() {
         return () => {
             window.removeEventListener('resize', setWidthDisplayFn);
           }
-    }, []);
+    }, [widthDisplay]);
 
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...new Set(prev), obj]);   

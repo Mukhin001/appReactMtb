@@ -1,12 +1,8 @@
-.sliderMouseHome {
-    position: relative;
-}
 
 .ulWrapperImg {
     display: flex;
     overflow: hidden;
-    position: absolute;
-    /* top: 40px; */
+ 
 }
 
 .wrapperImg {
@@ -15,8 +11,8 @@
 }
 
 .wrapperImg img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .wrapperBtnSliderClickHome {
@@ -29,7 +25,6 @@
 .wrapperBtnSliderClickHome button {
     padding: 3px 5px;
 }
-
 
 @media(max-width: 435px) {
     .ulWrapperImg {

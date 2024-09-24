@@ -1,3 +1,5 @@
+import ImageHome from './imageHome/ImageHome';
+import CarouselHome from './sliderHome/carouselHome/CarouselHome';
 import SliderClickHome from './sliderHome/sliderClickHome/SliderClickHome';
 import SliderMouseHome from './sliderHome/sliderMouseHome/SliderMouseHome';
 
@@ -8,6 +10,8 @@ const MainHome = ({ widthDisplay }) => {
             <h3>Home</h3>
             <SliderClickHome />
             <SliderMouseHome widthDisplay={widthDisplay} />
+            <CarouselHome />
+            <ImageHome />
         </main>
 
      );

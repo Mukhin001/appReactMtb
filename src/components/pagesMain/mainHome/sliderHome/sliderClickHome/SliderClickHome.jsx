@@ -47,26 +47,24 @@ const SliderClickHome = () => {
     };
 
     return ( 
-        <>
-            <div className={st.sliderClickHome}> 
-                <div className={st.wrapperBtnSliderClickHome}>
-                    <button disabled={disabled} onClick={sliderClickLeft}>{' < left '}</button>
-                    <button onClick={slideClickPlay}>play</button>
-                    <button disabled={disabled} onClick={sliderClickRight}>{' right > '}</button>
-                </div>
-                <ul className={st.ulWrapperImg}>
-                
-                   {arrImgState.map(img => {
-                        return (
-                            <li className={st.wrapperImg} key={img}>
-                                <img src={`./img/Стикеры/${img}`} alt={img} /> 
-                                <span>{'<>'}</span>       
-                            </li>
-                        )
-                   })}
-                </ul>
+        <div className={st.sliderClickHome}>Slider Click Home 
+            <div className={st.wrapperBtnSliderClickHome}>
+                <button disabled={disabled} onClick={sliderClickLeft}>{' < left '}</button>
+                <button onClick={slideClickPlay}>play</button>
+                <button disabled={disabled} onClick={sliderClickRight}>{' right > '}</button>
             </div>
-        </>
+            <ul className={st.ulWrapperImg}>
+            
+                {arrImgState.map(img => {
+                    return (
+                        <li className={st.wrapperImg} key={img}>
+                            <img src={`./img/Стикеры/${img}`} alt={img} /> 
+                            <span>{'<>'}</span>       
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
      );
 };
  

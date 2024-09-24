@@ -5,9 +5,11 @@ import { useState } from 'react';
 
 const SliderMouseHome = ({ widthDisplay }) => {
     const ulRef = useRef();
-    const [ulLeft, setUlLeft] = useState();
+    const wrapperBtnSliderClickHome = useRef();
+    const [ulLeft, setUlLeft] = useState(0);
     const [fullWidthtUl, setFullWidthUl] = useState();
     const [elementaryLeftUl, setElementaryLefUl] = useState();
+    const [heigth, setHeight] = useState();
     const [transitionUl, setTransitionUl] = useState('none');
     const [state, setState] = useState(false);
     const [mouseDownClientX, setMouseDownClientX] = useState();
@@ -22,6 +24,8 @@ const SliderMouseHome = ({ widthDisplay }) => {
         setFullWidthUl(total);
         
         setElementaryLefUl(ulRef.current.getBoundingClientRect().x);
+        setHeight(ulRef.current.getBoundingClientRect().height + wrapperBtnSliderClickHome.current.getBoundingClientRect().height);
+        
     }, []);
 
     // useEffect(() => {
@@ -69,14 +73,11 @@ const SliderMouseHome = ({ widthDisplay }) => {
  
         if(ulRef.current.getBoundingClientRect().x < -(fullWidthtUl - widthDisplay)) {
             setTransitionUl('ease 1.5s');
-            setUlLeft(-(fullWidthtUl - widthDisplay));
+            setUlLeft(-(fullWidthtUl - widthDisplay) - 150);
         } else {
-            setUlLeft(prev => {
-                setTransitionUl('ease 0.5s');
-                return +prev - 100;
-              })    
+            setUlLeft(prev => +prev - 100);
+            setTransitionUl('ease 0.5s');    
         }
-        
     };
 
     function sliderMouseRight() {
@@ -84,10 +85,8 @@ const SliderMouseHome = ({ widthDisplay }) => {
             setTransitionUl('ease 1.5s');
             setUlLeft(0);
         } else {
-            setUlLeft(prev => {
-                setTransitionUl('ease 0.5s');
-                return +prev + 100; 
-              });
+            setUlLeft(prev => +prev + 100);
+            setTransitionUl('ease 0.5s');
         }
     };
     
@@ -102,8 +101,7 @@ const SliderMouseHome = ({ widthDisplay }) => {
     };
 
     function onMouseMoveUl(event) {
-        setUlLeft(event.clientX - mouseDownClientX - elementaryLeftUl); 
-       
+        setUlLeft(event.clientX - mouseDownClientX - elementaryLeftUl);     
     };
 
 
@@ -121,27 +119,25 @@ const SliderMouseHome = ({ widthDisplay }) => {
     }; 
 
     return ( 
-        <>
-            <div > 
-                <div className={st.wrapperBtnSliderClickHome}>
-                    <button onClick={sliderMouseLeft}>{' < left '}</button>
-                  
-                    <button onClick={sliderMouseRight}>{' right > '}</button>
-                </div>
-                <div className={st.sliderMouseHome}>
-                    <ul onMouseDown={onMouseDownUl} onMouseMove={state ? onMouseMoveUl : undefined} onMouseUp={onMouseUpUl}  ref={ulRef} className={st.ulWrapperImg} style={{left: `${ulLeft}px`, transition: transitionUl}}>
-                        {imgArrServer.map(img => {
-                            return (
-                                <li className={st.wrapperImg} key={img}>
-                                    <img src={`./img/Стикеры/${img}`} alt={img} /> 
-                                    <span>{'<>'}</span>       
-                                </li>
-                            )
-                        })}
-                    </ul>        
-                </div>
+        <div style={{height: `${heigth + 30}px`,}}>  Slider Mouse Home
+            <div ref={wrapperBtnSliderClickHome} className={st.wrapperBtnSliderClickHome}>
+                <button onClick={sliderMouseLeft}>{' < left '}</button>
+                
+                <button onClick={sliderMouseRight}>{' right > '}</button>
             </div>
-        </>
+            <div className={st.sliderMouseHome}>
+                <ul onMouseDown={onMouseDownUl} onMouseMove={state ? onMouseMoveUl : undefined} onMouseUp={onMouseUpUl}  ref={ulRef} className={st.ulWrapperImg} style={{left: `${ulLeft}px`, transition: transitionUl}}>
+                    {imgArrServer.map(img => {
+                        return (
+                            <li className={st.wrapperImg} key={img}>
+                                <img src={`./img/Стикеры/${img}`} alt={img} /> 
+                                <span style={{position: 'absolute',}}>{'<>'}</span>       
+                            </li>
+                        )
+                    })}
+                </ul>        
+            </div>
+        </div>
      );
 };
  
