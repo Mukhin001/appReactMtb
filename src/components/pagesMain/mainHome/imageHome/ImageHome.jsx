@@ -1,6 +1,6 @@
 const ImageHome = () => {
     return ( 
-        <div>
+        <div style={{marginTop: '200px',}}>
             Image Home
         </div>
      );

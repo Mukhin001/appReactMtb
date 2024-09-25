@@ -1,8 +1,12 @@
+.sliderMouseHome {
+    position: relative;
+}
 
 .ulWrapperImg {
     display: flex;
     overflow: hidden;
- 
+    position: absolute;
+    top: 30px;
 }
 
 .wrapperImg {

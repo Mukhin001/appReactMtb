@@ -5,9 +5,10 @@ import { useState } from 'react';
 
 const SliderMouseHome = ({ widthDisplay }) => {
     const ulRef = useRef();
+    const mainDiv = useRef();
     const wrapperBtnSliderClickHome = useRef();
     const [ulLeft, setUlLeft] = useState(0);
-    const [fullWidthtUl, setFullWidthUl] = useState();
+    const [widthUl, setWidthUl] = useState();
     const [elementaryLeftUl, setElementaryLefUl] = useState();
     const [heigth, setHeight] = useState();
     const [transitionUl, setTransitionUl] = useState('none');
@@ -21,7 +22,7 @@ const SliderMouseHome = ({ widthDisplay }) => {
             
         } , 0);
         
-        setFullWidthUl(total);
+        setWidthUl(total);
         
         setElementaryLefUl(ulRef.current.getBoundingClientRect().x);
         setHeight(ulRef.current.getBoundingClientRect().height + wrapperBtnSliderClickHome.current.getBoundingClientRect().height);
@@ -71,9 +72,9 @@ const SliderMouseHome = ({ widthDisplay }) => {
 
     function sliderMouseLeft() {
  
-        if(ulRef.current.getBoundingClientRect().x < -(fullWidthtUl - widthDisplay)) {
+        if(ulRef.current.getBoundingClientRect().x < -(widthUl - widthDisplay)) {
             setTransitionUl('ease 1.5s');
-            setUlLeft(-(fullWidthtUl - widthDisplay) - 150);
+            setUlLeft(-(widthUl - widthDisplay) - 150);
         } else {
             setUlLeft(prev => +prev - 100);
             setTransitionUl('ease 0.5s');    
@@ -98,40 +99,45 @@ const SliderMouseHome = ({ widthDisplay }) => {
         setMouseDownClientX(event.clientX - ulRef.current.getBoundingClientRect().x);
         setState(true);
         setTransitionUl('none');
+
     };
 
     function onMouseMoveUl(event) {
-        setUlLeft(event.clientX - mouseDownClientX - elementaryLeftUl);     
+        setUlLeft(event.clientX - mouseDownClientX - elementaryLeftUl);    
+
     };
 
 
-    function onMouseUpUl() {
+
+    function onMouseUpUl(event) {
         setState(false);
 
         if(ulRef.current.getBoundingClientRect().x > elementaryLeftUl) {
             setUlLeft(0);
             setTransitionUl('ease 1.5s');
         } 
-        else if(ulRef.current.getBoundingClientRect().x < -(fullWidthtUl - widthDisplay)) {
-            setUlLeft(-(fullWidthtUl - widthDisplay) - 150);
+        else if(ulRef.current.getBoundingClientRect().x < -(widthUl - widthDisplay)) {
+            setUlLeft(-(widthUl - widthDisplay) - 150);
             setTransitionUl('ease 1.5s'); 
         } 
+
     }; 
 
     return ( 
-        <div style={{height: `${heigth + 30}px`,}}>  Slider Mouse Home
+        <div ref={mainDiv} style={{height: `${heigth + 30}px`,}}>  Slider Mouse Home
             <div ref={wrapperBtnSliderClickHome} className={st.wrapperBtnSliderClickHome}>
                 <button onClick={sliderMouseLeft}>{' < left '}</button>
                 
                 <button onClick={sliderMouseRight}>{' right > '}</button>
             </div>
             <div className={st.sliderMouseHome}>
-                <ul onMouseDown={onMouseDownUl} onMouseMove={state ? onMouseMoveUl : undefined} onMouseUp={onMouseUpUl}  ref={ulRef} className={st.ulWrapperImg} style={{left: `${ulLeft}px`, transition: transitionUl}}>
+                {/*  onMouseMove={state ? onMouseMoveUl : undefined}  */}
+                <ul onMouseDown={onMouseDownUl} onMouseMove={state ? onMouseMoveUl : undefined} onMouseUp={onMouseUpUl} ref={ulRef} className={st.ulWrapperImg} style={{left: `${ulLeft}px`, transition: transitionUl}}>
                     {imgArrServer.map(img => {
                         return (
                             <li className={st.wrapperImg} key={img}>
                                 <img src={`./img/Стикеры/${img}`} alt={img} /> 
-                                <span style={{position: 'absolute',}}>{'<>'}</span>       
+                                <span>{'<>'}</span>       
                             </li>
                         )
                     })}
