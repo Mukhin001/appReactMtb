@@ -19,9 +19,9 @@ const Comments = ({name, userNameLogin}) => {
             inputName.current.setAttribute('readonly', '');
         }
         
-    });
+    }, [userNameLogin, clickAnswer]);
 
-    useEffect(() => {}, [clickAnswer]);
+    //useEffect(() => {}, [clickAnswer]);
   
     function clearTextArea() {
         if(userNameLogin !== 'anonimus') {

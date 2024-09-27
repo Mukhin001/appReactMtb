@@ -10,7 +10,6 @@ const PagePhotos = ({getLikesFn}) => {
     const slideDots = useRef(null);
  
     function getLikes(e) {
-        //console.log(e.target.parentNode.parentNode);
         getLikesFn(e.target.parentNode.parentNode);
     };
 
@@ -43,7 +42,7 @@ const PagePhotos = ({getLikesFn}) => {
                     });
                 });
         });
-    });
+    }, []);
 
     function sortedCardData(select) {
         if(select.target.value === 'date') {

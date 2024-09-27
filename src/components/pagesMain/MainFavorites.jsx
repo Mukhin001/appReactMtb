@@ -37,7 +37,7 @@ const MainFavorites = ({ likes, likesLength, setLikesLengthFn }) => {
                     });
                 });
         });
-    });
+    }, []);
     
     
     function deleteLike(e) {
