@@ -125,7 +125,6 @@ function App() {
     };
 
     function rightLinkClick() {
-        console.log(countLink);
         
         setCountLink(prev => prev + 1);
 
@@ -194,6 +193,7 @@ function App() {
                 
                     <div className='slideLinkMain' ref={slideLinkMain}>
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
+                            {countLink}
                             <Routes>
                                 <Route path="/"  element={<MainHome widthDisplay={widthDisplay} />} />
                                 <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userNameLogin={userNameLogin}/>} />

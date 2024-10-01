@@ -109,7 +109,7 @@ const SliderMouseHome = ({ widthDisplay }) => {
 
 
 
-    function onMouseUpUl(event) {
+    function onMouseUpUl() {
         setState(false);
 
         if(ulRef.current.getBoundingClientRect().x > elementaryLeftUl) {

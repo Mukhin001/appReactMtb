@@ -31,11 +31,11 @@
 }
 
 
-@media(max-width: 435px) {
+/* @media(max-width: 435px) {
     .ulWrapperImg {
         max-width: 200px;
     }
-}
+} */
 
 @media(max-width: 275px) {
     .ulWrapperImg {
