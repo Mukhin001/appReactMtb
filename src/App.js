@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import './app.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
@@ -24,15 +24,14 @@ import BtnUp from './components/commonPages/btnUp/BtnUp';
 export const VideoContext = React.createContext();
 export const ContextClientWidth = React.createContext();
 
-const arrLink = [
-    '/',
-     '/photo',
-     '/video',
-     '/news',
-     '/about',
-];
-
 function App() { 
+    const arrLink = [
+        '/',
+        '/photo',
+        '/video',
+        '/news',
+        '/about',
+    ];
     
     const [countLink, setCountLink] = useState(0);
     const [userNameLogin, setUserNameLogin] = useState('anonimus');
@@ -91,11 +90,12 @@ function App() {
         if(widthDisplay < 750) {
             setHeightHeading(0)
         } else {
-            setHeightHeading(window.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
+            setHeightHeading(window.document.body.children[1].children[0].children[0].children[0].offsetHeight);
         }
 
         function setWidthDisplayFn(event) { 
-            setHeightHeading(event.target.document.children[0].children[1].children[1].children[0].children[0].children[0].offsetHeight);
+           
+            setHeightHeading(event.target.document.body.children[1].children[0].children[0].children[0].offsetHeight);
             setWidthDisplay(event.target.window.innerWidth);
         };
 
@@ -109,7 +109,6 @@ function App() {
     useEffect(() => {
         setLikesLength(Object.keys(likes).length);
     }, [likes]);
-
 
     function getPhotoFn(obj) {
        setSearchPhoto(prev => [...new Set(prev), obj]);   
@@ -136,7 +135,7 @@ function App() {
     function leftLinkClick() {
         
         setCountLink(prev => prev - 1);
-            
+        
             if(countLink <= 0) {
                 setCountLink(arrLink.length - 1)
             } 
@@ -167,8 +166,6 @@ function App() {
         setLikesLength(value);
     };
 
-    const slideLinkMain = useRef();
-
   return (
     <div className={`app ${theme}`}> 
        {/* <Router> */}
@@ -181,7 +178,7 @@ function App() {
                             theme={theme} heightHeading={heightHeading} likesLength={likesLength}
                     />
                     <div>
-                        <p>index {countLink}</p>
+                        <p>index {countLink} {arrLink[countLink]}</p>
                         <nav>locationRoute:
                             {loc.pathname.split('/').map(elem => (elem !== '') && <span key={elem} to={`/${elem}`}>{ elem} </span>)}
                         </nav>
@@ -191,9 +188,8 @@ function App() {
                 <div className='navBarWrapper'>
                     <NavBarMain />
                 
-                    <div className='slideLinkMain' ref={slideLinkMain}>
+                    <div className='slideLinkMain'>
                         <NavLink onClick={leftLinkClick} to={arrLink[countLink]}>left</NavLink>
-                            {countLink}
                             <Routes>
                                 <Route path="/"  element={<MainHome widthDisplay={widthDisplay} />} />
                                 <Route path="/photo/*" element={<MainPhoto getLikesFn={getLikesFn} userNameLogin={userNameLogin}/>} />
